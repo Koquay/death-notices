@@ -1,0 +1,403 @@
+[{
+  "_id": {
+    "$oid": "693966bff06217593cbcb3b5"
+  },
+  "name": "Cllr. Tonieh A. Talery-Wiles",
+  "relationship": "daughter",
+  "phones": [
+    "0886516303",
+    "0777516303"
+  ]
+},
+{
+  "_id": {
+    "$oid": "693966bff06217593cbcb3b6"
+  },
+  "name": "Taylorie Bailey",
+  "relationship": "daughter",
+  "phones": [
+    "+231 77 751 6849",
+    "0777516303"
+  ]
+},
+{
+  "_id": {
+    "$oid": "693966bff06217593cbcb3b7"
+  },
+  "name": "Nyanatee Bailey",
+  "relationship": "daughter",
+  "phones": [
+    "0886516303",
+    "0777516303"
+  ]
+},
+{
+  "_id": {
+    "$oid": "693966bff06217593cbcb3b8"
+  },
+  "name": "John Bailey",
+  "relationship": "son",
+  "phones": [
+    "0886516303"
+  ]
+},
+{
+  "_id": {
+    "$oid": "693ef1ef8e9025b49224a0c0"
+  },
+  "name": "jljkjljklklk",
+  "relationship": "ghhghghh",
+  "phones": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T17:20:47.632Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T17:20:47.632Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693ef1ef8e9025b49224a0c1"
+  },
+  "name": "hjjggjgj",
+  "relationship": "jggjjjhjgg",
+  "phones": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T17:20:47.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T17:20:47.634Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693ef8aaeccc1af5e4fcb67b"
+  },
+  "name": "jljkjljklklk",
+  "relationship": "ghhghghh",
+  "phone": "fddgfgfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T17:49:30.709Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T17:49:30.709Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693ef8aaeccc1af5e4fcb67c"
+  },
+  "name": "hjjggjgj",
+  "relationship": "jggjjjhjgg",
+  "phone": "gjjhhjhj",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T17:49:30.709Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T17:49:30.709Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693efe0805bad6184e835011"
+  },
+  "name": "asdffdssda",
+  "relationship": "hjkkjkj",
+  "phone": "ffdfggfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:12:24.695Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:12:24.695Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693efe0805bad6184e835012"
+  },
+  "name": "uuuuuiyu",
+  "relationship": "hhhjkjhk",
+  "phone": "fgfghhggh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:12:24.696Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:12:24.696Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693eff9c9294c07276f9337a"
+  },
+  "name": "asdffdssda",
+  "relationship": "hjkkjkj",
+  "phone": "ffdfggfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:19:08.903Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:19:08.903Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693eff9c9294c07276f9337b"
+  },
+  "name": "uuuuuiyu",
+  "relationship": "hhhjkjhk",
+  "phone": "fgfghhggh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:19:08.905Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:19:08.905Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f0305caf89614c70a13b5"
+  },
+  "name": "asdffdssda",
+  "relationship": "hjkkjkj",
+  "phone": "ffdfggfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:33:41.638Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:33:41.638Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f0305caf89614c70a13b6"
+  },
+  "name": "uuuuuiyu",
+  "relationship": "hhhjkjhk",
+  "phone": "fgfghhggh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:33:41.640Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:33:41.640Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f040748c78a9bea6e4629"
+  },
+  "name": "asdffdssda",
+  "relationship": "hjkkjkj",
+  "phone": "ffdfggfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:37:59.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:37:59.073Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f040748c78a9bea6e462a"
+  },
+  "name": "uuuuuiyu",
+  "relationship": "hhhjkjhk",
+  "phone": "fgfghhggh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:37:59.075Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:37:59.075Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f047948c78a9bea6e4631"
+  },
+  "name": "asdffdssda",
+  "relationship": "hjkkjkj",
+  "phone": "ffdfggfgf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:39:53.049Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:39:53.049Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f047948c78a9bea6e4632"
+  },
+  "name": "uuuuuiyu",
+  "relationship": "hhhjkjhk",
+  "phone": "fgfghhggh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T18:39:53.049Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T18:39:53.049Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f09eee8e1c05fe393f4c7"
+  },
+  "name": "n,,m,nm,m",
+  "relationship": ",n,,m,mmn",
+  "phone": "jjkllklklk",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T19:03:10.741Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T19:03:10.741Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f46046c14092512d77b84"
+  },
+  "name": "sdffdsa",
+  "relationship": "fdsafdssadf",
+  "phone": "afdsfdsfdsa",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T23:19:32.272Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T23:19:32.272Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f46046c14092512d77b85"
+  },
+  "name": "fadsfdsdsf",
+  "relationship": "dffadsfda",
+  "phone": "fsdafdsafdas",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T23:19:32.273Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T23:19:32.273Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "693f48a507aafa8a362a6441"
+  },
+  "name": "fdsadfs",
+  "relationship": "dfsafdsdfs",
+  "phone": "fdasasfd",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-14T23:30:45.738Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T23:30:45.738Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69405d1d07aafa8a362a650d"
+  },
+  "name": "ljkljklkljlk",
+  "relationship": "jkllkjlklk",
+  "phone": "lkjlkjklj",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-15T19:10:21.613Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-15T19:10:21.613Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6940b588291db3652e56a39c"
+  },
+  "name": "dsfdsfdfs",
+  "relationship": "dfsdfasdsa",
+  "phone": "sdfdsfds",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-16T01:27:36.426Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-16T01:27:36.426Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6940b66d291db3652e56a3a7"
+  },
+  "name": "fgdfds",
+  "relationship": "fffgds",
+  "phone": "dffgfd",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-16T01:31:25.510Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-16T01:31:25.510Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6941d18ff47d6491debeb492"
+  },
+  "name": "sfdsfdsa",
+  "relationship": "sddsffds",
+  "phone": "dfssdasad",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-16T21:39:27.435Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-16T21:39:27.435Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6941d3945687f04f8e9fb297"
+  },
+  "name": "sfdsfdsa",
+  "relationship": "sddsffds",
+  "phone": "dfssdasad",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-16T21:48:04.581Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-16T21:48:04.581Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6941d4e1ce596474c2ae15ef"
+  },
+  "name": "sfdsfdsa",
+  "relationship": "sddsffds",
+  "phone": "dfssdasad",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-12-16T21:53:37.798Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-16T21:53:37.798Z"
+  }
+}]

@@ -1,0 +1,22 @@
+[
+    {
+        "date": "December 24, 2023",
+        "time": "10:00 AM",     
+        "location": "First United Methodist Church",     
+        "address": "Ashmun & Gurley Streets",
+        "city": "Monrovia",
+        "state": "Liberia",
+        "type":"burial"
+             
+    },
+    {
+        "date": "December 26, 2023",
+        "time": "6:00 AM",     
+        "location": "First United Methodist Church",     
+        "address": "Ashmun & Gurley Streets",
+        "city": "Monrovia",
+        "state": "Liberia",
+        "type":"wake"
+             
+    }
+]

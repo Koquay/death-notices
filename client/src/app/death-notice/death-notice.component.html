@@ -1,0 +1,183 @@
+<div class="container">
+  <section class="">
+    <div class="row">
+      <div
+        class="col-12 d-flex flex-column justify-content-center align-items-center"
+      >
+        <h4>{{ notice?.name }}</h4>
+
+        <h6>
+          {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }} -
+          {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
+        </h6>
+
+        <img
+          *ngIf="notice?.imageId"
+          class="img-fluid"
+          [src]="apiUrl + '/image/' + notice?.imageId"
+          alt="Notice image"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="row d-flex">
+      <div
+        class="col-12 d-flex flex-column justify-content-center align-items-center"
+      >
+        <h5 class="">Announcement</h5>
+        <textarea
+          class="form-control-lg w-100 text-muted"
+          id="announcement"
+          readonly
+          appAutoResizeTextarea
+          name="announcement"
+          [value]="notice?.announcement"
+          style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
+        ></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-12 d-flex flex-column align-items-center">
+        <div class="row d-flex justify-content-center">
+          <div class="col">
+            <div class="table-responsive">
+              <div class="table-section">
+                <div class="table-section">
+                  <h5 class="section-title">Events</h5>
+
+                  <table class="table table-sm responsive-stack always-card">
+                    <colgroup>
+                      <col class="col-event" />
+                      <col class="col-date" />
+                      <col class="col-time" />
+                      <col class="col-location" />
+                      <col class="col-address" />
+                      <col class="col-city" />
+                      <col class="col-state" />
+                    </colgroup>
+
+                    <thead>
+                      <tr style="font-size: 16px">
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      @for (event of notice?.events; track $index) {
+                      <tr style="font-size: 16px">
+                        <td
+                          data-label="Event"
+                          style="text-transform: capitalize"
+                        >
+                          {{ event.type }}
+                        </td>
+                        <td data-label="Date">
+                          {{ event.date | date : "short" }}
+                        </td>
+                        <td data-label="Time">
+                          {{ event.time ? (event.time | toAmPmPipe) : "" }}
+                        </td>
+                        <td data-label="Location">
+                          {{ event.location }}
+                        </td>
+                        <td data-label="Address">
+                          {{ event.address }}
+                        </td>
+                        <td data-label="City">
+                          {{ event.city }}
+                        </td>
+                        <td data-label="State">
+                          {{ event.state }}
+                        </td>
+                      </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 d-flex flex-column align-items-center">
+        <div class="row">
+          <div class="col">
+            <div class="table-responsive">
+              <div class="table-section">
+                <div class="table-section">
+                  <h5 class="section-title">Contacts</h5>
+
+                  <div class="table-responsive">
+                    <table class="table table-sm responsive-stack">
+                      <colgroup>
+                        <col class="col-name" />
+                        <col class="col-rel" />
+                        <col class="col-phones" />
+                      </colgroup>
+
+                      <thead>
+                        <tr style="font-size: 16px">
+                          <th>Name</th>
+                          <th>Relationship</th>
+                          <th>Phone</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        @for (contact of notice?.contacts; track $index) {
+                        <tr style="font-size: 16px">
+                          <td data-label="Name">{{ contact.name }}</td>
+                          <td data-label="Relationship">
+                            {{ contact.relationship }}
+                          </td>
+                          <td data-label="Phone">
+                            {{ contact.phone }}
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 d-flex flex-column justify-content-center">
+        <h5 class="d-flex justify-content-center">Additional Information</h5>
+        <textarea
+          class="form-control-lg w-100 text-muted"
+          id="additionalInformation"
+          readonly
+          appAutoResizeTextarea
+          name="additionalInformation"
+          [value]="notice?.additionalInformation"
+          style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
+        ></textarea>
+      </div>
+    </div>
+  </section>
+</div>

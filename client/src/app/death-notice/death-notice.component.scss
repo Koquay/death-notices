@@ -1,0 +1,194 @@
+
+/* container & heading */
+.table-section {
+  width: 100%;
+  max-width: 900px;   /* or whatever width you want the table area to be */
+  margin: 0 auto;
+}
+.section-title {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 0.75rem;
+}
+
+/* desktop: force deterministic column layout so th and td line up */
+.responsive-stack {
+  width: 100%;
+  table-layout: fixed;       /* important: deterministic column sizes */
+  border-collapse: collapse;
+}
+
+/* tweak column widths via colgroup (percentages respected with fixed layout) */
+.responsive-stack .col-name    { width: 45%; }
+.responsive-stack .col-rel     { width: 20%; }
+.responsive-stack .col-phones  { width: 35%; }
+
+/* cell padding for md+ */
+.responsive-stack th,
+.responsive-stack td {
+  padding: .35rem .75rem;
+  vertical-align: top;
+  white-space: normal;
+}
+
+/* mobile stacking */
+@media (max-width: 576px) {
+  .responsive-stack thead { display: none; } 
+
+  /* put the table into block mode for stacking cards on xs */
+  .responsive-stack,
+  .responsive-stack tbody,
+  .responsive-stack tr { display: block; width: 100%; }
+
+  .responsive-stack tr {
+    margin-bottom: 1rem;
+    border: 2px solid #ddd;
+    border-radius: .25rem;
+    padding: .5rem;
+  }
+
+  .responsive-stack td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: .35rem .5rem;
+  }
+
+  .responsive-stack td::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    display: inline-block;
+    width: 110px; /* label width inside stacked card */
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-stack .col-name    { width: 35%; }
+  .responsive-stack .col-rel     { width: 35%; }
+  .responsive-stack .col-phones  { width: 30%; }
+ 
+}
+
+/* ---------- ALWAYS-CARD: card display on all sizes, but 2-per-row on md+ ---------- */
+
+/* make sure wrapper controls overall width (keeps heading aligned) */
+.table-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* base table style (acts as a block container for card grid) */
+.always-card {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* not using fixed layout because it's card-based */
+}
+
+/* hide the thead because cards will show labels via data-label */
+.always-card thead {
+  display: none;
+}
+
+/* tbody becomes the grid container that lays out rows as cards */
+.always-card tbody {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: single column */
+  gap: 1rem;                  /* space between cards */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* each table row becomes a card (grid item) */
+.always-card tr {
+  display: block;
+  margin: 0;
+  border: 2px solid #ddd;
+  border-radius: .25rem;
+  padding: .6rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* stack each cell inside the card */
+.always-card td {
+  display: block;
+  width: 100%;
+  padding: .25rem .5rem;
+  box-sizing: border-box;
+  border-bottom: 0;
+  white-space: normal;
+}
+
+/* show the label from data-label before each cell's content */
+.always-card td::before {
+  content: attr(data-label) ": ";
+  font-weight: 600;
+  display: inline-block;
+  width: 120px;   /* label column width inside the card (adjust as needed) */
+  vertical-align: top;
+}
+
+/* optional: reduce label width on very small screens so text wraps nicely */
+@media (max-width: 360px) {
+  .always-card td::before { width: 90px; }
+}
+
+/* ---------- Medium+ screens: two cards per row ---------- */
+@media (min-width: 768px) {
+
+  /* increase spacing and padding on larger screens */
+  .always-card tr {
+    padding: .75rem;
+  }
+
+  .always-card td {
+    padding: .35rem .6rem;
+    font-size: 15px;
+  }
+
+  /* optional: slightly wider label column on larger screens */
+  .always-card td::before {
+    width: 80px;
+  }
+}
+
+
+/* ---------- Large screens: optional tweaks ---------- */
+@media (min-width: 1200px) {
+  .always-card tbody {
+    gap: 1.25rem;
+  }
+  .always-card td::before { width: 160px; }
+}
+
+
+
+@media (min-width: 992px) {
+    #announcement {
+      width: 70% !important;
+    }
+  }
+
+  textarea:focus {
+    outline: none;
+}
+
+
+
+
+@media (min-width: 768px) {
+.always-card tbody > tr {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .always-card tbody {
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    justify-content: center;
+    align-items: start;
+  }
+}

@@ -1,0 +1,24 @@
+body {
+    font-family: 'Roboto'
+}
+
+.w-md-50 {
+    width: 50%;
+    
+    @media screen and (min-width: 996px) {
+        width: 100% !important;
+        
+    }
+}
+
+input {
+    border: 2px solid #ddd !important;
+}
+
+
+input:focus {
+    /*outline: none;*/
+    /*border: 2px solid blue !important;*/
+  }
+  
+  

@@ -1,0 +1,162 @@
+[{
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee2"
+    },
+    "images": [
+      "1677u86de75597e464f2f930960ab7a98611b.webp",
+      "1677u0c7abfb1b3294d44a2cd1c0d5631880f.webp"
+    ],
+    "color": "Brown",
+    "name": "Men's Vintage Brown Leather Coat With Faux Fur Lining",
+    "price": 77.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  },
+
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee3"
+    },
+    "images": [
+      "1677u487df5414f454be680eaf6c7504f1d9d.webp",
+      "1677u0ae76a7e8f974d8b859e2cad4a021145.webp"
+    ],
+    "color": "Brown",
+    "name": "Men's Vintage Brown Leather Cargo Trousers With Fleece Lining",
+    "price": 67.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  },
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee1"
+    },
+    "images": [
+      "1525uf5cebea7cce74bfeac322d5e488f950f.webp",
+      "1525u1519918501234c228e20b38078bfe293.webp"
+    ],
+    "color": "Dark Gray",
+    "name": "Men's Quilted Waffle Outdoor Sports Solid Color Long Sleeve Daily Tops Carhartt Vintage Hoodie",
+    "price": 19.99,
+    "rating": "4",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  },
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee5"
+    },
+    "images": [
+      "1677u333cf0f07cf44be1851c6dfe551b98a4.webp",
+      "1677u6ea9576f7d7b42f68ed7eeee252240ff.webp"
+    ],
+    "color": "Black",
+    "name": "Men Vintage Warm Knitted Beanie Hat Outdoor Tactical Hat With Fleece Lining",
+    "price": 13.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true
+  },
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee1"
+    },
+    "images": [
+      "1677uccc565b146b1447482f6b2532feeeb42.webp",
+      "1677uba6452aec3794af0ad94b66ba260e250.webp"
+    ],
+    "color": "Brown",
+    "name": "Brown Ribbed Zip-Up Jacket With Leather Accents",
+    "price": 65.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  },
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee1"
+    },
+    "images": [
+      "56507a2b81e4055c2a36dfb15318d497.webp"
+    ],
+    "color": "Multicolored",
+    "name": "Outdoor Men's Casual Contrast Stitching Raglan Sleeve Hooded Sweatshirt Retro Western Sweatshirt",
+    "price": 33.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  },
+  {
+  
+    "category": {
+      "$oid": "691f1eb81ff5b86748e50ee2"
+    },
+    "images": [
+      "1677ucc59413810d449508d1cf779030966b0.webp",
+      "1677u1fcc5e3a0b484c1490e79c0fa382db5b.webp"
+    ],
+
+
+
+    "color": "Brown",
+    "name": "Men's Vintage Brown Leather Shearling Carhartt Vintage Coat",
+    "price": 78.99,
+    "rating": "5",
+    "discount": 10,
+    "clearance": true,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ]
+  }
+
+]
+
+
+

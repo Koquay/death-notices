@@ -1,0 +1,64 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="editNoticeModal"
+  tabindex="-1"
+  aria-labelledby="editNoticeModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="font-size: 20.4px">
+          Enter Notice Number
+        </h4>
+        <button
+          class="btn-close"
+          type="button"
+          aria-label="Close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #noticeNumberForm="ngForm">
+          <div class="row mb-2">
+            <div class="col-12">
+              <label class="form-label" style="font-size: 14px"
+                >Notice Number</label
+              >
+              <input
+                class="form-control fw-bold"
+                type="text"
+                name="noticeNumber"
+                [(ngModel)]="noticeNumber"
+                required
+                #noticeNumberCtrl="ngModel"
+              />
+              <div
+                *ngIf="
+                  noticeNumberCtrl.invalid &&
+                  (noticeNumberCtrl.dirty || noticeNumberCtrl.touched)
+                "
+              >
+                <div *ngIf="noticeNumberCtrl.hasError('required')">
+                  <small class="text-danger">Notice Number is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-primary w-100"
+          type="button"
+          style="background: var(--bs-black)"
+          [disabled]="!noticeNumberForm.valid"
+          (click)="getNotice()"
+        >
+          Get Notice
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
