@@ -30,12 +30,10 @@ exports.enterNotice = async (req, res) => {
       .replace(/\r\n/g, '\n')
       .trim();
 
-    // const order_no = generateNoticeNo();
-
     // STEP 1: Compress image
     const compressedBuffer = await sharp(req.file.buffer)
       .rotate()
-      .resize({ width: 800, withoutEnlargement: true })
+      .resize({ width: 1200, withoutEnlargement: true })
       .jpeg({ quality: 80, mozjpeg: true })
       .toBuffer();
 

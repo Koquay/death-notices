@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NoticeEntryModel } from './notice-entry.model';
 import { HttpClient } from '@angular/common/http';
+import { catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class NoticeEntryService {
   private apiUrl = '/api/notices';
   private httpClient = inject(HttpClient);
+  private paymentIntentUrl = '/api/payment/payment-intent';
+
 
   public submitNotice = (noticeEntryModel: NoticeEntryModel) => {
     const fd = new FormData();
@@ -43,6 +46,23 @@ export class NoticeEntryService {
     });
   }
 
+  public createPaymentIntent = (paymentInfo: { amount: number, currency: string }) => {
+    // console.log('PlaceOrder.checkoutSignal', this.checkoutSignal())
 
+    return this.httpClient.post(this.paymentIntentUrl, paymentInfo).pipe(
+      tap(paymentIntent => {
+        console.log('new paymentIntent', paymentIntent)
+        // this.toastr.success('Payment intent established', 'Payment Intent',
+        //   { positionClass: getScrollPos() })
+      }),
+      catchError(error => {
+        console.log('error', error)
+        // this.toastr.error(error.message, 'Payment Intent',
+        //   { positionClass: getScrollPos() });
+        throw error;
+      })
+    )
+
+  }
 
 }

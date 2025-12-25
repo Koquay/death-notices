@@ -7,10 +7,6 @@ import { EditNoticeModel } from './edit-notice.model';
   providedIn: 'root'
 })
 export class EditNoticeService {
-  // public editNoticeSignal = signal<{
-  //   editNoticeModel: EditNoticeModel;
-  // }>({ editNoticeModel: new EditNoticeModel() });
-
   private httpClient = inject(HttpClient);
   public editNoticeModel = inject(EditNoticeModel);
 
@@ -78,6 +74,8 @@ export class EditNoticeService {
   };
 
   formatDateForInput(date: string | Date): string {
+    if (!date) return '';
+
     const d = new Date(date);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');

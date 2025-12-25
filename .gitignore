@@ -7,10 +7,6 @@ node_modules/
 
 server/.env
 
-# /home/keith/programming/angular/death_announcements/client/.gitignore
-# /home/keith/programming/angular/death_announcements/server/.env
-# /home/keith/programming/angular/death_announcements/.gitignore
-
 
 # Compiled output
 /dist

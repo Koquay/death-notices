@@ -15,19 +15,28 @@
               class="col-12 d-flex flex-column justify-content-center align-items-center"
             >
               <h4>{{ editNoticeModel.name }}</h4>
-
               <h6>
-                {{
-                  editNoticeModel.birth_date_str | date : "MMMM d, yyyy" : "UTC"
-                }}
-                -
+                <ng-container
+                  *ngIf="editNoticeModel.birth_date_str; else noBirthDate"
+                >
+                  {{
+                    editNoticeModel.birth_date_str
+                      | date : "MMMM d, yyyy" : "UTC"
+                  }}
+                  -
+                </ng-container>
+
+                <ng-template #noBirthDate>
+                  <span class="fw-bold">Died: </span>
+                </ng-template>
+
                 {{
                   editNoticeModel.death_date_str | date : "MMMM d, yyyy" : "UTC"
                 }}
               </h6>
 
               <img
-                class="img-fluid"
+                class="img-fluid notice-image"
                 [src]="apiUrl + '/image/' + editNoticeModel.imageId"
                 alt="Notice image"
                 loading="lazy"
@@ -427,6 +436,15 @@
               Submit Notice Edits
             </button>
           </div>
+        </div>
+
+        <div class="row mt-5 d-flex justify-content-center">
+          <h6 class="fw-bold">Enter Credit Card Info</h6>
+          <div
+            id="card-element"
+            class="p-3 border rounded"
+            style="border: 1px solid gray !important"
+          ></div>
         </div>
       </form>
     </div>

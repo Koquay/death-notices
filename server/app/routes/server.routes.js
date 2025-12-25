@@ -3,6 +3,7 @@ const express = require('express');
 
 const indexRoutes = require('../index/index.routes');
 const noticesRoutes = require('../notices/notices.routes');
+const paymentRoutes = require('../payment/payment.routes');
 
 process.env.DIST = path.join(__dirname, "../../../client/dist/client/browser");
 console.log("DIST", process.env.DIST)
@@ -14,6 +15,7 @@ module.exports = (app) => {
     app.use(express.static(process.env.DIST))
 
     app.use('/api/notices', noticesRoutes)
+    app.use('/api/payment', paymentRoutes)
     app.use(/(.*)/, indexRoutes);
 }
 

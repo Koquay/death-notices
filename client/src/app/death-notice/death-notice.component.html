@@ -7,13 +7,20 @@
         <h4>{{ notice?.name }}</h4>
 
         <h6>
-          {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }} -
+          <ng-container *ngIf="notice?.birth_date; else noBirthDate">
+            {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }}
+            -
+          </ng-container>
+
+          <ng-template #noBirthDate>
+            <span class="fw-bold">Died: </span>
+          </ng-template>
+
           {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
         </h6>
-
         <img
           *ngIf="notice?.imageId"
-          class="img-fluid"
+          class="img-fluid notice-image"
           [src]="apiUrl + '/image/' + notice?.imageId"
           alt="Notice image"
           loading="lazy"

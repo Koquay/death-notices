@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.component';
@@ -16,17 +16,13 @@ import { EditNoticeModel } from './edit-notice.model';
   templateUrl: './edit-notice.component.html',
   styleUrl: './edit-notice.component.scss'
 })
-export class EditNoticeComponent implements OnInit {
+export class EditNoticeComponent {
 
   public editNoticeModel = inject(EditNoticeModel);
   private editNoticeService = inject(EditNoticeService);
   public apiUrl = '/api/notices';
   public operation = 'edit-notice'
   public birth_date?: string;
-
-  ngOnInit() {
-    // console.log('EditNoticeComponent.birth_date', this.birth_date)
-  }
 
   addContact() {
     this.editNoticeModel?.contacts.push({
