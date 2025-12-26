@@ -6,6 +6,7 @@ import { NoticeEntryService } from './notice-entry.service';
 import { CommonModule } from '@angular/common';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../environments/environment';
+import { ToastUtils } from '../shared/utils/toastUtils';
 
 @Component({
   selector: 'app-notice-entry',
@@ -22,6 +23,7 @@ export class NoticeEntryComponent {
 
   public noticeEntryModel = inject(NoticeEntryModel);
   private noticeEntryService = inject(NoticeEntryService);
+  private toastrUtils = inject(ToastUtils);;
 
   stripe: Stripe | null = null;
   cardElement: any;
@@ -101,9 +103,15 @@ export class NoticeEntryComponent {
 
   public submitNotice = async () => {
     if (!this.stripe || !this.clientSecret) {
-      // this.toastr.error('There may be a problem with your credit card.', 'Error Placing Order',
-      //   { positionClass: getScrollPos() }
+      // this.toastr.error('There may be a problem with your credit card.', 'Error processing your payment',
+      //   // { positionClass: getScrollPos() }
       // );
+
+      this.toastrUtils.show(
+        'error',
+        'There may be a problem with your credit card.',
+        'Error Processing Payment'
+      );
       return;
     }
 
@@ -118,16 +126,28 @@ export class NoticeEntryComponent {
       },
     });
 
+
+
     if (result.error) {
-      // this.toastr.error(result.error.message, 'Error Placing Order',
-      //   { positionClass: getScrollPos() });
+      this.toastrUtils.show(
+        'error',
+        result.error.message,
+        'Error Processing Payment'
+      );
+
       console.error(result.error.message);
     } else if (result.paymentIntent?.status === 'succeeded') {
       console.log('Payment succeeded!');
       this.completeNoticeSubmission();
-      //   this.toastr.success('Order successfully placed', 'Order Success',
-      //     { positionClass: getScrollPos() });
-      // }
+      // this.toastr.success('Death notice successfully processed', 'Notice Success',
+      //   // { positionClass: getScrollPos() }
+      // );
+
+      this.toastrUtils.show(
+        'success',
+        'Death notice successfully processed',
+        'Notice Success'
+      );
     }
   }
 
@@ -150,4 +170,5 @@ export class NoticeEntryComponent {
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
   }
+
 }

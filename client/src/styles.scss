@@ -1,3 +1,5 @@
+@import 'ngx-toastr/toastr';
+
 body {
     font-family: 'Roboto'
 }
@@ -16,7 +18,7 @@ input {
 }
 
 .notice-image {
-    width: 600px;
+    width: 600px;@import 'ngx-toastr/toastr';
     height: 600px;
     object-fit: cover;
     border-radius: 6px;
