@@ -192,3 +192,30 @@ const generateNoticeNo = () => {
   return notice_no;
 }
 
+exports.searchForNotices = async (req, res) => {
+  console.log("ProductsService.searchForProducts");
+
+  const searchField = req.query.searchField;
+  console.log("searchField", searchField);
+
+  if (!searchField || !searchField.trim()) {
+    return res.status(400).send("Missing or empty search term.");
+  }
+
+  const escapeRegex = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  console.log("EscapedRegex", escapeRegex(searchField));
+
+  try {
+    const regex = new RegExp(escapeRegex(searchField), "i");
+    const searchNotices = await Notices.find({ name: regex });
+    // const searchNotices = await Product.find({ name: /boot/i });
+
+    console.log("searchNotices", searchNotices);
+    res.status(200).json(searchNotices);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Problem searching for Notices.");
+  }
+};
+

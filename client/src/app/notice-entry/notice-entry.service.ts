@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { NoticeEntryModel } from './notice-entry.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
+import { ToastUtils } from '../shared/utils/toastUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { catchError, tap } from 'rxjs';
 export class NoticeEntryService {
   private apiUrl = '/api/notices';
   private httpClient = inject(HttpClient);
+  private toastrUtils = inject(ToastUtils);;
   private paymentIntentUrl = '/api/payment/payment-intent';
 
 
@@ -39,9 +41,19 @@ export class NoticeEntryService {
     this.httpClient.post(this.apiUrl, fd).subscribe({
       next: (response) => {
         console.log('Notice submitted successfully:', response);
+        this.toastrUtils.show(
+          'success',
+          'Notice submitted successfully.',
+          'Notice Success'
+        );
       },
       error: (error) => {
         console.error('Error submitting notice:', error);
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while submitting the notice.',
+          'Notice Error'
+        );
       }
     });
   }
@@ -57,8 +69,11 @@ export class NoticeEntryService {
       }),
       catchError(error => {
         console.log('error', error)
-        // this.toastr.error(error.message, 'Payment Intent',
-        //   { positionClass: getScrollPos() });
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while checking your credit card.',
+          'Payment Intent Error'
+        );
         throw error;
       })
     )

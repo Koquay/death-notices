@@ -50,12 +50,18 @@ export class NoticeEntryComponent {
 
     }
 
-    this.noticeEntryService.createPaymentIntent({ amount: 100, currency: 'usd' }).subscribe((paymentIntent => {
+    this.noticeEntryService.createPaymentIntent({ amount: environment.amount, currency: 'usd' }).subscribe((paymentIntent => {
       for (const [key, value] of Object.entries(paymentIntent)) {
         if (key === 'client_secret') {
           console.log(`${key}: ${value}`);
           this.clientSecret = value as string;
           console.log('clientSecret', this.clientSecret);
+        } else {
+          this.toastrUtils.show(
+            'error',
+            'There may be a problem with your credit card.',
+            'Error Establishing Payment Intent'
+          );
         }
 
       }
@@ -103,10 +109,6 @@ export class NoticeEntryComponent {
 
   public submitNotice = async () => {
     if (!this.stripe || !this.clientSecret) {
-      // this.toastr.error('There may be a problem with your credit card.', 'Error processing your payment',
-      //   // { positionClass: getScrollPos() }
-      // );
-
       this.toastrUtils.show(
         'error',
         'There may be a problem with your credit card.',
@@ -137,17 +139,8 @@ export class NoticeEntryComponent {
 
       console.error(result.error.message);
     } else if (result.paymentIntent?.status === 'succeeded') {
-      console.log('Payment succeeded!');
+      console.log('Payment intent succeeded!');
       this.completeNoticeSubmission();
-      // this.toastr.success('Death notice successfully processed', 'Notice Success',
-      //   // { positionClass: getScrollPos() }
-      // );
-
-      this.toastrUtils.show(
-        'success',
-        'Death notice successfully processed',
-        'Notice Success'
-      );
     }
   }
 

@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { HomeService } from './home.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Contact } from '../shared/interfaces/contacts.interface';
 import { Event } from '../shared/interfaces/events.interface';
+import { SearchComponent } from '../shared/components/search/search.component';
+import { SearchService } from '../shared/components/search/search.service';
 
 @Component({
   selector: 'app-home',
@@ -11,15 +13,26 @@ import { Event } from '../shared/interfaces/events.interface';
   imports: [
     RouterModule,
     CommonModule,
-    DatePipe
+    DatePipe,
+    SearchComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   private homeService = inject(HomeService);
+  private searchService = inject(SearchService);
   public notices: NoticesModel[] = []
   public apiUrl = '/api/notices';
+
+  noticeEffect = effect(() => {
+    this.notices = this.homeService.noticesSignal().notices;
+  });
+
+
+  searchEffect = effect(() => {
+    this.notices = this.searchService.searchSignal();
+  })
 
   ngOnInit() {
     this.homeService.getNotices().subscribe(notices => {

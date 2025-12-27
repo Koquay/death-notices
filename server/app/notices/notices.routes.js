@@ -13,7 +13,7 @@ router.put('/:id', upload.single('image'), editNoticesController.editNotice);
 router.get('/image/:id', noticesController.getNoticeImage);
 router.get('/notice/no/:noticeNo', noticesController.getNoticeByNo);
 
-// router.get('/search/1', productController.searchForProducts)
+router.get('/search/notices/name/1', noticesController.searchForNotices)
 
 
 module.exports = router;

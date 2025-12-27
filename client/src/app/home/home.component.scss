@@ -37,3 +37,22 @@
       width: 19.66666667%;
     }
   }
+
+  .card-hover:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  } 
+
+  .home-bg {
+    height: 100%;
+    // background-image: url("/assets/img/home-bg-2.webp");
+    background-image: url("/assets/img/home-bg-3.jpg");
+    // background-image: url("/assets/img/home-bg-6.jpeg");
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  

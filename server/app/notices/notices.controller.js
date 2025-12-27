@@ -11,10 +11,10 @@ exports.enterNotice = (req, res) => {
 }
 
 
-// exports.editNotice = (req, res) => {
-//     console.log('notices.controller.editNotice called...')
-//     noticesService.editNotice(req, res);
-// }
+exports.searchForNotices = (req, res) => {
+    console.log('notices.controller.searchForNotices called...')
+    noticesService.searchForNotices(req, res);
+}
 
 exports.getNoticeImage = (req, res) => {
     console.log('notices.controller.getNoticeImage called...')

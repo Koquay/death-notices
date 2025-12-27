@@ -7,8 +7,14 @@ store data to localStorage
 
 date in Enter Notice disappears after submit
 
-field validation
+fields validation
 
 paypal
+
+primary buttons
+
+in memoriam
+
+search input
 
 
