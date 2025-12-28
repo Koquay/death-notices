@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { DeathNoticeComponent } from './death-notice/death-notice.component';
 import { NoticeEntryComponent } from './notice-entry/notice-entry.component';
 import { EditNoticeComponent } from './edit-notice/edit-notice.component';
+import { EnterMemoriamComponent } from './memoriam/enter-memoriam/enter-memoriam.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'death-notice/:noticeId', component: DeathNoticeComponent },
     { path: 'notice-entry', component: NoticeEntryComponent },
     { path: 'edit-notice', component: EditNoticeComponent },
+    { path: 'enter-memoriam', component: EnterMemoriamComponent },
 
 
 ];

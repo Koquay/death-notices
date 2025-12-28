@@ -25,3 +25,18 @@ exports.getNoticeByNo = (req, res) => {
     console.log('notices.controller.getNoticeByNo called...')
     noticesService.getNoticeByNo(req, res);
 }
+
+exports.enterMemoriam = (req, res) => {
+    console.log('notices.controller.enterMemoriam called...')
+    noticesService.enterMemoriam(req, res);
+}
+
+exports.getMemoriams = (req, res) => {
+    console.log('memoiams.controller.getMemoriams called...')
+    noticesService.getMemoriams(req, res);
+}
+
+exports.searchForMemoriams = (req, res) => {
+    console.log('Memoriams.controller.searchForMemoriams called...')
+    noticesService.searchForMemoriams(req, res);
+}

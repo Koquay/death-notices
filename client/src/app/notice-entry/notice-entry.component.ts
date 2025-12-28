@@ -128,8 +128,6 @@ export class NoticeEntryComponent {
       },
     });
 
-
-
     if (result.error) {
       this.toastrUtils.show(
         'error',

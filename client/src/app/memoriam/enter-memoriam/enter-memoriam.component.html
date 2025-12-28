@@ -1,0 +1,94 @@
+<div class="container my-2">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12">
+      <form
+        #noticeForm="ngForm"
+        class="d-flex flex-column justify-content-center"
+      >
+        <section class="">
+          <app-image-upload />
+        </section>
+
+        <section class="mt-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-8">
+              <div class="row d-none d-lg-flex">
+                <div class="col-6 col-lg-4">
+                  <label class="col-form-label"
+                    ><strong
+                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
+                    ></label
+                  >
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                  <label class="form-label d-lg-none me-2"
+                    ><strong
+                      ><span class="w-100" style="color: rgb(0, 0, 0)"
+                        >Name:</span
+                      ></strong
+                    ></label
+                  ><input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    [(ngModel)]="memoriamEntryModel.name"
+                    required
+                    #name="ngModel"
+                    (change)="saveNoticeData()"
+                    style="border-width: 1.8px; width: 100%"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="d-flex justify-content-center">
+            <div class="col-12 col-md-8">
+              <label
+                class="form-label fw-bold"
+                style="font-size: 18px; text-decoration: underline"
+                >Enter Memoriam:</label
+              ><textarea
+                class="form-control"
+                style="border-width: 1.8px"
+                rows="15"
+                name="announcement"
+                [(ngModel)]="memoriamEntryModel.announcement"
+                #announcement="ngModel"
+                (selectionchange)="saveNoticeData()"
+              ></textarea>
+            </div>
+          </div>
+        </section>
+        <section class="mt-5">
+          <!-- <div class="row d-flex justify-content-center">
+              <div class="col-12 col-md-6">
+                <h6 class="fw-bold">Enter Credit Card Info</h6>
+                <div
+                  id="card-element"
+                  class="p-3 border rounded"
+                  style="border: 1px solid gray !important"
+                ></div>
+              </div>
+            </div> -->
+
+          <div class="row mt-2 d-flex justify-content-center">
+            <div class="col-12 col-md-4">
+              <button
+                class="btn btn-primary px-4 py-2"
+                type="button"
+                (click)="submitNotice()"
+              >
+                Submit Memoriam
+              </button>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+</div>

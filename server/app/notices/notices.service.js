@@ -4,6 +4,7 @@ require("../contacts/contacts.model");
 const Notices = require("mongoose").model("Notices");
 const Contacts = require("mongoose").model("Contacts");
 const Events = require("mongoose").model("Events");
+const Memoriams = require("mongoose").model("Memoriams");
 const mongoose = require("mongoose");
 const sharp = require('sharp');
 const { getGridFSBucket } = require('../util/gridfs');
@@ -87,6 +88,74 @@ exports.enterNotice = async (req, res) => {
   }
 };
 
+exports.enterMemoriam = async (req, res) => {
+  try {
+    console.log('notices.service.enterMemoriam called...');
+
+    const noticeData = JSON.parse(req.body.notice);
+
+    console.log('noticeData:', noticeData);
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file received' });
+    }
+
+
+    const memoriam_no = generateNoticeNo();
+
+    // Normalize text
+    noticeData.announcement = (noticeData.announcement || '')
+      .replace(/\r\n/g, '\n')
+      .trim();
+
+    // STEP 1: Compress image
+    const compressedBuffer = await sharp(req.file.buffer)
+      .rotate()
+      .resize({ width: 1200, withoutEnlargement: true })
+      .jpeg({ quality: 80, mozjpeg: true })
+      .toBuffer();
+
+    // STEP 2: Save image to GridFS
+    const gfsBucket = getGridFSBucket();
+
+    const uploadStream = gfsBucket.openUploadStream(
+      req.file.originalname.replace(/\.\w+$/, '.jpg'),
+      {
+        contentType: 'image/jpeg',
+        metadata: {
+          originalName: req.file.originalname,
+          originalSize: req.file.size,
+          compressedSize: compressedBuffer.length,
+        },
+      }
+    );
+
+    uploadStream.end(compressedBuffer);
+
+    uploadStream.on('error', (err) => {
+      console.error('GridFS error:', err);
+      return res.status(500).json({ error: 'Image upload failed' });
+    });
+
+    uploadStream.on('finish', async () => {
+      const imageId = uploadStream.id; // ✅ THIS IS THE KEY
+     
+      const memoriam = await Memoriams.create({
+        name: noticeData.name,
+        announcement: noticeData.announcement,
+        imageId: imageId, // ✅ VALID
+        memoriam_no
+      });
+    
+      return res.status(201).json(memoriam);
+    });
+    
+
+  } catch (error) {
+    console.error('Error in enterNotice:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 const createContacts = async (contacts) => {
   const contactDocs = await Contacts.insertMany(
@@ -213,6 +282,48 @@ exports.searchForNotices = async (req, res) => {
 
     console.log("searchNotices", searchNotices);
     res.status(200).json(searchNotices);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Problem searching for Notices.");
+  }
+};
+
+exports.getMemoriams = async (req, res) => {
+  console.log("Memoriams.service.getMemoriams called...");
+
+  try {
+    const memoriams = await Memoriams.find()
+      .sort({ createdAt: "desc" })
+      .exec();
+
+    console.log("Memoriams retrieved:", Memoriams);
+    return res.status(200).json(memoriams);
+  } catch (error) {
+    console.error("Error in getMemoriams:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.searchForMemoriams = async (req, res) => {
+  console.log("ProductsService.searchForProducts");
+
+  const searchField = req.query.searchField;
+  console.log("searchField", searchField);
+
+  if (!searchField || !searchField.trim()) {
+    return res.status(400).send("Missing or empty search term.");
+  }
+
+  const escapeRegex = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  console.log("EscapedRegex", escapeRegex(searchField));
+
+  try {
+    const regex = new RegExp(escapeRegex(searchField), "i");
+    const searchMemoriams = await Memoriams.find({ name: regex });
+
+    console.log("searchMemoriams", searchMemoriams);
+    res.status(200).json(searchMemoriams);
   } catch (error) {
     console.error(error);
     res.status(500).send("Problem searching for Notices.");

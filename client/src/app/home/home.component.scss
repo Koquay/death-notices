@@ -38,11 +38,17 @@
     }
   }
 
-  .card-hover:hover {
+  .card-hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
+    // transform: translateY(-5px);
+    // transition: transform 0.3s ease;
   } 
+
+  .card-hover:hover {
+      // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    } 
 
   .home-bg {
     height: 100%;

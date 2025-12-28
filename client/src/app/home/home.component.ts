@@ -6,6 +6,7 @@ import { Contact } from '../shared/interfaces/contacts.interface';
 import { Event } from '../shared/interfaces/events.interface';
 import { SearchComponent } from '../shared/components/search/search.component';
 import { SearchService } from '../shared/components/search/search.service';
+import { MemoriamComponent } from '../memoriam/memoriam.component';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ import { SearchService } from '../shared/components/search/search.service';
     RouterModule,
     CommonModule,
     DatePipe,
-    SearchComponent
+    SearchComponent,
+    MemoriamComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -29,16 +31,18 @@ export class HomeComponent {
     this.notices = this.homeService.noticesSignal().notices;
   });
 
-
-  searchEffect = effect(() => {
-    this.notices = this.searchService.searchSignal();
-  })
-
   ngOnInit() {
     this.homeService.getNotices().subscribe(notices => {
       this.notices = notices;
     })
   }
+
+
+  searchEffect = effect(() => {
+    this.notices = this.searchService.searchSignal();
+  })
+
+
 
 }
 

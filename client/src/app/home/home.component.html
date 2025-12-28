@@ -1,14 +1,14 @@
 <div class="container-fluid">
-  <div class="d-flex justify-content-center flex-grow-1 mb-2 mb-md-0">
-    <app-search></app-search>
-  </div>
   <div class="row mt-4">
     <div class="col-12 col-md-9">
       <div class="row d-flex justify-content-center">
         <h4 class="text-muted text-center mb-3">DEARLY DEPARTED</h4>
       </div>
-    </div>
-    <div class="col-12 col-md-9 home-bg py-4">
+      <div class="row d-flex justify-content-center mb-4">
+        <div class="col-12 d-flex justify-content-center">
+          <app-search></app-search>
+        </div>
+      </div>
       <div class="row d-flex justify-content-center">
         <!-- <h4 class="text-muted text-center mb-3">DEARLY DEPARTED</h4> -->
         @for (notice of notices; track $index) {
@@ -40,37 +40,7 @@
     <div
       class="col-12 col-md-3 mt-4 mt-md-0 d-md-flex flex-column align-items-center"
     >
-      <div class="row">
-        <div class="d-flex align-items-center justify-content-center mb-3">
-          <h4 class="text-muted">IN MEMORIAM</h4>
-        </div>
-        @for (notice of notices; track $index) {
-        <div
-          class="col-6 col-sm-4 col-md-12 d-flex flex-column align-items-center mb-4"
-        >
-          <img
-            *ngIf="notice.imageId"
-            class="img-fluid rounded"
-            [src]="apiUrl + '/image/' + notice.imageId"
-            alt="Notice image"
-            loading="lazy"
-            style="border-radius: 50% !important; width: 100px; height: 100px"
-          />
-
-          <p
-            class="mt-2 mb-0 text-capitalize"
-            style="
-              font-size: 12px;
-              font-weight: bold;
-              min-height: 40px;
-              line-height: 1.2;
-            "
-          >
-            {{ notice.name }}
-          </p>
-        </div>
-        }
-      </div>
+      <app-memoriam />
     </div>
   </div>
 </div>
