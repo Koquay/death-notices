@@ -40,3 +40,13 @@ exports.searchForMemoriams = (req, res) => {
     console.log('Memoriams.controller.searchForMemoriams called...')
     noticesService.searchForMemoriams(req, res);
 }
+
+exports.getGroups = (req, res) => {
+    console.log('memoiams.controller.getGroups called...')
+    noticesService.getGroups(req, res);
+}
+
+exports.addGroup = (req, res) => {
+    console.log('memoiams.controller.addGroup called...')
+    noticesService.addGroup(req, res);
+}

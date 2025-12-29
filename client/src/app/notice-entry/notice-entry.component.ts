@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../environments/environment';
 import { ToastUtils } from '../shared/utils/toastUtils';
+import { Group } from '../shared/interfaces/groups.interface';
 
 @Component({
   selector: 'app-notice-entry',
@@ -31,8 +32,14 @@ export class NoticeEntryComponent {
   elements: any;
   clientSecret: string = "";
 
+  selectedGroups: Group[] = [];
+  groups: Group[] = [];
+  group: Group = { name: null };
+  newGroup?: string | null;
+
   ngOnInit() {
     this.setUpStripe();
+    this.getGroups();
   }
 
   public setUpStripe = async () => {
@@ -57,11 +64,11 @@ export class NoticeEntryComponent {
           this.clientSecret = value as string;
           console.log('clientSecret', this.clientSecret);
         } else {
-          this.toastrUtils.show(
-            'error',
-            'There may be a problem with your credit card.',
-            'Error Establishing Payment Intent'
-          );
+          // this.toastrUtils.show(
+          //   'error',
+          //   'There may be a problem with your credit card.',
+          //   'Error Establishing Payment Intent'
+          // );
         }
 
       }
@@ -80,8 +87,45 @@ export class NoticeEntryComponent {
     this.noticeEntryModel.contacts.splice(index, 1);
   }
 
+  addDeceasedGroup() {
+    // this.newGroup = this.newGroup?.trim();
+
+    // if (this.newGroup) {
+    //   this.noticeEntryModel.groups.push({
+    //     name: this.newGroup
+    //   });
+
+    //   this.newGroup = null;
+    //   this.saveNoticeData();
+    // }
+
+    this.noticeEntryModel.groups = this.selectedGroups;
+    this.saveNoticeData();
+  }
+
+  addNewGroup() {
+    this.newGroup = this.newGroup?.trim();
+
+    if (this.newGroup) {
+      this.group.name = this.newGroup;
+      this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
+        this.groups = groups;
+        this.group.name = null;
+        this.newGroup = null;
+      })
+
+
+      this.saveNoticeData();
+    }
+  }
+
+  removeGroup(index: number) {
+    this.noticeEntryModel.groups.splice(index, 1);
+  }
+
   public saveNoticeData = () => {
     console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
+    console.log('saveNoticeData.selectedGroups:', this.selectedGroups);
   }
 
   removeEvent(index: number) {
@@ -120,11 +164,6 @@ export class NoticeEntryComponent {
     const result = await this.stripe.confirmCardPayment(this.clientSecret, {
       payment_method: {
         card: this.card,
-        // billing_details: {
-        //   address: {
-        //     postal_code: this.billingPostalCode
-        //   }
-        // }
       },
     });
 
@@ -142,7 +181,7 @@ export class NoticeEntryComponent {
     }
   }
 
-  private completeNoticeSubmission = () => {
+  public completeNoticeSubmission = () => {
     let d = new Date(this.noticeEntryModel.death_date);
 
     // Create a date-only value (no timezone shift)
@@ -160,6 +199,13 @@ export class NoticeEntryComponent {
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
+  }
+
+  private getGroups = () => {
+    this.noticeEntryService.getGroups().subscribe(groups => {
+      console.log('groups', groups)
+      this.groups = groups;
+    })
   }
 
 }

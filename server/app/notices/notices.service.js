@@ -4,6 +4,7 @@ require("../contacts/contacts.model");
 const Notices = require("mongoose").model("Notices");
 const Contacts = require("mongoose").model("Contacts");
 const Events = require("mongoose").model("Events");
+const Groups = require("mongoose").model("Groups");
 const Memoriams = require("mongoose").model("Memoriams");
 const mongoose = require("mongoose");
 const sharp = require('sharp');
@@ -65,6 +66,7 @@ exports.enterNotice = async (req, res) => {
     
       const contactIds = await createContacts(noticeData.contacts);
       const eventIds = await createEvents(noticeData.events);
+      const groupIds = await createGroups(noticeData.groups);
     
       const notice = await Notices.create({
         name: noticeData.name,
@@ -74,6 +76,7 @@ exports.enterNotice = async (req, res) => {
         additionalInformation: noticeData.additionalInformation,
         contacts: contactIds,
         events: eventIds,
+        groups: groupIds,
         imageId: imageId, // ✅ VALID
         notice_no
       });
@@ -189,6 +192,19 @@ const createEvents = async (events) => {
   const eventIds = eventDocs.map((e) => e._id);
 
   return eventIds;
+};
+
+const createGroups = async (groups) => {
+  const groupDocs = await Groups.insertMany(
+    groups.map((g) => ({
+      name: g.name,
+    }))
+  );
+
+  // 2️⃣ Extract contact IDs
+  const groupIds = groupDocs.map((g) => g._id);
+
+  return groupIds;
 };
 
 exports.getNotices = async (req, res) => {
@@ -330,3 +346,37 @@ exports.searchForMemoriams = async (req, res) => {
   }
 };
 
+exports.getGroups = async (req, res) => {
+  console.log('service.getGroups called...')
+  try {
+    const groups = await Groups.find()
+      .sort({ createdAt: "asc" })
+      .exec();
+
+    console.log("Groups retrieved:", Groups);
+    return res.status(200).json(groups);
+  } catch (error) {
+    console.error("Error in getGroups:", error);
+    return res.status(500).json({ message: "getGroups Internal server error" });
+  }
+}
+
+exports.addGroup = async (req, res) => {
+  console.log('service.addGroup called...')
+  const group = req.body;
+  console.log('addGroup.group', group);
+  try {
+    const newGroup = await Groups.insertOne(group);
+    console.log('addGroup.newGroup', newGroup);
+  
+    const groups = await Groups.find()
+      .sort({ createdAt: "desc" })
+      .exec();
+
+    console.log("Groups retrieved:", groups);
+    return res.status(200).json(groups);
+  } catch (error) {
+    console.error("Error in addGroup:", error);
+    return res.status(500).json({ message: "addGroup Internal server error" });
+  }
+}

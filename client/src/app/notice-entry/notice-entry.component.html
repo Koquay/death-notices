@@ -243,9 +243,10 @@
         </section>
 
         <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <div class="col-8 mb-2">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+              <!-- Section title -->
+              <div class="mb-2">
                 <label
                   class="form-label fw-bold"
                   style="font-size: 18px; text-decoration: underline"
@@ -254,81 +255,45 @@
                 </label>
               </div>
 
-              <div class="row d-none d-lg-flex">
-                <div class="col-6 col-lg-3">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
-                    ></label
-                  >
-                </div>
-                <div class="col-6 col-lg-3">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Relationship</span
-                      ></strong
-                    ></label
-                  >
-                </div>
-                <div class="col-6 col-lg-3">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)">Phone</span></strong
-                    ></label
-                  >
-                </div>
+              <!-- Desktop headers -->
+              <div class="row d-none d-lg-flex mb-2">
+                <div class="col-lg-4"><strong>Name</strong></div>
+                <div class="col-lg-4"><strong>Relationship</strong></div>
+                <div class="col-lg-3"><strong>Phone</strong></div>
+                <div class="col-lg-1"></div>
               </div>
 
+              <!-- Contact rows -->
               <div
-                class="row mb-3"
+                class="row mb-3 align-items-end"
                 *ngFor="let contact of noticeEntryModel.contacts; let i = index"
               >
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
+                <div class="col-12 col-lg-4 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Name:</strong></label
+                    ><strong>Name</strong></label
                   >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="contact.name"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                  <input class="form-control" [(ngModel)]="contact.name" />
                 </div>
 
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
+                <div class="col-12 col-lg-4 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Relationship:</strong></label
+                    ><strong>Relationship</strong></label
                   >
                   <input
                     class="form-control"
-                    type="text"
                     [(ngModel)]="contact.relationship"
-                    name="relationship{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
                   />
                 </div>
 
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
+                <div class="col-12 col-lg-3 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Phone:</strong></label
+                    ><strong>Phone</strong></label
                   >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="contact.phone"
-                    name="phone{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                  <input class="form-control" [(ngModel)]="contact.phone" />
                 </div>
 
-                <div class="col-12 col-lg-1 d-flex align-items-end">
+                <div class="col-12 col-lg-1 d-flex justify-content-lg-end">
                   <button
-                    type="button"
                     class="btn btn-danger"
                     (click)="removeContact(i)"
                     *ngIf="noticeEntryModel.contacts.length > 1"
@@ -339,12 +304,69 @@
               </div>
 
               <button
-                type="button"
                 class="btn btn-outline-primary mt-2"
                 (click)="addContact()"
               >
                 + Add Another Contact
               </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6">
+              <label
+                class="form-label fw-bold"
+                style="font-size: 18px; text-decoration: underline"
+                >Groups:</label
+              ><small class="ms-2">(optional)</small
+              ><small class="d-block"
+                >If the deceased was part of a group (school, work, family,
+                etc.), you can select that group or add a new group. This will
+                enable you to search for all members of that group who have
+                passed. </small
+              ><label
+                class="form-label fw-bold mt-4 mb-0"
+                style="font-size: 15px"
+                >Select group(s):</label
+              >
+              <small class="ms-2"
+                >(press ctrl then click for multiple selections)</small
+              >
+
+              <select
+                class="form-select"
+                multiple
+                [(ngModel)]="selectedGroups"
+                (click)="addDeceasedGroup()"
+              >
+                <option *ngFor="let group of groups" [ngValue]="group">
+                  {{ group.name }}
+                </option>
+              </select>
+
+              <label
+                class="form-label fw-bold mt-4 mb-0"
+                style="font-size: 15px; font-weight: bold"
+                >Create a new group:</label
+              >
+
+              <!-- Group name input -->
+              <div
+                class="col-12 col-lg-10 mb-2 mb-lg-0 d-flex flex-row align-items-center"
+              >
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="newGroup"
+                  name="name"
+                  style="border-width: 1.8px"
+                />
+                <button class="btn btn-outline-primary" (click)="addNewGroup()">
+                  <small>Save</small>
+                </button>
+              </div>
             </div>
           </div>
         </section>

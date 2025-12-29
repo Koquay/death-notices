@@ -3,6 +3,7 @@ import { NoticeEntryModel } from './notice-entry.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { ToastUtils } from '../shared/utils/toastUtils';
+import { Group } from '../shared/interfaces/groups.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class NoticeEntryService {
         birth_date: noticeEntryModel.birth_date,
         contacts: noticeEntryModel.contacts,
         events: noticeEntryModel.events,
+        groups: noticeEntryModel.groups,
         additionalInformation: noticeEntryModel.additionalInformation,
 
       })
@@ -78,6 +80,22 @@ export class NoticeEntryService {
       })
     )
 
+  }
+
+  public getGroups = () => {
+    return this.httpClient.get<Group[]>(`${this.apiUrl}/groups`).pipe(
+      tap(groups => {
+
+      })
+    )
+  }
+
+  public addNewGroup = (group: Group) => {
+    return this.httpClient.post<Group[]>(`${this.apiUrl}/group`, group).pipe(
+      tap(groups => {
+
+      })
+    )
   }
 
 }

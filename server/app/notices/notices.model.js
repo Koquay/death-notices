@@ -33,6 +33,20 @@ const EventsSchema = new mongoose.Schema({
 mongoose.model("Events", EventsSchema, "events");
 
 
+const GroupsSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  
+}, {
+  timestamps: true
+}
+
+);
+
+mongoose.model("Groups", GroupsSchema, "groups");
+
+
 
 const NoticesSchema = new mongoose.Schema({
     name: {
@@ -75,6 +89,10 @@ const NoticesSchema = new mongoose.Schema({
     events: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Events'   // optional, name of the contacts collection/model
+    }],
+    groups: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Groups'   // optional, name of the contacts collection/model
     }]
   }, {
     timestamps: true

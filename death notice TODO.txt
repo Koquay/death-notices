@@ -21,3 +21,11 @@ search input
 refactor HomeComponent -- embed Notices and memoriams
 
 memoriam payment
+
+Align contacts in notice entry
+
+add email to notice entry
+
+sort available groups
+
+in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.

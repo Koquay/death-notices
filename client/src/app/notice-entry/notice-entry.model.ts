@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Event } from '../shared/interfaces/events.interface';
 import { Contact } from '../shared/interfaces/contacts.interface';
+import { Group } from '../shared/interfaces/groups.interface';
 
 
 
@@ -38,6 +39,12 @@ export class NoticeEntryModel {
             address: '',
             city: '',
             state: '',
+        }
+    ];
+
+    groups: Group[] = [
+        {
+            name: null,
         }
     ];
 
