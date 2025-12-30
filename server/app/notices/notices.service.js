@@ -15,6 +15,7 @@ exports.enterNotice = async (req, res) => {
     console.log('notices.service.enterNotice called...');
 
     const noticeData = JSON.parse(req.body.notice);
+    console.log('noticeData', noticeData)
 
     if (!req.file) {
       return res.status(400).json({ error: 'No file received' });
@@ -66,7 +67,9 @@ exports.enterNotice = async (req, res) => {
     
       const contactIds = await createContacts(noticeData.contacts);
       const eventIds = await createEvents(noticeData.events);
-      const groupIds = await createGroups(noticeData.groups);
+      // const groupIds = await createGroups(noticeData.groups);
+
+      const groupIds = noticeData.groups.map((g) => g._id);
     
       const notice = await Notices.create({
         name: noticeData.name,
@@ -366,11 +369,13 @@ exports.addGroup = async (req, res) => {
   const group = req.body;
   console.log('addGroup.group', group);
   try {
+    group._id = new mongoose.Types.ObjectId();
+
     const newGroup = await Groups.insertOne(group);
     console.log('addGroup.newGroup', newGroup);
   
     const groups = await Groups.find()
-      .sort({ createdAt: "desc" })
+      .sort({ createdAt: "asc" })
       .exec();
 
     console.log("Groups retrieved:", groups);
@@ -380,3 +385,19 @@ exports.addGroup = async (req, res) => {
     return res.status(500).json({ message: "addGroup Internal server error" });
   }
 }
+
+exports.getNoticesForGroup = async (req, res) => {
+  try {
+    const groupId = new mongoose.Types.ObjectId(req.params.id);
+
+    const notices = await Notices.find({
+      groups: groupId
+    });
+
+    console.log("notices retrieved:", notices);
+    res.status(200).json(notices);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching notices by group' });
+  }
+};

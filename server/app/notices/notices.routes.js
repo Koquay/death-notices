@@ -13,6 +13,7 @@ router.get('/image/:id', noticesController.getNoticeImage);
 router.get('/notice/no/:noticeNo', noticesController.getNoticeByNo);
 
 router.get('/groups', noticesController.getGroups);
+router.get('/groups/:id', noticesController.getNoticesForGroup);
 router.post('/group', noticesController.addGroup);
 
 router.get('/search/notices/name/1', noticesController.searchForNotices)

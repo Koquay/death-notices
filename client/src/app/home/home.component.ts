@@ -7,6 +7,8 @@ import { Event } from '../shared/interfaces/events.interface';
 import { SearchComponent } from '../shared/components/search/search.component';
 import { SearchService } from '../shared/components/search/search.service';
 import { MemoriamComponent } from '../memoriam/memoriam.component';
+import { GroupSearchComponent } from '../shared/components/group-search/group-search.component';
+import { GroupSearchService } from '../shared/components/group-search/group-search.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +18,8 @@ import { MemoriamComponent } from '../memoriam/memoriam.component';
     CommonModule,
     DatePipe,
     SearchComponent,
-    MemoriamComponent
+    MemoriamComponent,
+    GroupSearchComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -24,12 +27,19 @@ import { MemoriamComponent } from '../memoriam/memoriam.component';
 export class HomeComponent {
   private homeService = inject(HomeService);
   private searchService = inject(SearchService);
+  private groupSearchService = inject(GroupSearchService);
   public notices: NoticesModel[] = []
   public apiUrl = '/api/notices';
 
   noticeEffect = effect(() => {
     this.notices = this.homeService.noticesSignal().notices;
   });
+
+  groupSearchEffect = effect(() => {
+    this.notices = this.groupSearchService.groupSearchSignal();
+  });
+
+
 
   ngOnInit() {
     this.homeService.getNotices().subscribe(notices => {

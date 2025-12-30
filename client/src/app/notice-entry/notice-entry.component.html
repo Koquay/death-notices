@@ -410,10 +410,11 @@
                 class="btn btn-primary px-4 py-2"
                 type="button"
                 (click)="submitNotice()"
-                [disabled]="!noticeForm.valid || !clientSecret"
+                [disabled]="!noticeForm.valid"
               >
                 Submit Death Notice
               </button>
+              <!-- [disabled]="!noticeForm.valid || !clientSecret" -->
             </div>
           </div>
         </section>

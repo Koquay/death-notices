@@ -34,11 +34,11 @@ export class NoticeEntryComponent {
 
   selectedGroups: Group[] = [];
   groups: Group[] = [];
-  group: Group = { name: null };
+  group: Group = { _id: '', name: null };
   newGroup?: string | null;
 
   ngOnInit() {
-    this.setUpStripe();
+    // this.setUpStripe();
     this.getGroups();
   }
 
@@ -88,17 +88,6 @@ export class NoticeEntryComponent {
   }
 
   addDeceasedGroup() {
-    // this.newGroup = this.newGroup?.trim();
-
-    // if (this.newGroup) {
-    //   this.noticeEntryModel.groups.push({
-    //     name: this.newGroup
-    //   });
-
-    //   this.newGroup = null;
-    //   this.saveNoticeData();
-    // }
-
     this.noticeEntryModel.groups = this.selectedGroups;
     this.saveNoticeData();
   }
@@ -152,33 +141,36 @@ export class NoticeEntryComponent {
   }
 
   public submitNotice = async () => {
-    if (!this.stripe || !this.clientSecret) {
-      this.toastrUtils.show(
-        'error',
-        'There may be a problem with your credit card.',
-        'Error Processing Payment'
-      );
-      return;
-    }
+    // if (!this.stripe || !this.clientSecret) {
+    //   this.toastrUtils.show(
+    //     'error',
+    //     'There may be a problem with your credit card.',
+    //     'Error Processing Payment'
+    //   );
+    //   return;
+    // }
 
-    const result = await this.stripe.confirmCardPayment(this.clientSecret, {
-      payment_method: {
-        card: this.card,
-      },
-    });
+    // const result = await this.stripe.confirmCardPayment(this.clientSecret, {
+    //   payment_method: {
+    //     card: this.card,
+    //   },
+    // });
 
-    if (result.error) {
-      this.toastrUtils.show(
-        'error',
-        result.error.message,
-        'Error Processing Payment'
-      );
+    // if (result.error) {
+    //   this.toastrUtils.show(
+    //     'error',
+    //     result.error.message,
+    //     'Error Processing Payment'
+    //   );
 
-      console.error(result.error.message);
-    } else if (result.paymentIntent?.status === 'succeeded') {
-      console.log('Payment intent succeeded!');
-      this.completeNoticeSubmission();
-    }
+    //   console.error(result.error.message);
+    // } else if (result.paymentIntent?.status === 'succeeded') {
+    //   console.log('Payment intent succeeded!');
+    //   this.completeNoticeSubmission();
+    // }
+
+    // to be removed
+    this.completeNoticeSubmission();
   }
 
   public completeNoticeSubmission = () => {

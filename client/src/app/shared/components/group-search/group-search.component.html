@@ -1,0 +1,16 @@
+<section>
+  <form class="d-flex" role="search" style="width: 300px; max-width: 100%">
+    <select
+      class="form-select"
+      name="group"
+      [(ngModel)]="group"
+      (click)="getNoticesForGroup()"
+    >
+      <option disabled selected value="">Search by group</option>
+      <option value="">All deceased</option>
+      <option *ngFor="let group of groups" [ngValue]="group">
+        {{ group.name }}
+      </option>
+    </select>
+  </form>
+</section>

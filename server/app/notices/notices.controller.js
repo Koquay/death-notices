@@ -46,6 +46,11 @@ exports.getGroups = (req, res) => {
     noticesService.getGroups(req, res);
 }
 
+exports.getNoticesForGroup = (req, res) => {
+    console.log('memoiams.controller.getGroup called...')
+    noticesService.getNoticesForGroup(req, res);
+}
+
 exports.addGroup = (req, res) => {
     console.log('memoiams.controller.addGroup called...')
     noticesService.addGroup(req, res);

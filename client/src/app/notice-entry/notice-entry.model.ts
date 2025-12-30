@@ -44,7 +44,7 @@ export class NoticeEntryModel {
 
     groups: Group[] = [
         {
-            name: null,
+            _id: '', name: null,
         }
     ];
 
