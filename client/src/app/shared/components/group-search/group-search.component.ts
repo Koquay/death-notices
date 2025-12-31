@@ -3,7 +3,7 @@ import { GroupSearchService } from './group-search.service';
 import { Group } from '../../interfaces/groups.interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HomeService } from '../../../home/home.service';
+import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
 
 @Component({
   selector: 'app-group-search',
@@ -17,7 +17,7 @@ import { HomeService } from '../../../home/home.service';
 })
 export class GroupSearchComponent {
   private groupSearchService = inject(GroupSearchService);
-  private homeServices = inject(HomeService);
+  private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
   groups: Group[] = [];
   group: Group = { _id: '', name: '' };
 
@@ -38,7 +38,7 @@ export class GroupSearchComponent {
     if (this.group._id) {
       this.groupSearchService.getNoticesForGroup(this.group._id).subscribe();
     } else {
-      this.homeServices.getNotices().subscribe()
+      this.deathNoticeGalleryService.getNotices().subscribe()
     }
   }
 }

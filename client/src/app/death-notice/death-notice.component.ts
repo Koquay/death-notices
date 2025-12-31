@@ -1,10 +1,10 @@
 import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HomeService } from '../home/home.service';
-import { NoticesModel } from '../home/home.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AutoResizeTextareaDirective } from '../shared/directives/auto-resize-textarea.directive';
 import { ToAmPmPipe } from '../shared/pipes/to-am-pm.pipe ';
+import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
+import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-gallery.service';
 
 @Component({
   selector: 'app-death-notice',
@@ -20,8 +20,8 @@ import { ToAmPmPipe } from '../shared/pipes/to-am-pm.pipe ';
 })
 export class DeathNoticeComponent {
   private activatedRoute = inject(ActivatedRoute);
-  private noticesService = inject(HomeService);
-  public notice: NoticesModel | undefined;
+  private noticesService = inject(DeathNoticeGalleryService);
+  public notice: NoticeEntryModel | undefined;
   public apiUrl = '/api/notices';
 
   ngOnInit() {

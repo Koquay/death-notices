@@ -1,9 +1,10 @@
 import { Component, effect, inject } from '@angular/core';
 import { MemoriamService } from './memoriam.service';
-import { NoticesModel } from '../home/home.component';
+// import { NoticeEntryModel } from '../home/home.component';
 import { CommonModule } from '@angular/common';
 import { MemoriamSearchComponent } from './memoriam-search/memoriam-search.component';
 import { MemoriamSearchService } from './memoriam-search/memoriam-search.service';
+import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 
 @Component({
   selector: 'app-memoriam',
@@ -18,7 +19,7 @@ import { MemoriamSearchService } from './memoriam-search/memoriam-search.service
 export class MemoriamComponent {
   private memoriamService = inject(MemoriamService);
   private memoriamSearchService = inject(MemoriamSearchService);
-  public memoriams: NoticesModel[] = []
+  public memoriams: NoticeEntryModel[] = []
   public apiUrl = '/api/notices';
 
   memoriamEffect = effect(() => {

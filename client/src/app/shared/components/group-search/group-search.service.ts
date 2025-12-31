@@ -3,13 +3,14 @@ import { Group } from '../../interfaces/groups.interface';
 import { tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ToastUtils } from '../../utils/toastUtils';
-import { NoticesModel } from '../../../home/home.component';
+import { NoticeEntryModel } from '../../../notice-entry/notice-entry.model';
+// import { NoticesModel } from '../../../death-notice-gallery/death-notice-gallery.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupSearchService {
-  public groupSearchSignal = signal<NoticesModel[]>([]);
+  public groupSearchSignal = signal<NoticeEntryModel[]>([]);
   private apiUrl = '/api/notices';
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);;
@@ -23,7 +24,7 @@ export class GroupSearchService {
   }
 
   public getNoticesForGroup = (groupId: string) => {
-    return this.httpClient.get<NoticesModel[]>(`${this.apiUrl}/groups/${groupId}`).pipe(
+    return this.httpClient.get<NoticeEntryModel[]>(`${this.apiUrl}/groups/${groupId}`).pipe(
       tap(notices => {
         this.groupSearchSignal.set([...notices]);
       })

@@ -2,13 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { NoticesModel } from '../../../home/home.component';
+import { NoticeEntryModel } from '../../../notice-entry/notice-entry.model';
+// import { NoticesModel } from '../../../death-notice-gallery/death-notice-gallery.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  public searchSignal = signal<NoticesModel[]>([]);
+  public searchSignal = signal<NoticeEntryModel[]>([]);
   private searchUrl = '/api/notices/search/notices/name/1';
   private httpClient = inject(HttpClient);
   private toastr = inject(ToastrService)
@@ -19,7 +20,7 @@ export class SearchService {
       fromObject: { searchField },
     });
 
-    return this.httpClient.get<NoticesModel[]>(this.searchUrl, { params }).pipe(
+    return this.httpClient.get<NoticeEntryModel[]>(this.searchUrl, { params }).pipe(
       tap(notices => {
         console.log('SearchService.notices', notices)
         this.searchSignal.set([...notices]);

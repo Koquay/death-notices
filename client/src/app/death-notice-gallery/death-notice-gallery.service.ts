@@ -1,20 +1,21 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { NoticesModel } from './home.component';
+import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class DeathNoticeGalleryService {
+
   public noticesSignal = signal<{
-    notices: NoticesModel[];
+    notices: NoticeEntryModel[];
   }>({ notices: [] });
   private httpClient = inject(HttpClient);
   private noticesUrl = '/api/notices';
 
   public getNotices = () => {
-    return this.httpClient.get<NoticesModel[]>(this.noticesUrl).pipe(
+    return this.httpClient.get<NoticeEntryModel[]>(this.noticesUrl).pipe(
       tap((noticesData) => {
         this.noticesSignal.set({ notices: noticesData });
         console.log('noticesSignal:', this.noticesSignal());
@@ -28,7 +29,7 @@ export class HomeService {
   }
 
   public getNotice = (noticeNo: string) => {
-    return this.httpClient.get<NoticesModel[]>(this.noticesUrl).pipe(
+    return this.httpClient.get<NoticeEntryModel[]>(this.noticesUrl).pipe(
       tap((noticesData) => {
         this.noticesSignal.set({ notices: noticesData });
         console.log('noticesSignal:', this.noticesSignal());

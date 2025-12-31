@@ -1,51 +1,7 @@
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-12 col-md-9">
-      <div class="row d-flex justify-content-center">
-        <h4 class="text-muted text-center mb-3">DEARLY DEPARTED</h4>
-      </div>
-      <div class="row d-flex justify-content-center mb-4">
-        <div class="col-12 d-flex justify-content-center">
-          <div class="row d-flex justify-content-center">
-            <div
-              class="col-12 col-md-6 d-flex justify-content-center mb-0 mb-md-3"
-            >
-              <app-search></app-search>
-            </div>
-            <div class="col-12 col-md-6 d-flex justify-content-center">
-              <app-group-search></app-group-search>
-              <!-- <small class="ms-2">reset</small> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center">
-        <!-- <h4 class="text-muted text-center mb-3">DEARLY DEPARTED</h4> -->
-        @for (notice of notices; track $index) {
-        <div
-          class="col-12 col-sm-6 col-md-3 col-lg-2-5 d-flex flex-column align-items-center mb-4"
-          [routerLink]="['/death-notice', notice._id]"
-        >
-          <div class="card card-hover">
-            <img
-              *ngIf="notice.imageId"
-              class="img-fluid"
-              [src]="apiUrl + '/image/' + notice.imageId"
-              alt="Notice image"
-              loading="lazy"
-            />
-            <div class="card-body">
-              <h4 class="card-title" style="font-size: 14.7px">
-                <strong>{{ notice.name }}</strong>
-              </h4>
-              <h6 class="text-muted card-subtitle mb-2" style="font-size: 15px">
-                {{ notice.death_date | date : "MMMM d, yyyy" }}
-              </h6>
-            </div>
-          </div>
-        </div>
-        }
-      </div>
+      <app-death-notice-gallery />
     </div>
     <div
       class="col-12 col-md-3 mt-4 mt-md-0 d-md-flex flex-column align-items-center"

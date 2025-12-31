@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { SearchService } from './search.service';
-import { HomeService } from '../../../home/home.service';
+import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +17,7 @@ export class SearchComponent {
   public searchField = '';
   private searchSubject = new Subject<string>();
   private searchService = inject(SearchService);
-  private homeService = inject(HomeService);
+  private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
 
   ngOnInit() {
     this.handleSearch();
@@ -37,7 +37,7 @@ export class SearchComponent {
 
         this.search(searchField)
       } else {
-        this.homeService.getNotices().subscribe();
+        this.deathNoticeGalleryService.getNotices().subscribe();
       }
 
     });

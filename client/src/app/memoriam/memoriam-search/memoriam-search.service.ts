@@ -2,13 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { NoticesModel } from '../../home/home.component';
+import { NoticeEntryModel } from '../../notice-entry/notice-entry.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemoriamSearchService {
-  public memoriamSignal = signal<NoticesModel[]>([]);
+  public memoriamSignal = signal<NoticeEntryModel[]>([]);
 
   private searchUrl = '/api/notices/search/memoriams/name/1';
   private httpClient = inject(HttpClient);
@@ -20,7 +20,7 @@ export class MemoriamSearchService {
       fromObject: { searchField },
     });
 
-    return this.httpClient.get<NoticesModel[]>(this.searchUrl, { params }).pipe(
+    return this.httpClient.get<NoticeEntryModel[]>(this.searchUrl, { params }).pipe(
       tap(memoriams => {
         console.log('SearchService.memoriams', memoriams)
         this.memoriamSignal.set([...memoriams]);
