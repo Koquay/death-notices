@@ -252,12 +252,12 @@ exports.getNoticeImage = (req, res) => {
 exports.getNoticeByNo = async (req, res) => {
   console.log('notices.controller.getNoticeByNo called...')
 
-  // const noticeNo = new mongoose.Types.ObjectId(req.params.noticeNo);
 
   try {
   const notice = await Notices.findOne({notice_no:req.params.noticeNo})
       .populate("contacts") // populate contacts
       .populate("events")
+      .populate("groups")
       .exec();
 
     console.log("notice retrieved:", notice);

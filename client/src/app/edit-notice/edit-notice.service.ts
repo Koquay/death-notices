@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { EditNoticeModel } from './edit-notice.model';
+import { Group } from '../shared/interfaces/groups.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,7 @@ export class EditNoticeService {
         additionalInformation: editNoticeModel.additionalInformation,
         contacts: editNoticeModel.contacts,
         events: editNoticeModel.events,
+        groups: editNoticeModel.groups,
       })
     );
 
@@ -72,6 +74,22 @@ export class EditNoticeService {
       })
     ).subscribe();
   };
+
+  public addNewGroup = (group: Group) => {
+    return this.httpClient.post<Group[]>(`${this.noticesUrl}/group`, group).pipe(
+      tap(groups => {
+
+      })
+    )
+  }
+
+  public getGroups = () => {
+    return this.httpClient.get<Group[]>(`${this.noticesUrl}/groups`).pipe(
+      tap(groups => {
+
+      })
+    )
+  }
 
   formatDateForInput(date: string | Date): string {
     if (!date) return '';

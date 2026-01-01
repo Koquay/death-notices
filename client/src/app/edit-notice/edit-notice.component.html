@@ -156,7 +156,7 @@
               <label
                 class="form-label fw-bold"
                 style="font-size: 18px; text-decoration: underline"
-                >Enter Death Announcement:</label
+                >Edit Death Announcement:</label
               ><textarea
                 class="form-control"
                 style="border-width: 1.8px"
@@ -178,7 +178,7 @@
                 <label
                   class="form-label fw-bold"
                   style="font-size: 18px; text-decoration: underline"
-                  >Events:</label
+                  >Edit Events:</label
                 ><small class="ms-2">(Wake, burial, repast, etc.)</small>
               </div>
 
@@ -299,14 +299,15 @@
         </section>
 
         <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <div class="col-8 mb-2">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+              <!-- Section title -->
+              <div class="mb-2">
                 <label
                   class="form-label fw-bold"
                   style="font-size: 18px; text-decoration: underline"
                 >
-                  Contact Information:
+                  Edit Contact Information:
                 </label>
               </div>
 
@@ -406,12 +407,89 @@
         </section>
 
         <section class="mt-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6">
+              <label
+                class="form-label fw-bold"
+                style="font-size: 18px; text-decoration: underline"
+                >Edit Groups:</label
+              ><small class="ms-2">(optional)</small
+              ><small class="d-block"
+                >If the deceased was part of a group (school, work, family,
+                etc.), you can select that group or add a new group. This will
+                enable you to search for all members of that group who have
+                passed. </small
+              >
+              <label
+                class="form-label fw-bold mt-4 mb-0"
+                style="font-size: 15px"
+                >Edit Deceased's Current Group(s):</label
+              >
+              <ul class="list-unstyled">
+                @for (group of editNoticeModel.groups; track $index) {
+                <li>
+                  {{ group.name }}
+                  <i
+                    *ngIf="group._id"
+                    class="fa fa-times-rectangle btn-danger ms-4"
+                    style="font-size: 16px; color: var(--bs-danger)"
+                    (click)="removeDeceasedGroup(group)"
+                  ></i>
+                </li>
+                }
+              </ul>
+
+              <label
+                class="form-label fw-bold mt-4 mb-0"
+                style="font-size: 15px"
+                >Select group(s):</label
+              >
+              <small class="ms-2"
+                >(press ctrl then click for multiple selections)</small
+              >
+
+              <select
+                class="form-select"
+                multiple
+                [(ngModel)]="selectedGroups"
+                (click)="addDeceasedGroup()"
+              >
+                <option *ngFor="let group of groups" [ngValue]="group">
+                  {{ group.name }}
+                </option>
+              </select>
+
+              <label
+                class="form-label fw-bold mt-4 mb-0"
+                style="font-size: 15px; font-weight: bold"
+                >Create a new group:</label
+              >
+
+              <div
+                class="col-12 col-lg-10 mb-2 mb-lg-0 d-flex flex-row align-items-center"
+              >
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="newGroup"
+                  name="name"
+                  style="border-width: 1.8px"
+                />
+                <button class="btn btn-outline-primary" (click)="addNewGroup()">
+                  <small>Save</small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
               <label
                 class="form-label fw-bold"
                 style="font-size: 18px; text-decoration: underline"
-                >Additional Information:</label
+                >Edit Additional Information:</label
               ><textarea
                 class="form-control"
                 style="border-width: 1.8px"
@@ -438,14 +516,14 @@
           </div>
         </div>
 
-        <div class="row mt-5 d-flex justify-content-center">
+        <!-- <div class="row mt-5 d-flex justify-content-center">
           <h6 class="fw-bold">Enter Credit Card Info</h6>
           <div
             id="card-element"
             class="p-3 border rounded"
             style="border: 1px solid gray !important"
           ></div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>

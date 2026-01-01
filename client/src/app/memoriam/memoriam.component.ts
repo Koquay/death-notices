@@ -5,13 +5,17 @@ import { CommonModule } from '@angular/common';
 import { MemoriamSearchComponent } from './memoriam-search/memoriam-search.component';
 import { MemoriamSearchService } from './memoriam-search/memoriam-search.service';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
+import { MemoriamViewComponent } from './memoriam-view/memoriam-view.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-memoriam',
   standalone: true,
   imports: [
     CommonModule,
-    MemoriamSearchComponent
+    RouterModule,
+    MemoriamSearchComponent,
+    MemoriamViewComponent
   ],
   templateUrl: './memoriam.component.html',
   styleUrl: './memoriam.component.scss'

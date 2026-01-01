@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.component';
 import { EditNoticeService } from './edit-notice.service';
 import { EditNoticeModel } from './edit-notice.model';
+import { Group } from '../shared/interfaces/groups.interface';
 
 @Component({
   selector: 'app-edit-notice',
@@ -23,6 +24,15 @@ export class EditNoticeComponent {
   public apiUrl = '/api/notices';
   public operation = 'edit-notice'
   public birth_date?: string;
+
+  selectedGroups: Group[] = [];
+  groups: Group[] = [];
+  group: Group = { _id: '', name: null };
+  newGroup?: string | null;
+
+  ngOnInit() {
+    this.getGroups();
+  }
 
   addContact() {
     this.editNoticeModel?.contacts.push({
@@ -84,5 +94,37 @@ export class EditNoticeComponent {
     this.editNoticeModel.editImageMode = true;
   }
 
+  private getGroups = () => {
+    this.editNoticeService.getGroups().subscribe(groups => {
+      console.log('groups', groups)
+      this.groups = groups;
+    })
+  }
 
+  addDeceasedGroup() {
+    this.editNoticeModel.groups = this.selectedGroups;
+    this.saveNoticeData();
+  }
+
+  addNewGroup() {
+    this.newGroup = this.newGroup?.trim();
+
+    if (this.newGroup) {
+      this.group.name = this.newGroup;
+      this.editNoticeService.addNewGroup(this.group).subscribe(groups => {
+        this.groups = groups;
+        this.group.name = null;
+        this.newGroup = null;
+      })
+
+
+      this.saveNoticeData();
+    }
+  }
+
+  removeDeceasedGroup(group: Group) {
+    this.selectedGroups = this.selectedGroups.filter(g => g._id !== group._id);
+    this.editNoticeModel.groups = this.selectedGroups;
+    this.saveNoticeData();
+  }
 }

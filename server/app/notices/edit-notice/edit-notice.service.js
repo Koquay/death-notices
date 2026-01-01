@@ -49,6 +49,7 @@ exports.editNoticeService = async ({ noticeData, file }) => {
       additionalInformation: noticeData.additionalInformation,
       contacts: noticeData.contacts,
       events: noticeData.events,
+      groups: noticeData.groups,
     };
 
     if (newImageId) {
@@ -62,6 +63,7 @@ exports.editNoticeService = async ({ noticeData, file }) => {
     )
       .populate("contacts")
       .populate("events")
+      .populate("groups")
       .exec();
 
     if (session) updateQuery.session(session);
