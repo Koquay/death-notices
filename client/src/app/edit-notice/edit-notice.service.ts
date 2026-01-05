@@ -62,8 +62,6 @@ export class EditNoticeService {
       console.log('Appending image file to FormData:', editNoticeModel.imageFile);
     }
 
-    this.editNoticeModel.editImageMode = false;
-
     this.httpClient.put<EditNoticeModel>(
       `${this.noticesUrl}/${editNoticeModel._id}`,
       fd
@@ -71,6 +69,7 @@ export class EditNoticeService {
       tap((editedNotice) => {
         console.log('Edited notice response:', editedNotice);
         Object.assign(this.editNoticeModel, editedNotice);
+        this.editNoticeModel.editImageMode = false;
       })
     ).subscribe();
   };

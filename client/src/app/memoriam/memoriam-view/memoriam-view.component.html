@@ -1,1 +1,38 @@
-<p>memoriam-view works!</p>
+<div class="container">
+  <section class="">
+    <div class="row">
+      <div
+        class="col-12 d-flex flex-column justify-content-center align-items-center"
+      >
+        <h4>{{ memoriam.name }}</h4>
+
+        <img
+          *ngIf="memoriam.imageId"
+          class="img-fluid memoriam-image"
+          [src]="apiUrl + '/image/' + memoriam.imageId"
+          alt="memoriam image"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="row d-flex">
+      <div
+        class="col-12 d-flex flex-column justify-content-center align-items-center"
+      >
+        <h5 class="">Announcement</h5>
+        <textarea
+          class="form-control-lg text-muted announcement-width"
+          id="announcement"
+          readonly
+          appAutoResizeTextarea
+          name="announcement"
+          [value]="memoriam.announcement"
+          style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
+        ></textarea>
+      </div>
+    </div>
+  </section>
+</div>

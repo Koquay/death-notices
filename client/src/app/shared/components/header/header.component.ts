@@ -12,8 +12,13 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
   @Output() openEditNoticeModal = new EventEmitter<void>();
+  @Output() openEditMemoriamModal = new EventEmitter<void>();
 
   onEditNoticeClick() {
     this.openEditNoticeModal.emit();
+  }
+
+  onEditMemoriamClick() {
+    this.openEditMemoriamModal.emit();
   }
 }

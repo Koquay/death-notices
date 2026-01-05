@@ -72,7 +72,13 @@ export class AppImageUploadComponent {
     if (this.operation === 'edit-notice') {
       this.editNoticeModel.imageFile = file;
       console.log('handleFile.this.editNoticeModel.imageFile', this.editNoticeModel.imageFile);
-    } else {
+    }
+    else if (this.operation === 'edit-memoriam') {
+      this.noticeEntryModel.imageFile = file;
+      console.log('operation', this.operation);
+      console.log('handleFile.this.noticeEntryModel', this.noticeEntryModel);
+    }
+    else {
       this.noticeEntryModel.imageFile = file;
       console.log('handleFile.this.noticeEntryModel.imageFile', this.noticeEntryModel.imageFile);
     }
@@ -84,27 +90,6 @@ export class AppImageUploadComponent {
     console.log('selected file:', file);
   }
 
-
-  // private handleFile(file: File) {
-  //   this.fileError = null;
-
-  //   if (!file.type.startsWith('image/')) {
-  //     this.resetFile('Only image files are allowed.');
-  //     return;
-  //   }
-  //   if (file.size > this.maxFileSize) {
-  //     this.resetFile('Image is too large (max 5MB).');
-  //     return;
-  //   }
-
-  //   this.noticeEntryModel.imageFile = file;
-
-  //   const reader = new FileReader();
-  //   reader.onload = () => (this.preview = reader.result as string);
-  //   reader.readAsDataURL(file);
-
-  //   console.log('selected file:', file);
-  // }
 
   private resetFile(msg?: string) {
     this.selectedFile = null;

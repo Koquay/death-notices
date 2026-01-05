@@ -18,11 +18,28 @@ input, select {
 }
 
 .notice-image {
-    width: 600px;@import 'ngx-toastr/toastr';
-    height: 600px;
+    width: 600px !important;
+    height: 600px !important;
     object-fit: cover;
     border-radius: 6px;
   }
+
+  .memoriam-image {
+    width: 600px !important;
+    height: 600px !important;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .announcement-width {
+    width: 100% !important;
+
+    @media screen and (min-width: 768px) {
+      width: 75% !important;
+      
+  }
+  }
+
   
 
 
