@@ -1,8 +1,18 @@
 implement toastr
 
-implement groups in edit notice
+*** store operation to localStorage
 
-date - 1 issue
+toast when edit notice and memoiam not found
+
+environment.pk_test -- change for production
+
+notice-entry refresh from localStorage -- name and event.time are not populated.
+
+*** implement groups in edit notice
+
+memoriam pages -- add birth and death dates
+
+date-1 issue
 
 4242 4242 4242 4242
 
@@ -12,22 +22,26 @@ date in Enter Notice disappears after submit
 
 fields validation
 
+header
+
 paypal
 
 primary buttons
 
-in memoriam
+*** in memoriam
 
-search input
+*** search input
 
-refactor HomeComponent -- embed Notices and memoriams
+*** refactor HomeComponent -- embed Notices and memoriams
 
-memoriam payment
+*** memoriam payment
 
-Align contacts in notice entry
+*** Align contacts in notice entry
 
 add email to notice entry
 
-sort available groups
+*** sort available groups
 
 in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+

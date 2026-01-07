@@ -142,7 +142,7 @@
                     type="text"
                     [(ngModel)]="event.type"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -154,7 +154,7 @@
                     type="date"
                     [(ngModel)]="event.date"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -166,7 +166,7 @@
                     type="time"
                     [(ngModel)]="event.time"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -178,7 +178,7 @@
                     type="text"
                     [(ngModel)]="event.location"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -190,7 +190,7 @@
                     type="text"
                     [(ngModel)]="event.address"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -202,7 +202,7 @@
                     type="text"
                     [(ngModel)]="event.city"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -214,7 +214,7 @@
                     type="text"
                     [(ngModel)]="event.state"
                     name="name{{ i }}"
-                    (change)="saveEventData()"
+                    (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
                 </div>
@@ -257,9 +257,9 @@
 
               <!-- Desktop headers -->
               <div class="row d-none d-lg-flex mb-2">
-                <div class="col-lg-4"><strong>Name</strong></div>
-                <div class="col-lg-4"><strong>Relationship</strong></div>
-                <div class="col-lg-3"><strong>Phone</strong></div>
+                <div class="col-lg-4"><strong>Name:</strong></div>
+                <div class="col-lg-4"><strong>Relationship:</strong></div>
+                <div class="col-lg-3"><strong>Phone:</strong></div>
                 <div class="col-lg-1"></div>
               </div>
 
@@ -270,26 +270,35 @@
               >
                 <div class="col-12 col-lg-4 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Name</strong></label
+                    ><strong>Name:</strong></label
                   >
-                  <input class="form-control" [(ngModel)]="contact.name" />
+                  <input
+                    class="form-control"
+                    [(ngModel)]="contact.name"
+                    (change)="saveNoticeData()"
+                  />
                 </div>
 
                 <div class="col-12 col-lg-4 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Relationship</strong></label
+                    ><strong>Relationship:</strong></label
                   >
                   <input
                     class="form-control"
                     [(ngModel)]="contact.relationship"
+                    (change)="saveNoticeData()"
                   />
                 </div>
 
                 <div class="col-12 col-lg-3 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Phone</strong></label
+                    ><strong>Phone:</strong></label
                   >
-                  <input class="form-control" [(ngModel)]="contact.phone" />
+                  <input
+                    class="form-control"
+                    [(ngModel)]="contact.phone"
+                    (change)="saveNoticeData()"
+                  />
                 </div>
 
                 <div class="col-12 col-lg-1 d-flex justify-content-lg-end">
@@ -309,6 +318,19 @@
               >
                 + Add Another Contact
               </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6">
+              <label class="form-label"><strong>Your Email:</strong></label>
+              <input
+                class="form-control"
+                [(ngModel)]="noticeEntryModel.email"
+                (change)="saveNoticeData()"
+              />
             </div>
           </div>
         </section>
@@ -340,6 +362,7 @@
                 multiple
                 [(ngModel)]="selectedGroups"
                 (click)="addDeceasedGroup()"
+                (change)="saveNoticeData()"
               >
                 <option *ngFor="let group of groups" [ngValue]="group">
                   {{ group.name }}
@@ -395,6 +418,10 @@
         <section class="mt-5">
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6">
+              <div class="col-12 col-md-4">
+                <label class="form-label fw-bold">Amount:</label>
+                <span class="fs-5 ms-2">{{ noticePrice | currency }}</span>
+              </div>
               <h6 class="fw-bold">Enter Credit Card Info</h6>
               <div
                 id="card-element"

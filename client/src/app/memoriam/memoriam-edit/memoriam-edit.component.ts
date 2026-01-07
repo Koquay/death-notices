@@ -5,6 +5,7 @@ import { MemoriamEditService } from './memoriam-edit.service';
 import { AppImageUploadComponent } from '../../app-image-upload/app-image-upload.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { persistStateToLocalStorage } from '../../shared/utils/localStorageUtils';
 
 @Component({
   selector: 'app-memoriam-edit',
@@ -31,6 +32,7 @@ export class MemoriamEditComponent {
 
   public saveMemoriamData = () => {
     console.log('saveNoticeData.memoriamEntryModel:', this.memoriamEntryModel);
+    persistStateToLocalStorage({ memoriamEntryModel: this.memoriamEntryModel });
   }
 
   public toggleEditImageMode = () => {

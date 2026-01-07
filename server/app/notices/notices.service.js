@@ -77,6 +77,7 @@ exports.enterNotice = async (req, res) => {
         death_date: noticeData.death_date,
         announcement: noticeData.announcement,
         additionalInformation: noticeData.additionalInformation,
+        email: noticeData.email,
         contacts: contactIds,
         events: eventIds,
         groups: groupIds,

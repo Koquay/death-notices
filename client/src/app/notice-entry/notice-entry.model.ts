@@ -20,7 +20,7 @@ export class NoticeEntryModel {
     announcement: string = '';
     relationship: string = '';
     editImageMode = false;
-
+    email: string = '';
     contacts: Contact[] = [
         {
             name: '',

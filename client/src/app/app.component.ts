@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { EditNoticeModalComponent } from './edit-notice/edit-notice-modal/edit-notice-modal.component';
 import { MemoriamEditModalComponent } from './memoriam/memoriam-edit-modal/memoriam-edit-modal.component';
+import { AppService } from './app.service';
 
 declare var bootstrap: any;
 
@@ -20,6 +21,12 @@ declare var bootstrap: any;
 })
 export class AppComponent {
   title = 'client';
+
+  private appService = inject(AppService);
+
+  constructor() {
+    this.appService.restoreStateFromLocalStorage();
+  }
 
   showEditNoticeModal() {
     console.log('AppComponent.showEditNoticeModal() called')

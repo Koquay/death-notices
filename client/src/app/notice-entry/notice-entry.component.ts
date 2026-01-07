@@ -8,6 +8,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../environments/environment';
 import { ToastUtils } from '../shared/utils/toastUtils';
 import { Group } from '../shared/interfaces/groups.interface';
+import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
 
 @Component({
   selector: 'app-notice-entry',
@@ -31,6 +32,7 @@ export class NoticeEntryComponent {
   card: any;
   elements: any;
   clientSecret: string = "";
+  public noticePrice: number = environment.notice_amount;
 
   selectedGroups: Group[] = [];
   groups: Group[] = [];
@@ -57,7 +59,7 @@ export class NoticeEntryComponent {
 
     }
 
-    this.noticeEntryService.createPaymentIntent({ amount: environment.amount, currency: 'usd' }).subscribe((paymentIntent => {
+    this.noticeEntryService.createPaymentIntent({ amount: environment.notice_amount, currency: 'usd' }).subscribe((paymentIntent => {
       for (const [key, value] of Object.entries(paymentIntent)) {
         if (key === 'client_secret') {
           console.log(`${key}: ${value}`);
@@ -85,6 +87,7 @@ export class NoticeEntryComponent {
 
   removeContact(index: number) {
     this.noticeEntryModel.contacts.splice(index, 1);
+    this.saveNoticeData();
   }
 
   addDeceasedGroup() {
@@ -110,15 +113,18 @@ export class NoticeEntryComponent {
 
   removeGroup(index: number) {
     this.noticeEntryModel.groups.splice(index, 1);
+    this.saveNoticeData();
   }
 
   public saveNoticeData = () => {
     console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
     console.log('saveNoticeData.selectedGroups:', this.selectedGroups);
+    persistStateToLocalStorage({ noticeEntryModel: this.noticeEntryModel });
   }
 
   removeEvent(index: number) {
     this.noticeEntryModel.events.splice(index, 1);
+    this.saveNoticeData();
   }
 
   addEvent() {

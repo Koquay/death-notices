@@ -30,6 +30,7 @@ export class NoticeEntryService {
         events: noticeEntryModel.events,
         groups: noticeEntryModel.groups,
         additionalInformation: noticeEntryModel.additionalInformation,
+        email: noticeEntryModel.email,
 
       })
     );

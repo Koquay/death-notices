@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { EditNoticeModel } from '../edit-notice/edit-notice.model';
+import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
 
 @Component({
   selector: 'app-image-upload',
@@ -72,15 +73,18 @@ export class AppImageUploadComponent {
     if (this.operation === 'edit-notice') {
       this.editNoticeModel.imageFile = file;
       console.log('handleFile.this.editNoticeModel.imageFile', this.editNoticeModel.imageFile);
+      persistStateToLocalStorage({ editNoticeModel: this.editNoticeModel });
     }
     else if (this.operation === 'edit-memoriam') {
       this.noticeEntryModel.imageFile = file;
+      persistStateToLocalStorage({ noticeEntryModel: this.noticeEntryModel });
       console.log('operation', this.operation);
       console.log('handleFile.this.noticeEntryModel', this.noticeEntryModel);
     }
     else {
       this.noticeEntryModel.imageFile = file;
       console.log('handleFile.this.noticeEntryModel.imageFile', this.noticeEntryModel.imageFile);
+      persistStateToLocalStorage({ noticeEntryModel: this.noticeEntryModel });
     }
 
     const reader = new FileReader();

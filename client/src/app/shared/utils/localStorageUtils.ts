@@ -1,35 +1,22 @@
 export const persistStateToLocalStorage = (state: any) => {
-  let temuStr = localStorage.getItem('temu');
+  let deathNoticeStr = localStorage.getItem('deathNotice');
 
-  let temuObj;
+  let deathNoticeObj;
 
-  if (temuStr) {
-    temuObj = JSON.parse(temuStr);
+  if (deathNoticeStr) {
+    deathNoticeObj = JSON.parse(deathNoticeStr);
   } else {
-    temuObj = {};
+    deathNoticeObj = {};
   }
 
-  temuObj = { ...temuObj, ...state };
-  localStorage.setItem('temu', JSON.stringify(temuObj));
+  deathNoticeObj = { ...deathNoticeObj, ...state };
+  localStorage.setItem('deathNotice', JSON.stringify(deathNoticeObj));
 
-  // console.log('persistStateToLocalStorage.temuObj', temuObj)
-
-  temuStr = localStorage.getItem('temu');
-  // console.log('temuStr after persistStateToLocalStorage.temuStr', temuStr)
+  deathNoticeStr = localStorage.getItem('deathNotice');
+  console.log('deathNoticeStr after persistStateToLocalStorage.deathNoticeStr', deathNoticeStr)
 
 };
 
-export const getGuestCart = () => {
-  let temu: any = {};
-  try {
-    temu = JSON.parse(localStorage.getItem('temu') || '{}');
-  } catch {
-    temu = {};
-  }
 
-  console.log('guestCart.temu', temu)
-
-  return temu?.cartModel?.cart || [];
-}
 
 

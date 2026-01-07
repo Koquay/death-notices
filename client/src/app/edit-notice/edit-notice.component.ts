@@ -5,6 +5,7 @@ import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.co
 import { EditNoticeService } from './edit-notice.service';
 import { EditNoticeModel } from './edit-notice.model';
 import { Group } from '../shared/interfaces/groups.interface';
+import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
 
 @Component({
   selector: 'app-edit-notice',
@@ -44,14 +45,17 @@ export class EditNoticeComponent {
 
   removeContact(index: number) {
     this.editNoticeModel?.contacts.splice(index, 1);
+    this.saveNoticeData();
   }
 
   public saveNoticeData = () => {
     console.log('saveNoticeData.editNoticeModel:', this.editNoticeModel);
+    persistStateToLocalStorage({ editNoticeModel: this.editNoticeModel });
   }
 
   removeEvent(index: number) {
     this.editNoticeModel?.events.splice(index, 1);
+    this.saveNoticeData();
   }
 
   addEvent() {

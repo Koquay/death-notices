@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-12">
       <form
-        #noticeForm="ngForm"
+        #memoriamForm="ngForm"
         class="d-flex flex-column justify-content-center"
       >
         <section class="">
@@ -36,7 +36,7 @@
                     [(ngModel)]="memoriamEntryModel.name"
                     required
                     #name="ngModel"
-                    (change)="saveNoticeData()"
+                    (change)="saveMemoriamData()"
                     style="border-width: 1.8px; width: 100%"
                   />
                 </div>
@@ -59,29 +59,32 @@
                 name="announcement"
                 [(ngModel)]="memoriamEntryModel.announcement"
                 #announcement="ngModel"
-                (selectionchange)="saveNoticeData()"
+                (selectionchange)="saveMemoriamData()"
               ></textarea>
             </div>
           </div>
         </section>
         <section class="mt-5">
-          <!-- <div class="row d-flex justify-content-center">
-              <div class="col-12 col-md-6">
-                <h6 class="fw-bold">Enter Credit Card Info</h6>
-                <div
-                  id="card-element"
-                  class="p-3 border rounded"
-                  style="border: 1px solid gray !important"
-                ></div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-6">
+              <div class="col-12 col-md-4">
+                <label class="form-label fw-bold">Amount:</label>
+                <span class="fs-5 ms-2">{{ memoriamPrice | currency }}</span>
               </div>
-            </div> -->
-
+              <h6 class="fw-bold mt-2">Enter Credit Card Info</h6>
+              <div
+                id="card-element"
+                class="p-3 border rounded"
+                style="border: 1px solid gray !important"
+              ></div>
+            </div>
+          </div>
           <div class="row mt-2 d-flex justify-content-center">
             <div class="col-12 col-md-4">
               <button
                 class="btn btn-primary px-4 py-2"
                 type="button"
-                (click)="submitNotice()"
+                (click)="submitMemoriam()"
               >
                 Submit Memoriam
               </button>
