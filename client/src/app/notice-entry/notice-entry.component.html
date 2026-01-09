@@ -1,5 +1,15 @@
 <div class="container my-2">
   <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h2 class="fw-bold text-muted">Death Notice Entry Form</h2>
+        <p>
+          Please fill out the form below to submit a death notice. Fields marked
+          with an asterisk (<span class="text-danger fw-bold">*</span>) are
+          required.
+        </p>
+      </div>
+    </div>
     <div class="col-12">
       <form
         #noticeForm="ngForm"
@@ -16,7 +26,9 @@
                 <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
-                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
+                      ><span style="color: rgb(0, 0, 0)"
+                        >Name <span class="text-danger">*</span></span
+                      ></strong
                     ></label
                   >
                 </div>
@@ -33,7 +45,7 @@
                   <label class="col-form-label"
                     ><strong
                       ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death</span
+                        >Date of Death <span class="text-danger">*</span></span
                       ></strong
                     ></label
                   >
@@ -44,16 +56,16 @@
                   <label class="form-label d-lg-none me-2"
                     ><strong
                       ><span class="w-100" style="color: rgb(0, 0, 0)"
-                        >Name:</span
+                        >Name: <span class="text-danger">*</span></span
                       ></strong
                     ></label
                   ><input
                     class="form-control"
                     type="text"
-                    name="name"
+                    name="noticeName"
                     [(ngModel)]="noticeEntryModel.name"
                     required
-                    #name="ngModel"
+                    #nameCtrl="ngModel"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px; width: 100%"
                   />
@@ -80,7 +92,7 @@
                   <label class="form-label d-lg-none me-2"
                     ><strong
                       ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death</span
+                        >Date of Death <span class="text-danger">*</span></span
                       ></strong
                     ></label
                   ><input
@@ -101,10 +113,9 @@
         <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
-                >Enter Death Announcement:</label
+              <label class="form-label fw-bold" style="font-size: 18px"
+                >Enter Death Announcement:
+                <span class="text-danger">*</span></label
               ><textarea
                 class="form-control"
                 style="border-width: 1.8px"
@@ -123,9 +134,7 @@
           <div class="row d-flex justify-content-center">
             <div class="col-6">
               <div class="col-12 mb-2">
-                <label
-                  class="form-label fw-bold"
-                  style="font-size: 18px; text-decoration: underline"
+                <label class="form-label fw-bold" style="font-size: 18px"
                   >Events:</label
                 ><small class="ms-2">(Wake, burial, repast, etc.)</small>
               </div>
@@ -247,19 +256,20 @@
             <div class="col-12 col-md-6">
               <!-- Section title -->
               <div class="mb-2">
-                <label
-                  class="form-label fw-bold"
-                  style="font-size: 18px; text-decoration: underline"
-                >
+                <label class="form-label fw-bold" style="font-size: 18px">
                   Contact Information:
                 </label>
               </div>
 
               <!-- Desktop headers -->
               <div class="row d-none d-lg-flex mb-2">
-                <div class="col-lg-4"><strong>Name:</strong></div>
+                <div class="col-lg-4">
+                  <strong>Name: <span class="text-danger">*</span></strong>
+                </div>
                 <div class="col-lg-4"><strong>Relationship:</strong></div>
-                <div class="col-lg-3"><strong>Phone:</strong></div>
+                <div class="col-lg-3">
+                  <strong>Phone: <span class="text-danger">*</span></strong>
+                </div>
                 <div class="col-lg-1"></div>
               </div>
 
@@ -270,7 +280,9 @@
               >
                 <div class="col-12 col-lg-4 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Name:</strong></label
+                    ><strong
+                      >Name: <span class="text-danger">*</span></strong
+                    ></label
                   >
                   <input
                     class="form-control"
@@ -292,7 +304,9 @@
 
                 <div class="col-12 col-lg-3 mb-2 mb-lg-0">
                   <label class="form-label d-lg-none"
-                    ><strong>Phone:</strong></label
+                    ><strong
+                      >Phone: <span class="text-danger">*</span></strong
+                    ></label
                   >
                   <input
                     class="form-control"
@@ -325,7 +339,11 @@
         <section class="mt-5">
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6">
-              <label class="form-label"><strong>Your Email:</strong></label>
+              <label class="form-label"
+                ><strong
+                  >Your Email: <span class="text-danger">*</span></strong
+                ></label
+              >
               <input
                 class="form-control"
                 [(ngModel)]="noticeEntryModel.email"
@@ -338,9 +356,7 @@
         <section class="mt-5">
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
+              <label class="form-label fw-bold" style="font-size: 18px"
                 >Groups:</label
               ><small class="ms-2">(optional)</small
               ><small class="d-block"
@@ -397,9 +413,7 @@
         <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
+              <label class="form-label fw-bold" style="font-size: 18px"
                 >Additional Information:</label
               ><textarea
                 class="form-control"
@@ -422,7 +436,9 @@
                 <label class="form-label fw-bold">Amount:</label>
                 <span class="fs-5 ms-2">{{ noticePrice | currency }}</span>
               </div>
-              <h6 class="fw-bold">Enter Credit Card Info</h6>
+              <h6 class="fw-bold">
+                Enter Credit Card Info <span class="text-danger">*</span>
+              </h6>
               <div
                 id="card-element"
                 class="p-3 border rounded"

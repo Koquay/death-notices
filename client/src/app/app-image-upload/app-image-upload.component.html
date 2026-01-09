@@ -1,9 +1,7 @@
 <div class="container col-12 col-md-10">
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <label
-      class="form-label fw-bold"
-      style="font-size: 18px; text-decoration: underline"
-      >Enter photo of deceased:</label
+    <label class="form-label fw-bold" style="font-size: 18px"
+      >Enter photo of deceased: <span class="text-danger">*</span></label
     >
     <div
       class="drop-zone"

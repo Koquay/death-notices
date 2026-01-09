@@ -41,6 +41,7 @@ export class NoticeEntryComponent {
 
   ngOnInit() {
     // this.setUpStripe();
+    console.log('noticeEntryModel on init:', this.noticeEntryModel);
     this.getGroups();
   }
 

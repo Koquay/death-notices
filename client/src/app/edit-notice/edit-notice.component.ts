@@ -32,6 +32,8 @@ export class EditNoticeComponent {
   newGroup?: string | null;
 
   ngOnInit() {
+    console.log('noticeEntryModel on init:', this.editNoticeModel);
+
     this.getGroups();
   }
 

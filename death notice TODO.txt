@@ -2,7 +2,9 @@ implement toastr
 
 *** store operation to localStorage
 
-toast when edit notice and memoiam not found
+letter to buyer
+
+toast when edit notice and memoriam not found
 
 environment.pk_test -- change for production
 
@@ -10,7 +12,7 @@ notice-entry refresh from localStorage -- name and event.time are not populated.
 
 *** implement groups in edit notice
 
-memoriam pages -- add birth and death dates
+memorriam pages -- add birth and death dates
 
 date-1 issue
 

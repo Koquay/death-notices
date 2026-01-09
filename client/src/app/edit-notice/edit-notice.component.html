@@ -1,5 +1,14 @@
 <div class="container my-2">
   <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h2 class="fw-bold text-muted">Death Notice Edit Form</h2>
+        <p>
+          Please edit the fields you wish to change. Fields marked with an
+          asterisk (<span class="text-danger fw-bold">*</span>) are required.
+        </p>
+      </div>
+    </div>
     <div class="col-12">
       <form class="d-flex flex-column justify-content-center">
         <section class="" *ngIf="editNoticeModel.editImageMode">
@@ -102,10 +111,10 @@
                   ><input
                     class="form-control"
                     type="text"
-                    name="name"
+                    name="noticeName"
                     [(ngModel)]="editNoticeModel.name"
                     required
-                    #name="ngModel"
+                    #nameCtrl="ngModel"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px; width: 100%"
                   />
@@ -187,7 +196,7 @@
                 style="border: 2px solid #ddd"
                 *ngFor="let event of editNoticeModel.events; let i = index"
               >
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"><strong>Type:</strong></label>
                   <input
                     class="form-control"
@@ -199,8 +208,8 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
-                  <label class="form-labele"><strong>Date:</strong></label>
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
+                  <label class="form-label me-2"><strong>Date:</strong></label>
                   <input
                     class="form-control"
                     type="date"
@@ -211,7 +220,7 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"><strong>Time:</strong></label>
                   <input
                     class="form-control"
@@ -223,7 +232,7 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"
                     ><strong>Location:</strong></label
                   >
@@ -237,7 +246,7 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"
                     ><strong>Address:</strong></label
                   >
@@ -251,7 +260,7 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"><strong>City:</strong></label>
                   <input
                     class="form-control"
@@ -263,7 +272,7 @@
                   />
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row">
+                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
                   <label class="form-label me-2"><strong>State:</strong></label>
                   <input
                     class="form-control"

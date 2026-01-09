@@ -92,6 +92,15 @@ export class EditNoticeService {
 
   formatDateForInput(date: string | Date): string {
     if (!date) return '';
+    const date_str = new Date(date).toISOString().split('T')[0];
+    console.log('formatDateForInput.date', date)
+    console.log('formatDateForInput.date_str', date_str)
+    return date_str;
+  }
+
+
+  formatDateForInputXXXX(date: string | Date): string {
+    if (!date) return '';
 
     const d = new Date(date);
     const year = d.getFullYear();
