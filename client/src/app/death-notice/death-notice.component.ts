@@ -33,6 +33,24 @@ export class DeathNoticeComponent {
     console.log("DeathNoticeComponent.noticeId", noticeId);
     this.notice = this.noticesService.getNoticeById(noticeId);
     console.log("DeathNoticeComponent.notice", this.notice);
+
+    if (!this.notice) {
+      const storedData = localStorage.getItem('deathNotice');
+      if (storedData) {
+        const deathNotice = JSON.parse(storedData);
+        this.notice = deathNotice?.noticeById;
+        console.log("DeathNoticeComponent.notice from localStorage", this.notice);
+      }
+
+    }
+  }
+
+  formatDateForInput(date: string | Date | null): string {
+    if (!date) return '';
+    const date_str = new Date(date).toISOString().split('T')[0];
+    console.log('formatDateForInput.date', date)
+    console.log('formatDateForInput.date_str', date_str)
+    return date_str;
   }
 }
 

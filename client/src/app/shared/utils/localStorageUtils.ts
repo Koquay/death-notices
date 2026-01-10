@@ -1,21 +1,19 @@
+
 export const persistStateToLocalStorage = (state: any) => {
-  let deathNoticeStr = localStorage.getItem('deathNotice');
+  const stored = localStorage.getItem('deathNotice');
+  const existing = stored ? JSON.parse(stored) : {};
 
-  let deathNoticeObj;
+  const cleanedState = Object.fromEntries(
+    Object.entries(state).filter(([_, value]) => value !== undefined)
+  );
 
-  if (deathNoticeStr) {
-    deathNoticeObj = JSON.parse(deathNoticeStr);
-  } else {
-    deathNoticeObj = {};
-  }
+  const merged = { ...existing, ...cleanedState };
 
-  deathNoticeObj = { ...deathNoticeObj, ...state };
-  localStorage.setItem('deathNotice', JSON.stringify(deathNoticeObj));
-
-  deathNoticeStr = localStorage.getItem('deathNotice');
-  console.log('deathNoticeStr after persistStateToLocalStorage.deathNoticeStr', deathNoticeStr)
-
+  localStorage.setItem('deathNotice', JSON.stringify(merged));
 };
+
+
+
 
 
 

@@ -3,13 +3,13 @@
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-md-8 text-center">
         <h2 class="fw-bold text-muted">Death Notice Edit Form</h2>
-        <p>
+        <small>
           Please edit the fields you wish to change. Fields marked with an
           asterisk (<span class="text-danger fw-bold">*</span>) are required.
-        </p>
+        </small>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12 mt-4">
       <form class="d-flex flex-column justify-content-center">
         <section class="" *ngIf="editNoticeModel.editImageMode">
           <app-image-upload [operation]="operation" />

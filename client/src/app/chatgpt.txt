@@ -1,0 +1,74 @@
+This function persists states to localStorage:
+
+export const persistStateToLocalStorage = (state: any) => {
+  let deathNoticeStr = localStorage.getItem('deathNotice');
+
+  let deathNoticeObj;
+
+  if (deathNoticeStr) {
+    deathNoticeObj = JSON.parse(deathNoticeStr);
+  } else {
+    deathNoticeObj = {};
+  }
+
+  deathNoticeObj = { ...deathNoticeObj, ...state };
+  localStorage.setItem('deathNotice', JSON.stringify(deathNoticeObj));
+
+  deathNoticeStr = localStorage.getItem('deathNotice');
+  console.log('deathNoticeStr after persistStateToLocalStorage.deathNoticeStr', deathNoticeStr)
+
+};
+
+This function restores MOST of the states from localStorage.
+
+public restoreStateFromLocalStorage = () => {
+    const stored = localStorage.getItem("deathNotice");
+    const deathNotice = stored ? JSON.parse(stored) : null;
+
+    Object.assign(this.noticeEntryModel, deathNotice?.noticeEntryModel ?? {});
+    Object.assign(this.editNoticeModel, deathNotice?.editNoticeModel ?? {});
+    Object.assign(this.memoriamEntryModel, deathNotice?.memoriamEntryModel ?? {});
+
+  };
+
+  The above two functions work as expected. The function below stores the state of a notice that is
+  retrieved by ID to localStorage. It too works, the state is created in localStorage.
+
+  public getNoticeById = (noticeId: string) => {
+    const noticeById = this.noticesSignal().notices.find(notice => notice._id === noticeId);
+
+    persistStateToLocalStorage({ noticeById: noticeById });
+    return noticeById;
+  }
+
+  In this class, if the user were to refresh the browser, the notice member will no longer exist so we
+  retrieve noticeById from localStorage. The problem is noticeById somehow disappears from
+  localStorage. The other states are still present except for noticeById.
+
+  export class DeathNoticeComponent {
+  private activatedRoute = inject(ActivatedRoute);
+  private noticesService = inject(DeathNoticeGalleryService);
+  public notice: NoticeEntryModel | undefined;
+  public apiUrl = '/api/notices';
+
+  ngOnInit() {
+    this.getDeathNotice();
+  }
+
+  private getDeathNotice = () => {
+    const noticeId = this.activatedRoute.snapshot.paramMap.get('noticeId') as string || "";
+    console.log("DeathNoticeComponent.noticeId", noticeId);
+    this.notice = this.noticesService.getNoticeById(noticeId);
+    console.log("DeathNoticeComponent.notice", this.notice);
+
+    if (!this.notice) {
+      const storedData = localStorage.getItem('deathNotice');
+      if (storedData) {
+        const deathNotice = JSON.parse(storedData);
+        this.notice = deathNotice?.noticeById;
+        console.log("DeathNoticeComponent.notice from localStorage", this.notice);
+      }
+
+    }
+  }
+  }

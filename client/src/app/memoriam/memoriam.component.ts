@@ -35,7 +35,6 @@ export class MemoriamComponent {
   });
 
   ngOnInit() {
-    // this.memoriamService.getMemoriams();
     this.memoriamService.getMemoriams().subscribe(memoriams => {
       this.memoriams = memoriams;
     })

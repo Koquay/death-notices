@@ -1,5 +1,10 @@
 <div class="container">
   <section class="">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h2 class="fw-bold text-muted">Death Notice</h2>
+      </div>
+    </div>
     <div class="row">
       <div
         class="col-12 d-flex flex-column justify-content-center align-items-center"
@@ -91,7 +96,9 @@
                           {{ event.type }}
                         </td>
                         <td data-label="Date">
-                          {{ event.date | date : "short" }}
+                          {{
+                            formatDateForInput(event.date) | date : "MM/dd/yyyy"
+                          }}
                         </td>
                         <td data-label="Time">
                           {{ event.time ? (event.time | toAmPmPipe) : "" }}

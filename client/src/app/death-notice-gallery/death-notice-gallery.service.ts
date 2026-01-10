@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
+import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,10 @@ export class DeathNoticeGalleryService {
   }
 
   public getNoticeById = (noticeId: string) => {
-    return this.noticesSignal().notices.find(notice => notice._id === noticeId);
+    const noticeById = this.noticesSignal().notices.find(notice => notice._id === noticeId);
+
+    persistStateToLocalStorage({ noticeById: noticeById });
+    return noticeById;
   }
 
   public getNotice = (noticeNo: string) => {

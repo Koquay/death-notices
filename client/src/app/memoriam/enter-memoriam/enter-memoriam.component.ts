@@ -33,7 +33,7 @@ export class EnterMemoriamComponent {
   clientSecret: string = "";
 
   ngOnInit() {
-    this.setUpStripe();
+    // this.setUpStripe();
   }
 
   public setUpStripe = async () => {
@@ -71,35 +71,35 @@ export class EnterMemoriamComponent {
 
 
   public submitMemoriam = async () => {
-    if (!this.stripe || !this.clientSecret) {
-      this.toastrUtils.show(
-        'error',
-        'There may be a problem with your credit card.',
-        'Error Processing Payment'
-      );
-      return;
-    }
+    // if (!this.stripe || !this.clientSecret) {
+    //   this.toastrUtils.show(
+    //     'error',
+    //     'There may be a problem with your credit card.',
+    //     'Error Processing Payment'
+    //   );
+    //   return;
+    // }
 
-    const result = await this.stripe.confirmCardPayment(this.clientSecret, {
-      payment_method: {
-        card: this.card,
-      },
-    });
+    // const result = await this.stripe.confirmCardPayment(this.clientSecret, {
+    //   payment_method: {
+    //     card: this.card,
+    //   },
+    // });
 
-    if (result.error) {
-      this.toastrUtils.show(
-        'error',
-        result.error.message,
-        'Error Processing Payment'
-      );
+    // if (result.error) {
+    //   this.toastrUtils.show(
+    //     'error',
+    //     result.error.message,
+    //     'Error Processing Payment'
+    //   );
 
-      console.error(result.error.message);
-    } else if (result.paymentIntent?.status === 'succeeded') {
-      console.log('Payment intent succeeded!');
-      this.completeMemoriamSubmission();
-    }
+    //   console.error(result.error.message);
+    // } else if (result.paymentIntent?.status === 'succeeded') {
+    //   console.log('Payment intent succeeded!');
+    //   this.completeMemoriamSubmission();
+    // }
 
-    // this.completeMemoriamSubmission();
+    this.completeMemoriamSubmission();  // Temporarily bypass payment for testing
   }
 
   private completeMemoriamSubmission = () => {

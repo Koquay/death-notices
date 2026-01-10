@@ -3,11 +3,11 @@
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-md-8 text-center">
         <h2 class="fw-bold text-muted">Death Notice Entry Form</h2>
-        <p>
+        <small>
           Please fill out the form below to submit a death notice. Fields marked
           with an asterisk (<span class="text-danger fw-bold">*</span>) are
           required.
-        </p>
+        </small>
       </div>
     </div>
     <div class="col-12">
@@ -150,7 +150,7 @@
                     class="form-control"
                     type="text"
                     [(ngModel)]="event.type"
-                    name="name{{ i }}"
+                    name="event.type{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -162,7 +162,7 @@
                     class="form-control"
                     type="date"
                     [(ngModel)]="event.date"
-                    name="name{{ i }}"
+                    name="event.date{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -174,7 +174,7 @@
                     class="form-control"
                     type="time"
                     [(ngModel)]="event.time"
-                    name="name{{ i }}"
+                    name="event.time{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -186,7 +186,7 @@
                     class="form-control"
                     type="text"
                     [(ngModel)]="event.location"
-                    name="name{{ i }}"
+                    name="event.location{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -198,7 +198,7 @@
                     class="form-control"
                     type="text"
                     [(ngModel)]="event.address"
-                    name="name{{ i }}"
+                    name="event.address{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -210,7 +210,7 @@
                     class="form-control"
                     type="text"
                     [(ngModel)]="event.city"
-                    name="name{{ i }}"
+                    name="event.city{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />
@@ -222,7 +222,7 @@
                     class="form-control"
                     type="text"
                     [(ngModel)]="event.state"
-                    name="name{{ i }}"
+                    name="event.state{{ i }}"
                     (change)="saveNoticeData()"
                     style="border-width: 1.8px"
                   />

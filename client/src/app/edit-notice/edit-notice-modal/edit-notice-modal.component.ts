@@ -19,7 +19,7 @@ declare var bootstrap: any;
 export class EditNoticeModalComponent {
   private router = inject(Router);
   public editNoticeService = inject(EditNoticeService);
-  public noticeNumber: string = '123456';
+  public noticeNumber: string = '1646-6706-9291';
 
   public getNotice() {
     this.editNoticeService.getNotice(this.noticeNumber).subscribe({
