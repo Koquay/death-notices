@@ -4,7 +4,6 @@ import { tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ToastUtils } from '../../utils/toastUtils';
 import { NoticeEntryModel } from '../../../notice-entry/notice-entry.model';
-// import { NoticesModel } from '../../../death-notice-gallery/death-notice-gallery.component';
 
 @Injectable({
   providedIn: 'root'

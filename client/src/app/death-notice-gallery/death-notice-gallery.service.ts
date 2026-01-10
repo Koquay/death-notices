@@ -1,8 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
+import { ToastUtils } from '../shared/utils/toastUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class DeathNoticeGalleryService {
     notices: NoticeEntryModel[];
   }>({ notices: [] });
   private httpClient = inject(HttpClient);
+  private toastrUtils = inject(ToastUtils);
   private noticesUrl = '/api/notices';
 
   public getNotices = () => {
@@ -21,7 +23,15 @@ export class DeathNoticeGalleryService {
         this.noticesSignal.set({ notices: noticesData });
         console.log('noticesSignal:', this.noticesSignal());
       }),
-
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while fetching notices.',
+          'Get Notices Error'
+        );
+        throw error;
+      })
     )
   }
 
@@ -38,6 +48,15 @@ export class DeathNoticeGalleryService {
         this.noticesSignal.set({ notices: noticesData });
         console.log('noticesSignal:', this.noticesSignal());
       }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while fetching notice.',
+          'Get Notice Error'
+        );
+        throw error;
+      })
 
     )
   }

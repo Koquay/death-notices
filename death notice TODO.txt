@@ -2,23 +2,25 @@ implement toastr
 
 *** store operation to localStorage
 
+refactor notice.routes.js -- separate memoriam routes
+
 letter to buyer
 
-toast when edit notice and memoriam not found
+*** toast when edit notice and memoriam not found
 
 environment.pk_test -- change for production
 
-notice-entry refresh from localStorage -- name and event.time are not populated.
+*** notice-entry refresh from localStorage -- name and event.time are not populated.
 
 *** implement groups in edit notice
 
 memorriam pages -- add birth and death dates
 
-date-1 issue
+*** date-1 issue
 
 4242 4242 4242 4242
 
-store data to localStorage
+*** store data to localStorage
 
 date in Enter Notice disappears after submit
 

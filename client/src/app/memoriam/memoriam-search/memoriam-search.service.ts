@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, tap } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { NoticeEntryModel } from '../../notice-entry/notice-entry.model';
+import { ToastUtils } from '../../shared/utils/toastUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class MemoriamSearchService {
 
   private searchUrl = '/api/notices/search/memoriams/name/1';
   private httpClient = inject(HttpClient);
-  private toastr = inject(ToastrService)
+  private toastrUtils = inject(ToastUtils);
 
   public searchForMemoriams = (searchField: string) => {
 
@@ -29,8 +29,10 @@ export class MemoriamSearchService {
       }),
       catchError(error => {
         console.log('error', error)
-        this.toastr.error(error.message, 'Memoriam Search',
-          // { positionClass: getScrollPos() }
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while searching for memoriam.',
+          'Search Memoriam Error'
         );
         throw error;
       })

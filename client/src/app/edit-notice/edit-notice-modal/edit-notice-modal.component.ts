@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditNoticeService } from '../edit-notice.service';
 import { Router } from '@angular/router';
+import { ToastUtils } from '../../shared/utils/toastUtils';
 
 declare var bootstrap: any;
 
@@ -19,6 +20,7 @@ declare var bootstrap: any;
 export class EditNoticeModalComponent {
   private router = inject(Router);
   public editNoticeService = inject(EditNoticeService);
+  private toastrUtils = inject(ToastUtils);
   public noticeNumber: string = '1646-6706-9291';
 
   public getNotice() {
@@ -30,7 +32,11 @@ export class EditNoticeModalComponent {
         // this.toastr.success('Signed in successfully', 'Welcome');
       },
       error: () => {
-        // this.toastr.error('Sign-in failed. Please try again.', 'Error');
+        this.toastrUtils.show(
+          'error',
+          `Notice for ${this.noticeNumber} not found.`,
+          'Notice Error'
+        );
       }
     });
   }

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs';
+import { ToastUtils } from '../shared/utils/toastUtils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
   private httpClient = inject(HttpClient);
-  // private toastr = inject(ToastrService)
+  private toastrUtils = inject(ToastUtils);
   private url = '/api/order';
   private paymentIntentUrl = '/api/payment/payment-intent';
 
@@ -22,8 +23,11 @@ export class PaymentService {
       }),
       catchError(error => {
         console.log('error', error)
-        // this.toastr.error(error.message, 'Payment Intent',
-        //   { positionClass: getScrollPos() });
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while creating payment intent.',
+          'Create Payment Intent Error'
+        );
         throw error;
       })
     )

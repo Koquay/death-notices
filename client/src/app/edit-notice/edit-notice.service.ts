@@ -1,14 +1,16 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { EditNoticeModel } from './edit-notice.model';
 import { Group } from '../shared/interfaces/groups.interface';
+import { ToastUtils } from '../shared/utils/toastUtils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditNoticeService {
   private httpClient = inject(HttpClient);
+  private toastrUtils = inject(ToastUtils);
   public editNoticeModel = inject(EditNoticeModel);
 
   private noticesUrl = '/api/notices';
@@ -34,7 +36,15 @@ export class EditNoticeService {
         Object.assign(this.editNoticeModel, editNoticeModel);
         console.log('EditNoticeService.editNoticeModel:', this.editNoticeModel);
       }),
-
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while fetching notice.',
+          'Get Notice Error'
+        );
+        throw error;
+      })
     )
   }
 
@@ -70,6 +80,15 @@ export class EditNoticeService {
         console.log('Edited notice response:', editedNotice);
         Object.assign(this.editNoticeModel, editedNotice);
         this.editNoticeModel.editImageMode = false;
+      }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while updating notice.',
+          'Edit Notice Error'
+        );
+        throw error;
       })
     ).subscribe();
   };
@@ -78,6 +97,15 @@ export class EditNoticeService {
     return this.httpClient.post<Group[]>(`${this.noticesUrl}/group`, group).pipe(
       tap(groups => {
 
+      }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while adding new group.',
+          'Add Group Error'
+        );
+        throw error;
       })
     )
   }
@@ -86,6 +114,15 @@ export class EditNoticeService {
     return this.httpClient.get<Group[]>(`${this.noticesUrl}/groups`).pipe(
       tap(groups => {
 
+      }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while getting groups.',
+          'Get Groups Error'
+        );
+        throw error;
       })
     )
   }
