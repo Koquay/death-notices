@@ -24,7 +24,7 @@ export class MemoriamComponent {
   private memoriamService = inject(MemoriamService);
   private memoriamSearchService = inject(MemoriamSearchService);
   public memoriams: NoticeEntryModel[] = []
-  public apiUrl = '/api/notices';
+  public apiUrl = '/api/memoriams';
 
   memoriamEffect = effect(() => {
     this.memoriams = this.memoriamService.memoriamsSignal().memoriams;

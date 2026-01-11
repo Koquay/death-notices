@@ -53,3 +53,13 @@ exports.editMemoriam = async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
   };
+
+  exports.getMemoriams = (req, res) => {
+    console.log('memoiams.controller.getMemoriams called...')
+    memoriamsService.getMemoriams(req, res);
+}
+
+exports.enterMemoriam = (req, res) => {
+  console.log('notices.controller.enterMemoriam called...')
+  memoriamsService.enterMemoriam(req, res);
+}

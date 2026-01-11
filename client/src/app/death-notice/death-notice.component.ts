@@ -31,14 +31,14 @@ export class DeathNoticeComponent {
   private getDeathNotice = () => {
     const noticeId = this.activatedRoute.snapshot.paramMap.get('noticeId') as string || "";
     console.log("DeathNoticeComponent.noticeId", noticeId);
-    this.notice = this.noticesService.getNoticeById(noticeId);
+    this.notice = this.noticesService.getSelectedNotice(noticeId);
     console.log("DeathNoticeComponent.notice", this.notice);
 
     if (!this.notice) {
       const storedData = localStorage.getItem('deathNotice');
       if (storedData) {
         const deathNotice = JSON.parse(storedData);
-        this.notice = deathNotice?.noticeById;
+        this.notice = deathNotice?.selectedNotice;
         console.log("DeathNoticeComponent.notice from localStorage", this.notice);
       }
 

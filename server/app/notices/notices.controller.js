@@ -26,15 +26,15 @@ exports.getNoticeByNo = (req, res) => {
     noticesService.getNoticeByNo(req, res);
 }
 
-exports.enterMemoriam = (req, res) => {
-    console.log('notices.controller.enterMemoriam called...')
-    noticesService.enterMemoriam(req, res);
-}
+// exports.enterMemoriam = (req, res) => {
+//     console.log('notices.controller.enterMemoriam called...')
+//     noticesService.enterMemoriam(req, res);
+// }
 
-exports.getMemoriams = (req, res) => {
-    console.log('memoiams.controller.getMemoriams called...')
-    noticesService.getMemoriams(req, res);
-}
+// exports.getMemoriams = (req, res) => {
+//     console.log('memoiams.controller.getMemoriams called...')
+//     noticesService.getMemoriams(req, res);
+// }
 
 exports.searchForMemoriams = (req, res) => {
     console.log('Memoriams.controller.searchForMemoriams called...')

@@ -34,16 +34,16 @@ public restoreStateFromLocalStorage = () => {
   The above two functions work as expected. The function below stores the state of a notice that is
   retrieved by ID to localStorage. It too works, the state is created in localStorage.
 
-  public getNoticeById = (noticeId: string) => {
-    const noticeById = this.noticesSignal().notices.find(notice => notice._id === noticeId);
+  public getSelectedNotice = (noticeId: string) => {
+    const selectedNotice = this.noticesSignal().notices.find(notice => notice._id === noticeId);
 
-    persistStateToLocalStorage({ noticeById: noticeById });
-    return noticeById;
+    persistStateToLocalStorage({ selectedNotice: selectedNotice });
+    return selectedNotice;
   }
 
   In this class, if the user were to refresh the browser, the notice member will no longer exist so we
-  retrieve noticeById from localStorage. The problem is noticeById somehow disappears from
-  localStorage. The other states are still present except for noticeById.
+  retrieve selectedNotice from localStorage. The problem is selectedNotice somehow disappears from
+  localStorage. The other states are still present except for selectedNotice.
 
   export class DeathNoticeComponent {
   private activatedRoute = inject(ActivatedRoute);
@@ -58,14 +58,14 @@ public restoreStateFromLocalStorage = () => {
   private getDeathNotice = () => {
     const noticeId = this.activatedRoute.snapshot.paramMap.get('noticeId') as string || "";
     console.log("DeathNoticeComponent.noticeId", noticeId);
-    this.notice = this.noticesService.getNoticeById(noticeId);
+    this.notice = this.noticesService.getSelectedNotice(noticeId);
     console.log("DeathNoticeComponent.notice", this.notice);
 
     if (!this.notice) {
       const storedData = localStorage.getItem('deathNotice');
       if (storedData) {
         const deathNotice = JSON.parse(storedData);
-        this.notice = deathNotice?.noticeById;
+        this.notice = deathNotice?.selectedNotice;
         console.log("DeathNoticeComponent.notice from localStorage", this.notice);
       }
 

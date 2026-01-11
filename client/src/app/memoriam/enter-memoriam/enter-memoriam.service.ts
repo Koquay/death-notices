@@ -9,7 +9,7 @@ import { catchError, tap } from 'rxjs';
 })
 export class EnterMemoriamService {
 
-  private apiUrl = '/api/notices';
+  private apiUrl = '/api/memoriams';
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);;
   private paymentIntentUrl = '/api/payment/payment-intent';
@@ -19,7 +19,7 @@ export class EnterMemoriamService {
     const fd = new FormData();
 
     fd.append(
-      'notice',
+      'memoriam',
       JSON.stringify({
         name: memoriamEntryModel.name,
         announcement: memoriamEntryModel.announcement,

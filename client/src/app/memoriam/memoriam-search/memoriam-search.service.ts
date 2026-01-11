@@ -10,7 +10,7 @@ import { ToastUtils } from '../../shared/utils/toastUtils';
 export class MemoriamSearchService {
   public memoriamSignal = signal<NoticeEntryModel[]>([]);
 
-  private searchUrl = '/api/notices/search/memoriams/name/1';
+  private searchUrl = '/api/memoriams/search/memoriams/name/1';
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);
 

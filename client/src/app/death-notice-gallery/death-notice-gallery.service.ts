@@ -35,11 +35,11 @@ export class DeathNoticeGalleryService {
     )
   }
 
-  public getNoticeById = (noticeId: string) => {
-    const noticeById = this.noticesSignal().notices.find(notice => notice._id === noticeId);
+  public getSelectedNotice = (noticeId: string) => {
+    const selectedNotice = this.noticesSignal().notices.find(notice => notice._id === noticeId);
 
-    persistStateToLocalStorage({ noticeById: noticeById });
-    return noticeById;
+    persistStateToLocalStorage({ selectedNotice: selectedNotice });
+    return selectedNotice;
   }
 
   public getNotice = (noticeNo: string) => {

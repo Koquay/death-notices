@@ -15,7 +15,7 @@ export class MemoriamService {
 
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);
-  private memoriamUrl = '/api/notices/memoriam';
+  private memoriamUrl = '/api/memoriams';
 
   public getMemoriams = () => {
     return this.httpClient.get<NoticeEntryModel[]>(this.memoriamUrl).pipe(

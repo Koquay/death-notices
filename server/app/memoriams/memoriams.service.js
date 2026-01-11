@@ -5,24 +5,28 @@ const mongoose = require("mongoose");
 const { getGridFSBucket } = require("../util/gridfs");
 const { uploadNoticeImage } = require("../util/imageUpload.service");
 const { deleteImageIfExists } = require("../util/imageCleanup.service");
+const { generateRandomNo } = require("../util/generateRandomNo");
+const sharp = require('sharp');
 
 exports.enterMemoriam = async (req, res) => {
   try {
     console.log('Memoriams.service.enterMemoriam called...');
 
-    const noticeData = JSON.parse(req.body.notice);
+    console.log('req.body.memoriam:', req.body.memoriam);
 
-    console.log('noticeData:', noticeData);
+    const memoriamData = JSON.parse(req.body.memoriam);
+
+    console.log('memoriamData:', memoriamData);
 
     if (!req.file) {
       return res.status(400).json({ error: 'No file received' });
     }
 
 
-    const memoriam_no = generateNoticeNo();
+    const memoriam_no = generateRandomNo();
 
     // Normalize text
-    noticeData.announcement = (noticeData.announcement || '')
+    memoriamData.announcement = (memoriamData.announcement || '')
       .replace(/\r\n/g, '\n')
       .trim();
 
@@ -59,8 +63,8 @@ exports.enterMemoriam = async (req, res) => {
       const imageId = uploadStream.id; // ✅ THIS IS THE KEY
      
       const memoriam = await Memoriams.create({
-        name: noticeData.name,
-        announcement: noticeData.announcement,
+        name: memoriamData.name,
+        announcement: memoriamData.announcement,
         imageId: imageId, // ✅ VALID
         memoriam_no
       });
@@ -150,6 +154,7 @@ exports.searchForMemoriams = async (req, res) => {
     console.error(error);
     res.status(500).send("Problem searching for Notices.");
   }
+  
 };
 
 exports.getMemoriamImage = (req, res) => {
@@ -238,3 +243,88 @@ exports.editMemoriam = async ({ memoriamData, file }) => {
     throw error;
   }
 };
+
+exports.getMemoriams = async (req, res) => {
+  console.log("Memoriams.service.getMemoriams called...");
+
+  try {
+    const memoriams = await Memoriams.find()
+      .sort({ createdAt: "desc" })
+      .exec();
+
+    console.log("Memoriams retrieved:", Memoriams);
+    return res.status(200).json(memoriams);
+  } catch (error) {
+    console.error("Error in getMemoriams:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// exports.enterMemoriam = async (req, res) => {
+//   try {
+//     console.log('memoriams.service.enterMemoriam called...');
+
+//     const memoriamData = JSON.parse(req.body.memoriam);
+
+//     console.log('memoriamData:', memoriamData);
+
+//     if (!req.file) {
+//       return res.status(400).json({ error: 'No file received' });
+//     }
+
+
+//     const memoriam_no = generateMemoriamNo();
+
+//     // Normalize text
+//     memoriamData.announcement = (memoriamData.announcement || '')
+//       .replace(/\r\n/g, '\n')
+//       .trim();
+
+//     // STEP 1: Compress image
+//     const compressedBuffer = await sharp(req.file.buffer)
+//       .rotate()
+//       .resize({ width: 1200, withoutEnlargement: true })
+//       .jpeg({ quality: 80, mozjpeg: true })
+//       .toBuffer();
+
+//     // STEP 2: Save image to GridFS
+//     const gfsBucket = getGridFSBucket();
+
+//     const uploadStream = gfsBucket.openUploadStream(
+//       req.file.originalname.replace(/\.\w+$/, '.jpg'),
+//       {
+//         contentType: 'image/jpeg',
+//         metadata: {
+//           originalName: req.file.originalname,
+//           originalSize: req.file.size,
+//           compressedSize: compressedBuffer.length,
+//         },
+//       }
+//     );
+
+//     uploadStream.end(compressedBuffer);
+
+//     uploadStream.on('error', (err) => {
+//       console.error('GridFS error:', err);
+//       return res.status(500).json({ error: 'Image upload failed' });
+//     });
+
+//     uploadStream.on('finish', async () => {
+//       const imageId = uploadStream.id; // ✅ THIS IS THE KEY
+     
+//       const memoriam = await Memoriams.create({
+//         name: memoriamData.name,
+//         announcement: memoriamData.announcement,
+//         imageId: imageId, // ✅ VALID
+//         memoriam_no
+//       });
+    
+//       return res.status(201).json(memoriam);
+//     });
+    
+
+//   } catch (error) {
+//     console.error('Error in enterNotice:', error);
+//     return res.status(500).json({ message: 'Internal server error' });
+//   }
+// };

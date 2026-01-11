@@ -1,6 +1,8 @@
-implement toastr
+*** implement toastr
 
 *** store operation to localStorage
+
+test catchError
 
 refactor notice.routes.js -- separate memoriam routes
 
