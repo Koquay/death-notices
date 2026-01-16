@@ -1,5 +1,14 @@
 <div class="container my-2">
   <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center my-3">
+      <div class="col-12 col-md-8 text-center">
+        <h2 class="fw-bold text-muted">Memoriam Edit Form</h2>
+        <small>
+          Please edit the fields you wish to change. Fields marked with an
+          asterisk (<span class="text-danger fw-bold">*</span>) are required.
+        </small>
+      </div>
+    </div>
     <div class="col-12">
       <form
         #noticeForm="ngForm"
@@ -54,7 +63,7 @@
                 <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
-                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
+                      ><span style="color: rgb(0, 0, 0)">Name:</span></strong
                     ></label
                   >
                 </div>
@@ -86,9 +95,7 @@
         <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
+              <label class="form-label fw-bold" style="font-size: 18px"
                 >Edit Memoriam:</label
               ><textarea
                 class="form-control"

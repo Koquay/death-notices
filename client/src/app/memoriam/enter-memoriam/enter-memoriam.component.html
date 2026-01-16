@@ -1,5 +1,12 @@
 <div class="container my-2">
   <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-8 text-center my-3">
+      <h2 class="fw-bold text-muted">Memoriam Entry Form</h2>
+      <small>
+        Please fill out the form below to submit a memoriam. Fields marked with
+        an asterisk (<span class="text-danger fw-bold">*</span>) are required.
+      </small>
+    </div>
     <div class="col-12">
       <form
         #memoriamForm="ngForm"
@@ -64,6 +71,26 @@
             </div>
           </div>
         </section>
+
+        <!-- EMAIL -->
+        <section class="mt-5">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <label class="fw-bold fs-5">
+                Your Email <span class="text-danger">*</span>
+              </label>
+              <input
+                class="form-control"
+                type="email"
+                name="email"
+                required
+                [(ngModel)]="memoriamEntryModel.email"
+                (change)="saveMemoriamData()"
+              />
+            </div>
+          </div>
+        </section>
+
         <section class="mt-5">
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6">

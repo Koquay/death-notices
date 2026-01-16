@@ -7,6 +7,7 @@ const { uploadNoticeImage } = require("../util/imageUpload.service");
 const { deleteImageIfExists } = require("../util/imageCleanup.service");
 const { generateRandomNo } = require("../util/generateRandomNo");
 const sharp = require('sharp');
+const nodemailer = require('../util/email/nodemailer.service');
 
 exports.enterMemoriam = async (req, res) => {
   try {
@@ -65,9 +66,11 @@ exports.enterMemoriam = async (req, res) => {
       const memoriam = await Memoriams.create({
         name: memoriamData.name,
         announcement: memoriamData.announcement,
+        email: memoriamData.email,
         imageId: imageId, // ✅ VALID
         memoriam_no
       });
+      sendConfirmationEmail({name: memoriam.name, email: memoriam.email, memoriam_no: memoriam.memoriam_no})
     
       return res.status(201).json(memoriam);
     });
@@ -260,71 +263,38 @@ exports.getMemoriams = async (req, res) => {
   }
 };
 
-// exports.enterMemoriam = async (req, res) => {
-//   try {
-//     console.log('memoriams.service.enterMemoriam called...');
 
-//     const memoriamData = JSON.parse(req.body.memoriam);
+const sendConfirmationEmail = (memoriamData) => {
+  console.log('***** sendBuyerEmail called', memoriamData)  
+  console.log('***** memoriamData.email', memoriamData.email)  
+  if(!memoriamData.email) {
+    console.log('memoriamData.email does not exist');
+    return;
+  }
 
-//     console.log('memoriamData:', memoriamData);
+const mailOptions = {
+      from: `Libeian Death Announcement <kkwilson852@gmail.com>`,
+      to: `${memoriamData.email}`,
+      subject: `Your memoriam No. ${memoriamData.memoriam_no}`, 
 
-//     if (!req.file) {
-//       return res.status(400).json({ error: 'No file received' });
-//     }
+      html: `
+      <p>Dear ${memoriamData.name},<br>
+      We are pleased to inform you that your memoriam for ${memoriamData.name} 
+      was successfully placed.<br>Your memoriam number is ${memoriamData.memoriam_no}. Please save this number
+      as it will be required if you wish to change details of your memoriam.
+      <br>Kind regards,
+      <br> Liberian Death Announcement</p>,
+      `
+    };    
 
+    console.log('***** sendBuyerEmail mailOptions', mailOptions)
 
-//     const memoriam_no = generateMemoriamNo();
+    // ' placed on ' + moment.tz(notice.created_on, 'America/Toronto').format('MM-DD-YYYY') + 
 
-//     // Normalize text
-//     memoriamData.announcement = (memoriamData.announcement || '')
-//       .replace(/\r\n/g, '\n')
-//       .trim();
-
-//     // STEP 1: Compress image
-//     const compressedBuffer = await sharp(req.file.buffer)
-//       .rotate()
-//       .resize({ width: 1200, withoutEnlargement: true })
-//       .jpeg({ quality: 80, mozjpeg: true })
-//       .toBuffer();
-
-//     // STEP 2: Save image to GridFS
-//     const gfsBucket = getGridFSBucket();
-
-//     const uploadStream = gfsBucket.openUploadStream(
-//       req.file.originalname.replace(/\.\w+$/, '.jpg'),
-//       {
-//         contentType: 'image/jpeg',
-//         metadata: {
-//           originalName: req.file.originalname,
-//           originalSize: req.file.size,
-//           compressedSize: compressedBuffer.length,
-//         },
-//       }
-//     );
-
-//     uploadStream.end(compressedBuffer);
-
-//     uploadStream.on('error', (err) => {
-//       console.error('GridFS error:', err);
-//       return res.status(500).json({ error: 'Image upload failed' });
-//     });
-
-//     uploadStream.on('finish', async () => {
-//       const imageId = uploadStream.id; // ✅ THIS IS THE KEY
-     
-//       const memoriam = await Memoriams.create({
-//         name: memoriamData.name,
-//         announcement: memoriamData.announcement,
-//         imageId: imageId, // ✅ VALID
-//         memoriam_no
-//       });
-    
-//       return res.status(201).json(memoriam);
-//     });
-    
-
-//   } catch (error) {
-//     console.error('Error in enterNotice:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
+  try {
+    nodemailer.sendEmail(mailOptions);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Problem sending notice confirmation..");
+  }
+}

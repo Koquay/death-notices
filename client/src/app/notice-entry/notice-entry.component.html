@@ -1,467 +1,414 @@
-<div class="container my-2">
-  <div class="row d-flex justify-content-center">
-    <div class="row d-flex justify-content-center">
-      <div class="col-12 col-md-8 text-center">
-        <h2 class="fw-bold text-muted">Death Notice Entry Form</h2>
-        <small>
-          Please fill out the form below to submit a death notice. Fields marked
-          with an asterisk (<span class="text-danger fw-bold">*</span>) are
-          required.
-        </small>
+<div class="container my-4">
+  <form #noticeForm="ngForm">
+    <!-- HEADER -->
+    <section class="mb-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 text-center">
+          <h2 class="fw-bold text-muted">Death Notice Entry Form</h2>
+          <small class="text-muted">
+            Please fill out the form below to submit a death notice. Fields
+            marked with an asterisk (<span class="text-danger fw-bold">*</span>)
+            are required.
+          </small>
+        </div>
       </div>
-    </div>
-    <div class="col-12">
-      <form
-        #noticeForm="ngForm"
-        class="d-flex flex-column justify-content-center"
-      >
-        <section class="">
+    </section>
+
+    <!-- IMAGE UPLOAD -->
+    <section class="mt-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
           <app-image-upload />
-        </section>
+        </div>
+      </div>
+    </section>
 
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <div class="row d-none d-lg-flex">
-                <div class="col-6 col-lg-4">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Name <span class="text-danger">*</span></span
-                      ></strong
-                    ></label
-                  >
-                </div>
-                <div class="col-6 col-lg-4">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Birth</span
-                      ></strong
-                    ></label
-                  >
-                </div>
-                <div class="col-6 col-lg-4">
-                  <label class="col-form-label"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death <span class="text-danger">*</span></span
-                      ></strong
-                    ></label
-                  >
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span class="w-100" style="color: rgb(0, 0, 0)"
-                        >Name: <span class="text-danger">*</span></span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="text"
-                    name="noticeName"
-                    [(ngModel)]="noticeEntryModel.name"
-                    required
-                    #nameCtrl="ngModel"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px; width: 100%"
-                  />
-                </div>
-                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Birth:</span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="date"
-                    style="border-width: 1.8px"
-                    title="Select bith date"
-                    name="birth_date"
-                    [(ngModel)]="noticeEntryModel.birth_date"
-                    #birth_date="ngModel"
-                    (change)="saveNoticeData()"
-                  />
-                </div>
-                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death <span class="text-danger">*</span></span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="date"
-                    name="death_date"
-                    [(ngModel)]="noticeEntryModel.death_date"
-                    #death_date="ngModel"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-              </div>
+    <!-- NAME / DATES -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="row d-none d-lg-flex mb-2">
+            <div class="col-lg-4 fw-bold">
+              Name <span class="text-danger">*</span>
+            </div>
+            <div class="col-lg-4 fw-bold">Date of Birth</div>
+            <div class="col-lg-4 fw-bold">
+              Date of Death <span class="text-danger">*</span>
             </div>
           </div>
-        </section>
 
-        <section class="mt-5">
-          <div class="d-flex justify-content-center">
-            <div class="col-12 col-md-8">
-              <label class="form-label fw-bold" style="font-size: 18px"
-                >Enter Death Announcement:
-                <span class="text-danger">*</span></label
-              ><textarea
-                class="form-control"
-                style="border-width: 1.8px"
-                rows="15"
-                name="announcement"
-                [(ngModel)]="noticeEntryModel.announcement"
-                #announcement="ngModel"
-                (selectionchange)="saveNoticeData()"
-                sel
-              ></textarea>
-            </div>
-          </div>
-        </section>
-
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-6">
-              <div class="col-12 mb-2">
-                <label class="form-label fw-bold" style="font-size: 18px"
-                  >Events:</label
-                ><small class="ms-2">(Wake, burial, repast, etc.)</small>
-              </div>
-
-              <div
-                class="row mb-3 p-1"
-                style="border: 2px solid #ddd"
-                *ngFor="let event of noticeEntryModel.events; let i = index"
-              >
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>Type:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.type"
-                    name="event.type{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-labele"><strong>Date:</strong></label>
-                  <input
-                    class="form-control"
-                    type="date"
-                    [(ngModel)]="event.date"
-                    name="event.date{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>Time:</strong></label>
-                  <input
-                    class="form-control"
-                    type="time"
-                    [(ngModel)]="event.time"
-                    name="event.time{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>Location:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.location"
-                    name="event.location{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>Address:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.address"
-                    name="event.address{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>City:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.city"
-                    name="event.city{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2">
-                  <label class="form-label"><strong>State:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.state"
-                    name="event.state{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 col-lg-1 d-flex align-items-end">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    (click)="removeEvent(i)"
-                    *ngIf="noticeEntryModel.events.length > 1"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                class="btn btn-outline-primary mt-2"
-                (click)="addEvent()"
-              >
-                + Add Another Event
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section class="mt-5">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
-              <!-- Section title -->
-              <div class="mb-2">
-                <label class="form-label fw-bold" style="font-size: 18px">
-                  Contact Information:
-                </label>
-              </div>
-
-              <!-- Desktop headers -->
-              <div class="row d-none d-lg-flex mb-2">
-                <div class="col-lg-4">
-                  <strong>Name: <span class="text-danger">*</span></strong>
-                </div>
-                <div class="col-lg-4"><strong>Relationship:</strong></div>
-                <div class="col-lg-3">
-                  <strong>Phone: <span class="text-danger">*</span></strong>
-                </div>
-                <div class="col-lg-1"></div>
-              </div>
-
-              <!-- Contact rows -->
-              <div
-                class="row mb-3 align-items-end"
-                *ngFor="let contact of noticeEntryModel.contacts; let i = index"
-              >
-                <div class="col-12 col-lg-4 mb-2 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong
-                      >Name: <span class="text-danger">*</span></strong
-                    ></label
-                  >
-                  <input
-                    class="form-control"
-                    [(ngModel)]="contact.name"
-                    (change)="saveNoticeData()"
-                  />
-                </div>
-
-                <div class="col-12 col-lg-4 mb-2 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong>Relationship:</strong></label
-                  >
-                  <input
-                    class="form-control"
-                    [(ngModel)]="contact.relationship"
-                    (change)="saveNoticeData()"
-                  />
-                </div>
-
-                <div class="col-12 col-lg-3 mb-2 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong
-                      >Phone: <span class="text-danger">*</span></strong
-                    ></label
-                  >
-                  <input
-                    class="form-control"
-                    [(ngModel)]="contact.phone"
-                    (change)="saveNoticeData()"
-                  />
-                </div>
-
-                <div class="col-12 col-lg-1 d-flex justify-content-lg-end">
-                  <button
-                    class="btn btn-danger"
-                    (click)="removeContact(i)"
-                    *ngIf="noticeEntryModel.contacts.length > 1"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-
-              <button
-                class="btn btn-outline-primary mt-2"
-                (click)="addContact()"
-              >
-                + Add Another Contact
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-md-6">
-              <label class="form-label"
-                ><strong
-                  >Your Email: <span class="text-danger">*</span></strong
-                ></label
-              >
+          <div class="row">
+            <div class="col-12 col-lg-4 mb-3">
+              <label class="d-lg-none fw-bold">
+                Name <span class="text-danger">*</span>
+              </label>
               <input
                 class="form-control"
-                [(ngModel)]="noticeEntryModel.email"
+                name="noticeName"
+                [(ngModel)]="noticeEntryModel.name"
+                required
+                (change)="saveNoticeData()"
+              />
+            </div>
+
+            <div class="col-12 col-lg-4 mb-3">
+              <label class="d-lg-none fw-bold">Date of Birth</label>
+              <input
+                class="form-control"
+                type="date"
+                name="birth_date"
+                [(ngModel)]="noticeEntryModel.birth_date"
+                (change)="saveNoticeData()"
+              />
+            </div>
+
+            <div class="col-12 col-lg-4 mb-3">
+              <label class="d-lg-none fw-bold">
+                Date of Death <span class="text-danger">*</span>
+              </label>
+              <input
+                class="form-control"
+                type="date"
+                name="death_date"
+                [(ngModel)]="noticeEntryModel.death_date"
+                required
                 (change)="saveNoticeData()"
               />
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-md-6">
-              <label class="form-label fw-bold" style="font-size: 18px"
-                >Groups:</label
-              ><small class="ms-2">(optional)</small
-              ><small class="d-block"
-                >If the deceased was part of a group (school, work, family,
-                etc.), you can select that group or add a new group. This will
-                enable you to search for all members of that group who have
-                passed. </small
-              ><label
-                class="form-label fw-bold mt-4 mb-0"
-                style="font-size: 15px"
-                >Select group(s):</label
-              >
-              <small class="ms-2"
-                >(press ctrl then click for multiple selections)</small
-              >
+    <!-- ANNOUNCEMENT -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="form-label fw-bold fs-5">
+            Death Announcement <span class="text-danger">*</span>
+          </label>
+          <textarea
+            class="form-control"
+            rows="15"
+            name="announcement"
+            required
+            [(ngModel)]="noticeEntryModel.announcement"
+            (change)="saveNoticeData()"
+          ></textarea>
+        </div>
+      </div>
+    </section>
 
-              <select
-                class="form-select"
-                multiple
-                [(ngModel)]="selectedGroups"
-                (click)="addDeceasedGroup()"
-                (change)="saveNoticeData()"
-              >
-                <option *ngFor="let group of groups" [ngValue]="group">
-                  {{ group.name }}
-                </option>
-              </select>
+    <!-- EVENTS -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="fw-bold fs-5">Events</label>
+          <small class="text-muted ms-2">(Wake, burial, repast, etc.)</small>
 
-              <label
-                class="form-label fw-bold mt-4 mb-0"
-                style="font-size: 15px; font-weight: bold"
-                >Create a new group:</label
-              >
-
-              <!-- Group name input -->
-              <div
-                class="col-12 col-lg-10 mb-2 mb-lg-0 d-flex flex-row align-items-center"
-              >
+          <div
+            class="border rounded p-3 mt-3"
+            *ngFor="let event of noticeEntryModel.events; let i = index"
+          >
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">Type</label>
                 <input
                   class="form-control"
-                  type="text"
-                  [(ngModel)]="newGroup"
-                  name="name"
-                  style="border-width: 1.8px"
+                  [(ngModel)]="event.type"
+                  name="eventType{{ i }}"
+                  (change)="saveNoticeData()"
                 />
-                <button class="btn btn-outline-primary" (click)="addNewGroup()">
-                  <small>Save</small>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="event.date"
+                  name="eventDate{{ i }}"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">Time</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="event.time"
+                  name="eventTime{{ i }}"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">Location</label>
+                <input
+                  class="form-control"
+                  [(ngModel)]="event.location"
+                  name="eventLocation{{ i }}"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">Address</label>
+                <input
+                  class="form-control"
+                  [(ngModel)]="event.address"
+                  name="eventAddress{{ i }}"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold">City</label>
+                <input
+                  class="form-control"
+                  [(ngModel)]="event.city"
+                  name="eventCity{{ i }}"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-md-1 d-flex align-items-end">
+                <button
+                  class="btn btn-danger w-100"
+                  type="button"
+                  *ngIf="noticeEntryModel.events.length > 1"
+                  (click)="removeEvent(i)"
+                >
+                  ✕
                 </button>
               </div>
             </div>
           </div>
-        </section>
 
-        <section class="mt-5">
-          <div class="d-flex justify-content-center">
-            <div class="col-12 col-md-8">
-              <label class="form-label fw-bold" style="font-size: 18px"
-                >Additional Information:</label
-              ><textarea
-                class="form-control"
-                style="border-width: 1.8px"
-                rows="15"
-                name="additionalInformation"
-                [(ngModel)]="noticeEntryModel.additionalInformation"
-                #additionalInformation="ngModel"
-                (selectionchange)="saveNoticeData()"
-                sel
-              ></textarea>
-            </div>
-          </div>
-        </section>
+          <button
+            type="button"
+            class="btn btn-outline-primary mt-3"
+            (click)="addEvent()"
+          >
+            + Add Another Event
+          </button>
+        </div>
+      </div>
+    </section>
 
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-md-6">
-              <div class="col-12 col-md-4">
-                <label class="form-label fw-bold">Amount:</label>
-                <span class="fs-5 ms-2">{{ noticePrice | currency }}</span>
-              </div>
-              <h6 class="fw-bold">
-                Enter Credit Card Info <span class="text-danger">*</span>
-              </h6>
-              <div
-                id="card-element"
-                class="p-3 border rounded"
-                style="border: 1px solid gray !important"
-              ></div>
-            </div>
-          </div>
+    <!-- CONTACTS -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="fw-bold fs-5">Contact Information</label>
 
-          <div class="row mt-2 d-flex justify-content-center">
+          <div
+            class="row g-3 mt-3 align-items-end"
+            *ngFor="let contact of noticeEntryModel.contacts; let i = index"
+          >
             <div class="col-12 col-md-4">
+              <label class="fw-bold">
+                Name <span class="text-danger">*</span>
+              </label>
+              <input
+                class="form-control"
+                [(ngModel)]="contact.name"
+                name="contactName{{ i }}"
+                (change)="saveNoticeData()"
+              />
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="fw-bold">Relationship</label>
+              <input
+                class="form-control"
+                [(ngModel)]="contact.relationship"
+                name="contactRelationship{{ i }}"
+                (change)="saveNoticeData()"
+              />
+            </div>
+
+            <div class="col-12 col-md-3">
+              <label class="fw-bold">
+                Phone <span class="text-danger">*</span>
+              </label>
+              <input
+                class="form-control"
+                [(ngModel)]="contact.phone"
+                name="contactPhone{{ i }}"
+                (change)="saveNoticeData()"
+              />
+            </div>
+
+            <div class="col-12 col-md-1">
               <button
-                class="btn btn-primary px-4 py-2"
+                class="btn btn-danger w-100"
+                type="button"
+                *ngIf="noticeEntryModel.contacts.length > 1"
+                (click)="removeContact(i)"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-outline-primary mt-3"
+            (click)="addContact()"
+          >
+            + Add Another Contact
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMAIL -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="fw-bold fs-5">
+            Your Email <span class="text-danger">*</span>
+          </label>
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            required
+            [(ngModel)]="noticeEntryModel.email"
+            (change)="saveNoticeData()"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUPS -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="fw-bold fs-5">Groups</label>
+          <small class="text-muted ms-2">(optional)</small>
+
+          <p class="small text-muted mt-1">
+            If the deceased was part of a group (school, work, family, etc.),
+            you may select or create a group to enable group-based searches.
+          </p>
+
+          <label class="fw-bold mt-3">Select group(s)</label>
+          <small class="ms-2">(Ctrl + click for multiple)</small>
+
+          <select
+            class="form-select mt-1"
+            multiple
+            [(ngModel)]="selectedGroups"
+            (change)="addDeceasedGroup(); saveNoticeData()"
+          >
+            <option *ngFor="let group of groups" [ngValue]="group">
+              {{ group.name }}
+            </option>
+          </select>
+
+          <label class="fw-bold mt-4">Create a new group</label>
+
+          <div class="row g-2 mt-1">
+            <div class="col-12 col-md-9">
+              <input
+                class="form-control"
+                [(ngModel)]="newGroup"
+                name="newGroup"
+              />
+            </div>
+            <div class="col-12 col-md-3">
+              <button
+                type="button"
+                class="btn btn-outline-primary w-100"
+                (click)="addNewGroup()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYMENT METHOD -->
+    <section class="mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <label class="fw-bold fs-5">Payment Method</label>
+
+          <div class="form-check mt-3">
+            <input
+              class="form-check-input"
+              type="radio"
+              value="PayPal"
+              name="paymentMethod"
+              [(ngModel)]="paymentType"
+              (change)="onPaymentTypeChange(); saveNoticeData()"
+            />
+            <label class="form-check-label fw-bold fst-italic"> PayPal </label>
+          </div>
+
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              value="CreditCard"
+              name="paymentMethod"
+              [(ngModel)]="paymentType"
+              (change)="onPaymentTypeCreditCard(); saveNoticeData()"
+            />
+            <label class="form-check-label fw-bold"> Credit Card </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDIT CARD -->
+    <ng-container *ngIf="paymentType === 'CreditCard'">
+      <section class="mt-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <div class="mb-2">
+              <strong>Amount:</strong>
+              <span class="fs-5 ms-2">
+                {{ noticePrice | currency }}
+              </span>
+            </div>
+
+            <h6 class="fw-bold">
+              Enter Credit Card Info
+              <span class="text-danger">*</span>
+            </h6>
+
+            <div id="card-element" class="p-3 border rounded mt-2"></div>
+
+            <div class="mt-4">
+              <button
+                class="btn btn-primary px-5 py-2"
                 type="button"
                 (click)="submitNotice()"
                 [disabled]="!noticeForm.valid"
               >
                 Submit Death Notice
               </button>
-              <!-- [disabled]="!noticeForm.valid || !clientSecret" -->
             </div>
           </div>
-        </section>
-      </form>
-    </div>
-  </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- PAYPAL -->
+    <ng-container *ngIf="paymentType === 'PayPal'">
+      <section class="mt-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-4">
+            <app-paypal-button />
+          </div>
+        </div>
+      </section>
+    </ng-container>
+  </form>
 </div>

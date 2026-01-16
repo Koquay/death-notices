@@ -1,0 +1,262 @@
+[{
+  
+  "name": "ssssssssssszzz",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "qqqqqqqqqq",
+  "email": "qqqqqqqqqq",
+  "imageId": "695fda14bb645fae0cb618a0",
+  "notice_no": "1646-6706-9299",
+  "contacts": [
+    {
+      "$oid": "695fda15bb645fae0cb618a2"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "695fda15bb645fae0cb618a4"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fd9f8bb645fae0cb61898"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-08T16:23:49.015Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-08T16:23:49.015Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "ssssssssssszzz",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "fsafdsdsf",
+  "email": "fsafdsdsf",
+  "imageId": "6963e9d95c6f339e50b0fb1c",
+  "notice_no": "5338-2243-5499",
+  "contacts": [
+    {
+      "$oid": "6963e9d95c6f339e50b0fb1e"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "6963e9d95c6f339e50b0fb20"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fda07bb645fae0cb6189c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-11T18:20:09.076Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-11T18:20:09.076Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "Danielette Gadagbekou Johnson",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "fsafdsdsf",
+  "email": "fsafdsdsf",
+  "imageId": "69645629a80ed0a964cb46a0",
+  "notice_no": "7138-1588-8699",
+  "contacts": [
+    {
+      "$oid": "69645629a80ed0a964cb46a2"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "69645629a80ed0a964cb46a4"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fd9f8bb645fae0cb61898"
+    },
+    {
+      "$oid": "695fda07bb645fae0cb6189c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-12T02:02:17.804Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-12T02:02:17.804Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "ssssssssssszzz",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "fsafdsdsf",
+  "email": "fsafdsdsf",
+  "imageId": "696456d5a80ed0a964cb46b8",
+  "notice_no": "1911-1974-6259",
+  "contacts": [
+    {
+      "$oid": "696456d5a80ed0a964cb46ba"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "696456d5a80ed0a964cb46bc"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fda07bb645fae0cb6189c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-12T02:05:09.067Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-12T02:05:09.067Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "Wilhemina Douglas-McCathy",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "fsafdsdsf",
+  "email": "fsafdsdsf",
+  "imageId": "69645734a80ed0a964cb46c6",
+  "notice_no": "2678-5527-5559",
+  "contacts": [
+    {
+      "$oid": "69645734a80ed0a964cb46c8"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "69645734a80ed0a964cb46ca"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fda07bb645fae0cb6189c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-12T02:06:44.038Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-12T02:06:44.038Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "ssssssssssszzz",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "qqqqqqqqqq",
+  "email": "qqqqqqqqqq",
+  "imageId": "695fda14bb645fae0cb618a0",
+  "notice_no": "1646-6706-9299",
+  "contacts": [
+    {
+      "$oid": "695fda15bb645fae0cb618a2"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "695fda15bb645fae0cb618a4"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fd9f8bb645fae0cb61898"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-08T16:23:49.015Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-08T16:23:49.015Z"
+  },
+  "__v": 0
+},
+{
+  
+  "name": "ssssssssssszzz",
+  "birth_date": {
+    "$date": "2026-01-01T00:00:00.000Z"
+  },
+  "death_date": {
+    "$date": "2026-01-02T00:00:00.000Z"
+  },
+  "announcement": "zzzzzzzzmmm",
+  "additionalInformation": "fsafdsdsf",
+  "email": "fsafdsdsf",
+  "imageId": "6963e9d95c6f339e50b0fb1c",
+  "notice_no": "5338-2243-5499",
+  "contacts": [
+    {
+      "$oid": "6963e9d95c6f339e50b0fb1e"
+    }
+  ],
+  "events": [
+    {
+      "$oid": "6963e9d95c6f339e50b0fb20"
+    }
+  ],
+  "groups": [
+    {
+      "$oid": "695fda07bb645fae0cb6189c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-01-11T18:20:09.076Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-11T18:20:09.076Z"
+  },
+  "__v": 0
+}]

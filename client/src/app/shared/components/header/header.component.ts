@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,16 @@ export class HeaderComponent {
   @Output() openEditNoticeModal = new EventEmitter<void>();
   @Output() openEditMemoriamModal = new EventEmitter<void>();
 
+  currentUrl = '';
+
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        this.currentUrl = e.urlAfterRedirects;
+      });
+  }
+
   onEditNoticeClick() {
     this.openEditNoticeModal.emit();
   }
@@ -21,4 +33,15 @@ export class HeaderComponent {
   onEditMemoriamClick() {
     this.openEditMemoriamModal.emit();
   }
+
+  isEditNoticeActive(): boolean {
+    return this.currentUrl.startsWith('/edit-notice');
+  }
+
+  isEditMemoriamActive(): boolean {
+    return this.currentUrl.startsWith('/edit-memoriam');
+  }
 }
+
+
+

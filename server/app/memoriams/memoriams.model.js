@@ -13,6 +13,10 @@ const mongoose = require("mongoose");
       type: String,
       required: false,
     },
+    email: {
+      type: String,
+      required: false,
+    },
     imageId: {
       type: String,
       required: true,

@@ -14,4 +14,3 @@ router.get('/search/memoriams/name/1', memoriamsController.searchForMemoriams)
 
 router.put('/:id', upload.single('image'), memoriamsController.editMemoriam);
 module.exports = router;
-// router.get('/search/memoriams/name/1', noticesController.searchForMemoriams)

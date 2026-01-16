@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { ToastUtils } from '../shared/utils/toastUtils';
 import { Group } from '../shared/interfaces/groups.interface';
 import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
+import { PaypalButtonComponent } from '../payment paypal/paypal-button/paypal-button.component';
 
 @Component({
   selector: 'app-notice-entry',
@@ -16,7 +17,8 @@ import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
   imports: [
     AppImageUploadComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    PaypalButtonComponent
   ],
   templateUrl: './notice-entry.component.html',
   styleUrl: './notice-entry.component.scss'
@@ -33,6 +35,8 @@ export class NoticeEntryComponent {
   elements: any;
   clientSecret: string = "";
   public noticePrice: number = environment.notice_amount;
+
+  paymentType = 'CreditCard';
 
   selectedGroups: Group[] = [];
   groups: Group[] = [];
@@ -205,6 +209,20 @@ export class NoticeEntryComponent {
       console.log('groups', groups)
       this.groups = groups;
     })
+  }
+
+  onPaymentTypeChange(): void {
+    if (this.paymentType === 'PayPal') {
+      // setTimeout(() => this.renderPaypalButton(), 0);
+    } else if (this.paymentType === 'CreditCard') {
+      setTimeout(() => this.setUpStripe(), 0);
+    }
+  }
+
+  onPaymentTypeCreditCard() {
+    if (this.paymentType === 'CreditCard') {
+      setTimeout(() => this.setUpStripe(), 0);
+    }
   }
 
 }

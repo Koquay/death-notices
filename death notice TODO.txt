@@ -1,38 +1,44 @@
-*** implement toastr
-
-*** store operation to localStorage
-
-test catchError
-
-refactor notice.routes.js -- separate memoriam routes
-
-letter to buyer
-
-*** toast when edit notice and memoriam not found
-
-environment.pk_test -- change for production
-
-*** notice-entry refresh from localStorage -- name and event.time are not populated.
-
-*** implement groups in edit notice
-
-memorriam pages -- add birth and death dates
-
-*** date-1 issue
-
 4242 4242 4242 4242
 
-*** store data to localStorage
+contact us
+
+footer
+
+environment.pk_test -- change for production
 
 date in Enter Notice disappears after submit
 
 fields validation
 
-header
-
 paypal
 
+search by group
+
 primary buttons
+
+test catchError
+
+in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+*** implement toastr
+
+*** store operation to localStorage
+
+*** refactor notice.routes.js -- separate memoriam routes
+
+*** letter to buyer
+
+*** toast when edit notice and memoriam not found
+
+*** notice-entry refresh from localStorage -- name and event.time are not populated.
+
+*** implement groups in edit notice
+
+*** date-1 issue
+
+*** store data to localStorage
+
+*** header
 
 *** in memoriam
 
@@ -44,10 +50,9 @@ primary buttons
 
 *** Align contacts in notice entry
 
-add email to notice entry
+*** add email to notice entry
 
 *** sort available groups
 
-in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
 
 

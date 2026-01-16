@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const sharp = require('sharp');
 const { getGridFSBucket } = require('../util/gridfs');
 const { generateRandomNo } = require("../util/generateRandomNo");
+const nodemailer = require('../util/email/nodemailer.service');
 
 exports.enterNotice = async (req, res) => {
   try {
@@ -85,6 +86,8 @@ exports.enterNotice = async (req, res) => {
         imageId: imageId, // ✅ VALID
         notice_no
       });
+
+      sendConfirmationEmail({name: notice.name, email: notice.email, notice_no: notice.notice_no})
     
       return res.status(201).json(notice);
     });
@@ -96,74 +99,6 @@ exports.enterNotice = async (req, res) => {
   }
 };
 
-// exports.enterMemoriam = async (req, res) => {
-//   try {
-//     console.log('notices.service.enterMemoriam called...');
-
-//     const noticeData = JSON.parse(req.body.notice);
-
-//     console.log('noticeData:', noticeData);
-
-//     if (!req.file) {
-//       return res.status(400).json({ error: 'No file received' });
-//     }
-
-
-//     const memoriam_no = generateNoticeNo();
-
-//     // Normalize text
-//     noticeData.announcement = (noticeData.announcement || '')
-//       .replace(/\r\n/g, '\n')
-//       .trim();
-
-//     // STEP 1: Compress image
-//     const compressedBuffer = await sharp(req.file.buffer)
-//       .rotate()
-//       .resize({ width: 1200, withoutEnlargement: true })
-//       .jpeg({ quality: 80, mozjpeg: true })
-//       .toBuffer();
-
-//     // STEP 2: Save image to GridFS
-//     const gfsBucket = getGridFSBucket();
-
-//     const uploadStream = gfsBucket.openUploadStream(
-//       req.file.originalname.replace(/\.\w+$/, '.jpg'),
-//       {
-//         contentType: 'image/jpeg',
-//         metadata: {
-//           originalName: req.file.originalname,
-//           originalSize: req.file.size,
-//           compressedSize: compressedBuffer.length,
-//         },
-//       }
-//     );
-
-//     uploadStream.end(compressedBuffer);
-
-//     uploadStream.on('error', (err) => {
-//       console.error('GridFS error:', err);
-//       return res.status(500).json({ error: 'Image upload failed' });
-//     });
-
-//     uploadStream.on('finish', async () => {
-//       const imageId = uploadStream.id; // ✅ THIS IS THE KEY
-     
-//       const memoriam = await Memoriams.create({
-//         name: noticeData.name,
-//         announcement: noticeData.announcement,
-//         imageId: imageId, // ✅ VALID
-//         memoriam_no
-//       });
-    
-//       return res.status(201).json(memoriam);
-//     });
-    
-
-//   } catch (error) {
-//     console.error('Error in enterNotice:', error);
-//     return res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
 
 const createContacts = async (contacts) => {
   const contactDocs = await Contacts.insertMany(
@@ -270,17 +205,6 @@ exports.getNoticeByNo = async (req, res) => {
   }
 }
 
-// const generateNoticeNo = () => {
-//   const minCeiled = Math.ceil(9999);
-//   const maxFloored = Math.floor(1000);
-//   const random1 = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
-//   const random2 = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
-//   const random3 = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
-//   const notice_no = random1 + '-' + random2 + '-' + random3;
-
-//   console.log('notice_no', notice_no)
-//   return notice_no;
-// }
 
 exports.searchForNotices = async (req, res) => {
   console.log("ProductsService.searchForProducts");
@@ -308,22 +232,6 @@ exports.searchForNotices = async (req, res) => {
     res.status(500).send("Problem searching for Notices.");
   }
 };
-
-// exports.getMemoriams = async (req, res) => {
-//   console.log("Memoriams.service.getMemoriams called...");
-
-//   try {
-//     const memoriams = await Memoriams.find()
-//       .sort({ createdAt: "desc" })
-//       .exec();
-
-//     console.log("Memoriams retrieved:", Memoriams);
-//     return res.status(200).json(memoriams);
-//   } catch (error) {
-//     console.error("Error in getMemoriams:", error);
-//     return res.status(500).json({ message: "Internal server error" });
-//   }
-// };
 
 exports.searchForMemoriams = async (req, res) => {
   console.log("ProductsService.searchForProducts");
@@ -403,3 +311,38 @@ exports.getNoticesForGroup = async (req, res) => {
     res.status(500).json({ message: 'Error fetching notices by group' });
   }
 };
+
+const sendConfirmationEmail = (noticeData) => {
+  console.log('***** sendBuyerEmail called', noticeData)  
+  console.log('***** noticeData.email', noticeData.email)  
+  if(!noticeData.email) {
+    console.log('noticeData.email does not exist');
+    return;
+  }
+
+const mailOptions = {
+      from: `Libeian Death Announcement <kkwilson852@gmail.com>`,
+      to: `${noticeData.email}`,
+      subject: `Your notice No. ${noticeData.notice_no}`, 
+
+      html: `
+      <p>Dear ${noticeData.name},<br>
+      We are pleased to inform you that your death notice for ${noticeData.name} 
+      was successfully placed.<br>Your notice number is ${noticeData.notice_no}. Please save this number
+      as it will be required if you wish to change details of your death notice.
+      <br>Kind regards,
+      <br> Liberian Death Announcement</p>,
+      `
+    };    
+
+    console.log('***** sendBuyerEmail mailOptions', mailOptions)
+
+    // ' placed on ' + moment.tz(notice.created_on, 'America/Toronto').format('MM-DD-YYYY') + 
+
+  try {
+    nodemailer.sendEmail(mailOptions);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Problem sending notice confirmation..");
+  }
+}
