@@ -11,7 +11,7 @@ export class EnterMemoriamService {
 
   private apiUrl = '/api/memoriams';
   private httpClient = inject(HttpClient);
-  private toastrUtils = inject(ToastUtils);;
+  private toastrUtils = inject(ToastUtils);
   private paymentIntentUrl = '/api/payment/payment-intent';
 
 

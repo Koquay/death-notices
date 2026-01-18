@@ -31,6 +31,6 @@ const mongoose = require("mongoose");
   
   );
   
-  mongoose.model("Memoriams2", MemoriamsSchema, "memoriams");
+  mongoose.model("Memoriams", MemoriamsSchema, "memoriams");
 
 

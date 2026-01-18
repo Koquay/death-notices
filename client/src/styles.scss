@@ -13,8 +13,8 @@ body {
     }
 }
 
-input, select {
-    border: 2px solid #ddd !important;
+input, select, textarea {
+    border: 1px solid rgb(198, 130, 198) !important;
 }
 
 .notice-image {
@@ -40,7 +40,45 @@ input, select {
   }
   }
 
+  .primary-color {
+    color: purple !important;
+  }
   
+  .primary-bg-color {
+    background-color: purple !important;
+  }
+
+  .btn-primary {
+    color: white !important;
+    background-color: purple !important;
+    border-color: purple !important;
+
+    &:hover {
+      color: purple !important;
+      background-color: white !important;
+      border-color: purple !important;
+    }
+  }
+
+  .btn-secondary {
+    color: purple !important;
+    background-color: white !important;
+    border-color: purple !important;
+
+    &:hover {
+      color: white !important;
+      background-color: purple !important;
+    }
+  }
+
+  .form-check-input:checked {
+    background-color: purple !important;
+    border-color: purple !important;
+  }
+
+  .alert {
+    color: red !important;
+  }
 
 
 input:focus {

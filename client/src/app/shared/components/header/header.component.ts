@@ -15,6 +15,7 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent {
   @Output() openEditNoticeModal = new EventEmitter<void>();
   @Output() openEditMemoriamModal = new EventEmitter<void>();
+  @Output() openContactUsModal = new EventEmitter<void>();
 
   currentUrl = '';
 
@@ -34,12 +35,20 @@ export class HeaderComponent {
     this.openEditMemoriamModal.emit();
   }
 
+  onContactUsClick() {
+    this.openContactUsModal.emit();
+  }
+
   isEditNoticeActive(): boolean {
     return this.currentUrl.startsWith('/edit-notice');
   }
 
   isEditMemoriamActive(): boolean {
     return this.currentUrl.startsWith('/edit-memoriam');
+  }
+
+  isContactUsActive(): boolean {
+    return this.currentUrl.startsWith('/contact-us');
   }
 }
 

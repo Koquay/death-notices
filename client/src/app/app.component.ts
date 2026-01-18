@@ -4,6 +4,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { EditNoticeModalComponent } from './edit-notice/edit-notice-modal/edit-notice-modal.component';
 import { MemoriamEditModalComponent } from './memoriam/memoriam-edit-modal/memoriam-edit-modal.component';
 import { AppService } from './app.service';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 declare var bootstrap: any;
 
@@ -14,7 +15,8 @@ declare var bootstrap: any;
     RouterOutlet,
     HeaderComponent,
     EditNoticeModalComponent,
-    MemoriamEditModalComponent
+    MemoriamEditModalComponent,
+    ContactUsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -41,6 +43,16 @@ export class AppComponent {
   showEditMemoriamModal() {
     console.log('AppComponent.showEditMemoriamModal() called')
     const modalElement = document.getElementById('editMemoriamModal');
+    console.log('AppComponent.modalElement', modalElement)
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  showContactUsModal() {
+    console.log('AppComponent.showContactUsModal() called')
+    const modalElement = document.getElementById('contactUsModal');
     console.log('AppComponent.modalElement', modalElement)
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);

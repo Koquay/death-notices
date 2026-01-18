@@ -45,7 +45,19 @@
                     #name="ngModel"
                     (change)="saveMemoriamData()"
                     style="border-width: 1.8px; width: 100%"
+                    [ngClass]="{
+                      'is-valid': name.valid && (name.dirty || name.touched),
+                      'is-invalid': name.invalid && (name.dirty || name.touched)
+                    }"
                   />
+                  <div
+                    *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="alert"
+                  >
+                    <div *ngIf="name.hasError('required')" class="alert">
+                      <small>Name is required.</small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,11 +75,32 @@
                 class="form-control"
                 style="border-width: 1.8px"
                 rows="15"
+                required
                 name="announcement"
                 [(ngModel)]="memoriamEntryModel.announcement"
                 #announcement="ngModel"
                 (selectionchange)="saveMemoriamData()"
+                [ngClass]="{
+                  'is-valid':
+                    announcement.valid &&
+                    (announcement.dirty || announcement.touched),
+                  'is-invalid':
+                    announcement.invalid &&
+                    (announcement.dirty || announcement.touched)
+                }"
               ></textarea>
+
+              <div
+                *ngIf="
+                  announcement.invalid &&
+                  (announcement.dirty || announcement.touched)
+                "
+                class="alert"
+              >
+                <div *ngIf="announcement.hasError('required')" class="alert">
+                  <small>announcement is required.</small>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -83,10 +116,23 @@
                 class="form-control"
                 type="email"
                 name="email"
+                #email="ngModel"
                 required
                 [(ngModel)]="memoriamEntryModel.email"
                 (change)="saveMemoriamData()"
+                [ngClass]="{
+                  'is-valid': email.valid && (email.dirty || email.touched),
+                  'is-invalid': email.invalid && (email.dirty || email.touched)
+                }"
               />
+              <div
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="alert"
+              >
+                <div *ngIf="email.hasError('required')" class="alert">
+                  <small>email is required.</small>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -112,6 +158,7 @@
                 class="btn btn-primary px-4 py-2"
                 type="button"
                 (click)="submitMemoriam()"
+                [disabled]="!memoriamForm.valid"
               >
                 Submit Memoriam
               </button>

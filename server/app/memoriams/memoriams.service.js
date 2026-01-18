@@ -1,6 +1,6 @@
 require("./memoriams.model");
 
-const Memoriams = require("mongoose").model("Memoriams2");
+const Memoriams = require("mongoose").model("Memoriams");
 const mongoose = require("mongoose");
 const { getGridFSBucket } = require("../util/gridfs");
 const { uploadNoticeImage } = require("../util/imageUpload.service");

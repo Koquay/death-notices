@@ -1,6 +1,6 @@
 4242 4242 4242 4242
 
-contact us
+*** contact us
 
 footer
 
@@ -14,7 +14,9 @@ paypal
 
 search by group
 
-primary buttons
+reinstate stripe
+
+*** primary buttons
 
 test catchError
 

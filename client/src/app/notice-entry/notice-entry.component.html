@@ -45,10 +45,23 @@
               <input
                 class="form-control"
                 name="noticeName"
+                #name="ngModel"
                 [(ngModel)]="noticeEntryModel.name"
                 required
                 (change)="saveNoticeData()"
+                [ngClass]="{
+                  'is-valid': name.valid && (name.dirty || name.touched),
+                  'is-invalid': name.invalid && (name.dirty || name.touched)
+                }"
               />
+              <div
+                *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="alert"
+              >
+                <div *ngIf="name.hasError('required')" class="alert">
+                  <small>Name is required.</small>
+                </div>
+              </div>
             </div>
 
             <div class="col-12 col-lg-4 mb-3">
@@ -70,10 +83,30 @@
                 class="form-control"
                 type="date"
                 name="death_date"
+                required=""
                 [(ngModel)]="noticeEntryModel.death_date"
+                #death_date="ngModel"
                 required
                 (change)="saveNoticeData()"
+                [ngClass]="{
+                  'is-valid':
+                    death_date.valid &&
+                    (death_date.dirty || death_date.touched),
+                  'is-invalid':
+                    death_date.invalid &&
+                    (death_date.dirty || death_date.touched)
+                }"
               />
+              <div
+                *ngIf="
+                  death_date.invalid && (death_date.dirty || death_date.touched)
+                "
+                class="alert"
+              >
+                <div *ngIf="death_date.hasError('required')" class="alert">
+                  <small>Death date is required.</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -91,10 +124,31 @@
             class="form-control"
             rows="15"
             name="announcement"
+            #announcement="ngModel"
             required
             [(ngModel)]="noticeEntryModel.announcement"
             (change)="saveNoticeData()"
+            [ngClass]="{
+              'is-valid':
+                announcement.valid &&
+                (announcement.dirty || announcement.touched),
+              'is-invalid':
+                announcement.invalid &&
+                (announcement.dirty || announcement.touched)
+            }"
           ></textarea>
+
+          <div
+            *ngIf="
+              announcement.invalid &&
+              (announcement.dirty || announcement.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="announcement.hasError('required')" class="alert">
+              <small>announcement is required.</small>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -112,65 +166,214 @@
           >
             <div class="row g-3">
               <div class="col-12 col-md-6">
-                <label class="fw-bold">Type</label>
+                <label class="fw-bold"
+                  >Type <span class="text-danger">*</span></label
+                >
                 <input
                   class="form-control"
                   [(ngModel)]="event.type"
+                  #eventType="ngModel"
+                  required=""
                   name="eventType{{ i }}"
                   (change)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      eventType.valid && (eventType.dirty || eventType.touched),
+                    'is-invalid':
+                      eventType.invalid &&
+                      (eventType.dirty || eventType.touched)
+                  }"
                 />
+                <div
+                  *ngIf="
+                    eventType.invalid && (eventType.dirty || eventType.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="eventType.hasError('required')" class="alert">
+                    <small>Event type is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label class="fw-bold">Date</label>
+                <label class="fw-bold"
+                  >Date <span class="text-danger">*</span></label
+                >
                 <input
                   type="date"
                   class="form-control"
                   [(ngModel)]="event.date"
                   name="eventDate{{ i }}"
                   (change)="saveNoticeData()"
+                  required=""
+                  #eventDate="ngModel"
+                  [ngClass]="{
+                    'is-valid':
+                      eventDate.valid && (eventDate.dirty || eventDate.touched),
+                    'is-invalid':
+                      eventDate.invalid &&
+                      (eventDate.dirty || eventDate.touched)
+                  }"
                 />
+                <div
+                  *ngIf="
+                    eventDate.invalid && (eventDate.dirty || eventDate.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="eventDate.hasError('required')" class="alert">
+                    <small>Event date is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label class="fw-bold">Time</label>
+                <label class="fw-bold"
+                  >Time <span class="text-danger">*</span></label
+                >
                 <input
                   type="time"
                   class="form-control"
                   [(ngModel)]="event.time"
                   name="eventTime{{ i }}"
                   (change)="saveNoticeData()"
+                  required=""
+                  #eventTime="ngModel"
+                  [ngClass]="{
+                    'is-valid':
+                      eventTime.valid && (eventTime.dirty || eventTime.touched),
+                    'is-invalid':
+                      eventTime.invalid &&
+                      (eventTime.dirty || eventTime.touched)
+                  }"
                 />
+                <div
+                  *ngIf="
+                    eventTime.invalid && (eventTime.dirty || eventTime.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="eventTime.hasError('required')" class="alert">
+                    <small>Event time is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label class="fw-bold">Location</label>
+                <label class="fw-bold"
+                  >Location <span class="text-danger">*</span></label
+                >
                 <input
                   class="form-control"
                   [(ngModel)]="event.location"
                   name="eventLocation{{ i }}"
                   (change)="saveNoticeData()"
+                  required=""
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-valid':
+                      location.valid && (location.dirty || location.touched),
+                    'is-invalid':
+                      location.invalid && (location.dirty || location.touched)
+                  }"
                 />
+                <div
+                  *ngIf="
+                    location.invalid && (location.dirty || location.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="location.hasError('required')" class="alert">
+                    <small>Location is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label class="fw-bold">Address</label>
+                <label class="fw-bold"
+                  >Address <span class="text-danger">*</span></label
+                >
                 <input
                   class="form-control"
                   [(ngModel)]="event.address"
                   name="eventAddress{{ i }}"
                   (change)="saveNoticeData()"
+                  required=""
+                  #address="ngModel"
+                  [ngClass]="{
+                    'is-valid':
+                      address.valid && (address.dirty || address.touched),
+                    'is-invalid':
+                      address.invalid && (address.dirty || address.touched)
+                  }"
                 />
+                <div
+                  *ngIf="address.invalid && (address.dirty || address.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="address.hasError('required')" class="alert">
+                    <small>Address is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label class="fw-bold">City</label>
+                <label class="fw-bold"
+                  >City <span class="text-danger">*</span></label
+                >
                 <input
                   class="form-control"
                   [(ngModel)]="event.city"
                   name="eventCity{{ i }}"
                   (change)="saveNoticeData()"
+                  required=""
+                  #eventCity="ngModel"
+                  [ngClass]="{
+                    'is-valid':
+                      eventCity.valid && (eventCity.dirty || eventCity.touched),
+                    'is-invalid':
+                      eventCity.invalid &&
+                      (eventCity.dirty || eventCity.touched)
+                  }"
                 />
+                <div
+                  *ngIf="
+                    eventCity.invalid && (eventCity.dirty || eventCity.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="eventCity.hasError('required')" class="alert">
+                    <small>Event city is required.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="fw-bold"
+                  >State <span class="text-danger">*</span></label
+                >
+                <input
+                  class="form-control"
+                  [(ngModel)]="event.state"
+                  name="eventstate{{ i }}"
+                  (change)="saveNoticeData()"
+                  required=""
+                  #state="ngModel"
+                  [ngClass]="{
+                    'is-valid': state.valid && (state.dirty || state.touched),
+                    'is-invalid':
+                      state.invalid && (state.dirty || state.touched)
+                  }"
+                />
+                <div
+                  *ngIf="state.invalid && (state.dirty || state.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="state.hasError('required')" class="alert">
+                    <small>State is required.</small>
+                  </div>
+                </div>
               </div>
 
               <div class="col-12 col-md-1 d-flex align-items-end">
@@ -188,7 +391,7 @@
 
           <button
             type="button"
-            class="btn btn-outline-primary mt-3"
+            class="btn btn-outline-primary btn-secondary mt-3"
             (click)="addEvent()"
           >
             + Add Another Event
@@ -255,7 +458,7 @@
 
           <button
             type="button"
-            class="btn btn-outline-primary mt-3"
+            class="btn btn-outline-primary btn-secondary mt-3"
             (click)="addContact()"
           >
             + Add Another Contact
@@ -322,7 +525,7 @@
             <div class="col-12 col-md-3">
               <button
                 type="button"
-                class="btn btn-outline-primary w-100"
+                class="btn btn-outline-primary btn-secondary w-100"
                 (click)="addNewGroup()"
               >
                 Save

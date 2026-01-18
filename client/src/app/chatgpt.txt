@@ -1,55 +1,90 @@
-Could you improve my Angular header.  Higlight menu item that's selected. other improvements you can 
-come up with is appreciated.
+In the following nav, when the nav-item Edit Notice is clicked, a modal opens in which the user
+enters a notice number. Navigation then proceeds to the Edit Notice page. The intermediate step of
+opening the modal prevents routerLinkActive="active" to work. When the Edit Notice page is
+navigated to, the menu is not highlighted. Same for Edit Memoriam.
 
-<nav class="navbar navbar-expand-md bg-body py-3">
+<nav class="navbar navbar-expand-md bg-body py-3 shadow-sm sticky-top">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <span>Brand</span></a
-    ><button
-      data-bs-toggle="collapse"
+    <!-- Brand -->
+    <a class="navbar-brand fw-semibold" routerLink="/"> Brand </a>
+
+    <!-- Mobile toggle -->
+    <button
       class="navbar-toggler"
-      data-bs-target="#navcol-3"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
-      <span class="visually-hidden">Toggle navigation</span
-      ><span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navcol-3">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link active" [routerLink]="['/']">Home</a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link active"
-            [routerLink]="['/notice-entry']"
-            data-bs-toggle="tooltip"
-            data-bss-tooltip
-            title="Enter a death notice"
-            >Enter Notice</a
-          >
-         
-        </li>
+
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto gap-md-2">
         <li class="nav-item">
           <a
             class="nav-link"
-            data-bs-toggle="tooltip"
-            data-bss-tooltip
-            title="Make changes to a death notice"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/notice-entry"
+            routerLinkActive="active"
+            title="Enter a death notice"
+          >
+            Enter Notice
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <!-- Not a route → use button semantics -->
+          <button
+            type="button"
+            class="nav-link btn btn-link"
             (click)="onEditNoticeClick()"
-            >Edit Notice</a
+            title="Make changes to a death notice"
           >
+            Edit Notice
+          </button>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link active" [routerLink]="['/enter-memoriam']"
-            >Enter Memoriam</a
+          <a
+            class="nav-link"
+            routerLink="/enter-memoriam"
+            routerLinkActive="active"
           >
+            Enter Memoriam
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" (click)="onEditMemoriamClick()">Edit Memoriam</a>
+          <button
+            type="button"
+            class="nav-link btn btn-link"
+            (click)="onEditMemoriamClick()"
+          >
+            Edit Memoriam
+          </button>
         </li>
       </ul>
-      <button class="btn btn-primary" type="button">Button</button>
+
+      <!-- CTA -->
+      <!-- <button class="btn btn-primary">Button</button> -->
+
+      <a class="nav-link" routerLink="/" routerLinkActive="active">
+        Contact Us
+      </a>
     </div>
   </div>
 </nav>
-<!-- End: Navbar Centered Links -->

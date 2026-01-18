@@ -1,14 +1,15 @@
+<!-- Modal -->
 <div
-  id="contact-us"
-  class="modal fade show"
-  role="dialog"
+  class="modal fade"
+  id="contactUsModal"
   tabindex="-1"
-  style="display: block"
+  aria-labelledby="contactUsModal"
+  aria-hidden="true"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Contact Us</h4>
+        <h4 class="modal-title" style="font-size: 20.4px">Contact Us</h4>
         <button
           class="btn-close"
           type="button"
@@ -17,58 +18,95 @@
         ></button>
       </div>
       <div class="modal-body">
-        <div class="container position-relative">
-          <div class="row d-flex justify-content-center">
-            <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-              <div class="card mb-5">
-                <div class="card-body p-sm-5">
-                  <form method="post">
-                    <div class="mb-3">
-                      <input
-                        id="name-2"
-                        class="form-control"
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <input
-                        id="email-2"
-                        class="form-control"
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <textarea
-                        id="message-2"
-                        class="form-control"
-                        name="message"
-                        rows="6"
-                        placeholder="Message"
-                      ></textarea>
-                    </div>
-                    <div>
-                      <button
-                        class="btn btn-primary w-100 d-block"
-                        type="submit"
-                      >
-                        Send
-                      </button>
-                    </div>
-                  </form>
+        <form #contactUsForm="ngForm">
+          <div class="row mb-3">
+            <div class="col-12">
+              <label class="form-label fw-bold" style="font-size: 14px"
+                >Name <span class="text-danger">*</span></label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="name"
+                [(ngModel)]="contactUsModel.name"
+                required
+                #nameCtrl="ngModel"
+              />
+              <div
+                *ngIf="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)"
+              >
+                <div *ngIf="nameCtrl.hasError('required')">
+                  <small class="text-danger">Name is required.</small>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <div class="row mb-3">
+            <div class="col-12">
+              <label class="form-label fw-bold" style="font-size: 14px"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                [(ngModel)]="contactUsModel.email"
+                required
+                #emailCtrl="ngModel"
+              />
+              <div
+                *ngIf="
+                  emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)
+                "
+              >
+                <div *ngIf="emailCtrl.hasError('required')">
+                  <small class="text-danger">Email is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-12">
+              <label class="form-label fw-bold" style="font-size: 14px"
+                >Message <span class="text-danger">*</span></label
+              >
+
+              <!-- (selectionchange)="saveNoticeData()" -->
+              <textarea
+                class="form-control"
+                style="border-width: 1.8px"
+                rows="5"
+                name="message"
+                required
+                [(ngModel)]="contactUsModel.message"
+                #messageCtrl="ngModel"
+                sel
+              ></textarea>
+              <div
+                *ngIf="
+                  messageCtrl.invalid &&
+                  (messageCtrl.dirty || messageCtrl.touched)
+                "
+              >
+                <div *ngIf="messageCtrl.hasError('required')">
+                  <small class="text-danger">Message is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-light" type="button" data-bs-dismiss="modal">
-          Close</button
-        ><button class="btn btn-primary" type="button">Save</button>
+        <button
+          class="btn btn-primary w-100 primary-bg-color"
+          type="button"
+          [disabled]="!contactUsForm.valid"
+          (click)="contactUs()"
+        >
+          Send
+        </button>
       </div>
     </div>
   </div>

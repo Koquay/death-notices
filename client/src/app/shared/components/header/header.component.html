@@ -77,7 +77,14 @@
       <!-- CTA -->
       <!-- <button class="btn btn-primary">Button</button> -->
 
-      <a class="nav-link" routerLink="/"> Contact Us </a>
+      <button
+        type="button"
+        class="nav-link btn btn-link"
+        [class.active]="isContactUsActive()"
+        (click)="onContactUsClick()"
+      >
+        Contact Us
+      </button>
     </div>
   </div>
 </nav>
