@@ -77,7 +77,9 @@
                 <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
-                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
+                      ><span style="color: rgb(0, 0, 0)"
+                        >Name <span class="text-danger">*</span></span
+                      ></strong
                     ></label
                   >
                 </div>
@@ -94,7 +96,7 @@
                   <label class="col-form-label"
                     ><strong
                       ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death</span
+                        >Date of Death <span class="text-danger">*</span></span
                       ></strong
                     ></label
                   >
@@ -102,57 +104,96 @@
               </div>
               <div class="row mb-3">
                 <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span class="w-100" style="color: rgb(0, 0, 0)"
-                        >Name:</span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="text"
-                    name="noticeName"
-                    [(ngModel)]="editNoticeModel.name"
-                    required
-                    #nameCtrl="ngModel"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px; width: 100%"
-                  />
+                  <label class="form-label d-lg-none me-2">
+                    <strong>Name: <span class="text-danger">*</span></strong>
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="noticeName"
+                      [(ngModel)]="editNoticeModel.name"
+                      required
+                      #nameCtrl="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                      [ngClass]="{
+                        'is-valid':
+                          nameCtrl.valid &&
+                          (nameCtrl.dirty || nameCtrl.touched),
+                        'is-invalid':
+                          nameCtrl.invalid &&
+                          (nameCtrl.dirty || nameCtrl.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Name is required.</small>
+                    </div>
+                  </div>
                 </div>
+
                 <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Birth:</span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="date"
-                    style="border-width: 1.8px"
-                    title="Select bith date"
-                    name="birth_date"
-                    [(ngModel)]="editNoticeModel.birth_date_str"
-                    #birth_date="ngModel"
-                    (change)="saveNoticeData()"
-                  />
+                  <label class="form-label d-lg-none me-2">
+                    <strong>Date of Birth:</strong>
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="date"
+                      name="birth_date"
+                      [(ngModel)]="editNoticeModel.birth_date_str"
+                      #birth_date="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                    />
+                  </div>
                 </div>
+
                 <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span style="color: rgb(0, 0, 0)"
-                        >Date of Death</span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="date"
-                    name="death_date"
-                    [(ngModel)]="editNoticeModel.death_date_str"
-                    #death_date="ngModel"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                  <label class="form-label d-lg-none me-2">
+                    <strong
+                      >Date of Death: <span class="text-danger">*</span></strong
+                    >
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="date"
+                      name="death_date"
+                      [(ngModel)]="editNoticeModel.death_date_str"
+                      required
+                      #death_date="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                      [ngClass]="{
+                        'is-valid':
+                          death_date.valid &&
+                          (death_date.dirty || death_date.touched),
+                        'is-invalid':
+                          death_date.invalid &&
+                          (death_date.dirty || death_date.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        death_date.invalid &&
+                        (death_date.dirty || death_date.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Death date is required.</small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,20 +203,39 @@
         <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
-                >Edit Death Announcement:</label
+              <label class="form-label fw-bold" style="font-size: 18px"
+                >Edit Death Announcement:
+                <span class="text-danger">*</span></label
               ><textarea
                 class="form-control"
                 style="border-width: 1.8px"
                 rows="15"
                 name="announcement"
+                required=""
                 [(ngModel)]="editNoticeModel.announcement"
                 #announcement="ngModel"
                 (selectionchange)="saveNoticeData()"
-                sel
+                [ngClass]="{
+                  'is-valid':
+                    announcement.valid &&
+                    (announcement.dirty || announcement.touched),
+                  'is-invalid':
+                    announcement.invalid &&
+                    (announcement.dirty || announcement.touched)
+                }"
               ></textarea>
+
+              <div
+                *ngIf="
+                  announcement.invalid &&
+                  (announcement.dirty || announcement.touched)
+                "
+                class="alert"
+              >
+                <div *ngIf="announcement.hasError('required')" class="alert">
+                  <small>announcement is required.</small>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -184,9 +244,7 @@
           <div class="row d-flex justify-content-center">
             <div class="col-6 col-md-8 col-lg-6">
               <div class="col-12 mb-2">
-                <label
-                  class="form-label fw-bold"
-                  style="font-size: 18px; text-decoration: underline"
+                <label class="form-label fw-bold" style="font-size: 18px"
                   >Edit Events:</label
                 ><small class="ms-2">(Wake, burial, repast, etc.)</small>
               </div>
@@ -196,92 +254,259 @@
                 style="border: 2px solid #ddd"
                 *ngFor="let event of editNoticeModel.events; let i = index"
               >
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"><strong>Type:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.type"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2">
+                    <strong>Type: <span class="text-danger">*</span></strong>
+                  </label>
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="event.type"
+                      (change)="saveNoticeData()"
+                      name="eventType{{ i }}"
+                      #eventType="ngModel"
+                      required
+                      [ngClass]="{
+                        'is-valid':
+                          eventType.valid &&
+                          (eventType.dirty || eventType.touched),
+                        'is-invalid':
+                          eventType.invalid &&
+                          (eventType.dirty || eventType.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        eventType.invalid &&
+                        (eventType.dirty || eventType.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Event type is required.</small>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"><strong>Date:</strong></label>
-                  <input
-                    class="form-control"
-                    type="date"
-                    [(ngModel)]="event.date_str"
-                    [ngModelOptions]="{ standalone: true }"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"><strong>Time:</strong></label>
-                  <input
-                    class="form-control"
-                    type="time"
-                    [(ngModel)]="event.time"
-                    [ngModelOptions]="{ standalone: true }"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
-                </div>
-
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"
-                    ><strong>Location:</strong></label
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >Date: <span class="text-danger">*</span></strong
+                    ></label
                   >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.location"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="date"
+                      [(ngModel)]="event.date_str"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventDate{{ i }}"
+                      #eventDate="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          eventDate.valid &&
+                          (eventDate.dirty || eventDate.touched),
+                        'is-invalid':
+                          eventDate.invalid &&
+                          (eventDate.dirty || eventDate.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        eventDate.invalid &&
+                        (eventDate.dirty || eventDate.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Event date is required.</small>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"
-                    ><strong>Address:</strong></label
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >Time: <span class="text-danger">*</span></strong
+                    ></label
                   >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.address"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="time"
+                      [(ngModel)]="event.time"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventTime{{ i }}"
+                      #eventTime="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          eventTime.valid &&
+                          (eventTime.dirty || eventTime.touched),
+                        'is-invalid':
+                          eventTime.invalid &&
+                          (eventTime.dirty || eventTime.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        eventTime.invalid &&
+                        (eventTime.dirty || eventTime.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Event time is required.</small>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"><strong>City:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.city"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >Location: <span class="text-danger">*</span></strong
+                    ></label
+                  >
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="event.location"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventLocation{{ i }}"
+                      #location="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          location.valid &&
+                          (location.dirty || location.touched),
+                        'is-invalid':
+                          location.invalid &&
+                          (location.dirty || location.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        location.invalid && (location.dirty || location.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Location is required.</small>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-12 mb-2 d-md-flex flex-row align-items-center">
-                  <label class="form-label me-2"><strong>State:</strong></label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="event.state"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >Address: <span class="text-danger">*</span></strong
+                    ></label
+                  >
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="event.address"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventAddress{{ i }}"
+                      #address="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          address.valid && (address.dirty || address.touched),
+                        'is-invalid':
+                          address.invalid && (address.dirty || address.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        address.invalid && (address.dirty || address.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Address is required.</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >City: <span class="text-danger">*</span></strong
+                    ></label
+                  >
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="event.city"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventCity{{ i }}"
+                      #eventCity="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          eventCity.valid &&
+                          (eventCity.dirty || eventCity.touched),
+                        'is-invalid':
+                          eventCity.invalid &&
+                          (eventCity.dirty || eventCity.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        eventCity.invalid &&
+                        (eventCity.dirty || eventCity.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Event city is required.</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-3 d-md-flex align-items-start">
+                  <label class="form-label me-2 mt-2"
+                    ><strong
+                      >State: <span class="text-danger">*</span></strong
+                    ></label
+                  >
+
+                  <div class="flex-grow-1">
+                    <input
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="event.state"
+                      (change)="saveNoticeData()"
+                      required
+                      name="eventState{{ i }}"
+                      #state="ngModel"
+                      [ngClass]="{
+                        'is-valid':
+                          state.valid && (state.dirty || state.touched),
+                        'is-invalid':
+                          state.invalid && (state.dirty || state.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="state.invalid && (state.dirty || state.touched)"
+                      class="text-danger mt-1"
+                    >
+                      <small>State is required.</small>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-12 col-lg-1 d-flex align-items-end">
@@ -309,26 +534,25 @@
 
         <section class="mt-5">
           <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-8">
               <!-- Section title -->
               <div class="mb-2">
-                <label
-                  class="form-label fw-bold"
-                  style="font-size: 18px; text-decoration: underline"
-                >
+                <label class="form-label fw-bold" style="font-size: 18px">
                   Edit Contact Information:
                 </label>
               </div>
 
               <div class="row d-none d-lg-flex">
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
-                      ><span style="color: rgb(0, 0, 0)">Name</span></strong
+                      ><span style="color: rgb(0, 0, 0)"
+                        >Name <span class="text-danger">*</span></span
+                      ></strong
                     ></label
                   >
                 </div>
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
                       ><span style="color: rgb(0, 0, 0)"
@@ -337,10 +561,12 @@
                     ></label
                   >
                 </div>
-                <div class="col-6 col-lg-3">
+                <div class="col-6 col-lg-4">
                   <label class="col-form-label"
                     ><strong
-                      ><span style="color: rgb(0, 0, 0)">Phone</span></strong
+                      ><span style="color: rgb(0, 0, 0)"
+                        >Phone <span class="text-danger">*</span></span
+                      ></strong
                     ></label
                   >
                 </div>
@@ -350,46 +576,96 @@
                 class="row mb-3"
                 *ngFor="let contact of editNoticeModel.contacts; let i = index"
               >
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong>Name:</strong></label
-                  >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="contact.name"
-                    name="name{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                  <label class="form-label d-lg-none me-2">
+                    <strong>Name: <span class="text-danger">*</span></strong>
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="contactName{{ i }}"
+                      [(ngModel)]="contact.name"
+                      required
+                      #contactNameCtrl="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                      [ngClass]="{
+                        'is-valid':
+                          contactNameCtrl.valid &&
+                          (contactNameCtrl.dirty || contactNameCtrl.touched),
+                        'is-invalid':
+                          contactNameCtrl.invalid &&
+                          (contactNameCtrl.dirty || contactNameCtrl.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        contactNameCtrl.invalid &&
+                        (contactNameCtrl.dirty || contactNameCtrl.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Name is required.</small>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong>Relationship:</strong></label
-                  >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="contact.relationship"
-                    name="relationship{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                  <label class="form-label d-lg-none me-2">
+                    <strong>Relationship:</strong>
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="relationship{{ i }}"
+                      [(ngModel)]="contact.relationship"
+                      #relationship="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                    />
+                  </div>
                 </div>
 
-                <div class="col-12 col-lg-3 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none"
-                    ><strong>Phone:</strong></label
-                  >
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="contact.phone"
-                    name="phone{{ i }}"
-                    (change)="saveNoticeData()"
-                    style="border-width: 1.8px"
-                  />
+                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                  <label class="form-label d-lg-none me-2">
+                    <strong>Phone: <span class="text-danger">*</span></strong>
+                  </label>
+
+                  <div>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="phone{{ i }}"
+                      [(ngModel)]="contact.phone"
+                      required
+                      #phoneCtrl="ngModel"
+                      (change)="saveNoticeData()"
+                      style="border-width: 1.8px"
+                      [ngClass]="{
+                        'is-valid':
+                          phoneCtrl.valid &&
+                          (phoneCtrl.dirty || phoneCtrl.touched),
+                        'is-invalid':
+                          phoneCtrl.invalid &&
+                          (phoneCtrl.dirty || phoneCtrl.touched)
+                      }"
+                    />
+
+                    <div
+                      *ngIf="
+                        phoneCtrl.invalid &&
+                        (phoneCtrl.dirty || phoneCtrl.touched)
+                      "
+                      class="text-danger mt-1"
+                    >
+                      <small>Phone is required.</small>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="col-12 col-lg-1 d-flex align-items-end">
@@ -418,9 +694,7 @@
         <section class="mt-5">
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-md-6">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
+              <label class="form-label fw-bold" style="font-size: 18px"
                 >Edit Groups:</label
               ><small class="ms-2">(optional)</small
               ><small class="d-block"
@@ -498,9 +772,7 @@
         <section class="mt-5">
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
-              <label
-                class="form-label fw-bold"
-                style="font-size: 18px; text-decoration: underline"
+              <label class="form-label fw-bold" style="font-size: 18px"
                 >Edit Additional Information:</label
               ><textarea
                 class="form-control"

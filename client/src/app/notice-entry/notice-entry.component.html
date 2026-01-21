@@ -173,9 +173,10 @@
                   class="form-control"
                   [(ngModel)]="event.type"
                   #eventType="ngModel"
-                  required=""
                   name="eventType{{ i }}"
                   (change)="saveNoticeData()"
+                  placeholder="I.e., Burial"
+                  required=""
                   [ngClass]="{
                     'is-valid':
                       eventType.valid && (eventType.dirty || eventType.touched),
@@ -269,6 +270,7 @@
                   [(ngModel)]="event.location"
                   name="eventLocation{{ i }}"
                   (change)="saveNoticeData()"
+                  placeholder="I.e., Baptist Church"
                   required=""
                   #location="ngModel"
                   [ngClass]="{
@@ -299,6 +301,7 @@
                   [(ngModel)]="event.address"
                   name="eventAddress{{ i }}"
                   (change)="saveNoticeData()"
+                  placeholder="I.e., Broad St."
                   required=""
                   #address="ngModel"
                   [ngClass]="{
@@ -327,6 +330,7 @@
                   [(ngModel)]="event.city"
                   name="eventCity{{ i }}"
                   (change)="saveNoticeData()"
+                  placeholder="I.e., Monrovia"
                   required=""
                   #eventCity="ngModel"
                   [ngClass]="{
@@ -358,6 +362,7 @@
                   [(ngModel)]="event.state"
                   name="eventstate{{ i }}"
                   (change)="saveNoticeData()"
+                  placeholder="I.e., Liberia"
                   required=""
                   #state="ngModel"
                   [ngClass]="{
