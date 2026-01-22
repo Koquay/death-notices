@@ -1,0 +1,15 @@
+<section>
+  <form class="d-flex" role="search" style="width: 300px; max-width: 100%">
+    <select
+      class="form-select"
+      name="deathYear"
+      [(ngModel)]="selectedYear"
+      (click)="getDeceasedByYear()"
+    >
+      <!-- <option disabled selected value="">Search by year of death</option> -->
+      <option *ngFor="let deathYear of deathYears" [ngValue]="deathYear">
+        {{ deathYear }}
+      </option>
+    </select>
+  </form>
+</section>

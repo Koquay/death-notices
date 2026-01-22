@@ -10,11 +10,11 @@ environment.pk_test -- change for production
 
 date in Enter Notice disappears after submit
 
-fields validation
+*** fields validation
 
 paypal
 
-search by group
+search by group initial option not shown
 
 reinstate stripe
 

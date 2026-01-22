@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SearchComponent } from '../shared/components/search/search.component';
 import { GroupSearchComponent } from '../shared/components/group-search/group-search.component';
+import { PaginationComponent } from '../shared/components/pagination/pagination.component';
+import { YearSearchComponent } from '../shared/components/year-search/year-search.component';
 
 @Component({
   selector: 'app-death-notice-gallery',
@@ -16,7 +18,9 @@ import { GroupSearchComponent } from '../shared/components/group-search/group-se
     CommonModule,
     DatePipe,
     SearchComponent,
-    GroupSearchComponent
+    GroupSearchComponent,
+    YearSearchComponent,
+    PaginationComponent
   ],
   templateUrl: './death-notice-gallery.component.html',
   styleUrl: './death-notice-gallery.component.scss'

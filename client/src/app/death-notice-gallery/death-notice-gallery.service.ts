@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
@@ -16,9 +16,13 @@ export class DeathNoticeGalleryService {
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);
   private noticesUrl = '/api/notices';
+  static YEAR: string = '2026';
 
-  public getNotices = () => {
-    return this.httpClient.get<NoticeEntryModel[]>(this.noticesUrl).pipe(
+  public getNotices = (year: string = DeathNoticeGalleryService.YEAR) => {
+    const params = new HttpParams({
+      fromObject: { year },
+    });
+    return this.httpClient.get<NoticeEntryModel[]>(this.noticesUrl, { params }).pipe(
       tap((noticesData) => {
         this.noticesSignal.set({ notices: noticesData });
         console.log('noticesSignal:', this.noticesSignal());

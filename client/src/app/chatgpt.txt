@@ -1,90 +1,30 @@
-In the following nav, when the nav-item Edit Notice is clicked, a modal opens in which the user
-enters a notice number. Navigation then proceeds to the Edit Notice page. The intermediate step of
-opening the modal prevents routerLinkActive="active" to work. When the Edit Notice page is
-navigated to, the menu is not highlighted. Same for Edit Memoriam.
+This is an example of the death_date field in the documents of the notices collection:
 
-<nav class="navbar navbar-expand-md bg-body py-3 shadow-sm sticky-top">
-  <div class="container">
-    <!-- Brand -->
-    <a class="navbar-brand fw-semibold" routerLink="/"> Brand </a>
+death_date
+2026-01-02T00:00:00.000+00:00
 
-    <!-- Mobile toggle -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#mainNav"
-      aria-controls="mainNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+death_date is of type Date in the NoticesSchema.
 
-    <!-- Nav links -->
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav mx-auto gap-md-2">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Home
-          </a>
-        </li>
+In the function below, I need to retrieve only notices where the year of the death_date in Mongodb
+equals the year parameter:
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/notice-entry"
-            routerLinkActive="active"
-            title="Enter a death notice"
-          >
-            Enter Notice
-          </a>
-        </li>
+exports.getNotices = async (req, res) => {
+  console.log("Notices.service.getNotices called...");
+  console.log('req.query.year', req.query.year)
 
-        <li class="nav-item">
-          <!-- Not a route → use button semantics -->
-          <button
-            type="button"
-            class="nav-link btn btn-link"
-            (click)="onEditNoticeClick()"
-            title="Make changes to a death notice"
-          >
-            Edit Notice
-          </button>
-        </li>
+  const year = req.query.year;
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/enter-memoriam"
-            routerLinkActive="active"
-          >
-            Enter Memoriam
-          </a>
-        </li>
+  try {
+    const notices = await Notices.find()
+      .sort({ createdAt: "desc" })
+      .populate("contacts") // populate contacts
+      .populate("events")
+      .exec();
 
-        <li class="nav-item">
-          <button
-            type="button"
-            class="nav-link btn btn-link"
-            (click)="onEditMemoriamClick()"
-          >
-            Edit Memoriam
-          </button>
-        </li>
-      </ul>
-
-      <!-- CTA -->
-      <!-- <button class="btn btn-primary">Button</button> -->
-
-      <a class="nav-link" routerLink="/" routerLinkActive="active">
-        Contact Us
-      </a>
-    </div>
-  </div>
-</nav>
+    console.log("notices retrieved:", notices);
+    return res.status(200).json(notices);
+  } catch (error) {
+    console.error("Error in getNotices:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

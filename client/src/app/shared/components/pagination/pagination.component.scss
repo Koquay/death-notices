@@ -1,0 +1,26 @@
+.pagination {
+    font-weight: bold;
+
+    a {
+        color: black;
+    }
+}
+
+
+.pagination-background {
+    background-color: #fb7701 !important;
+    color: white !important;
+  }
+
+
+nav>ul>li>a {
+    border: 1px solid gray !important; 
+    box-shadow: none !important;    
+    font-size: 18px;
+}
+
+// .page-item.disabled  {
+//     pointer-events: none !important;
+//     cursor: default !important;
+//   }
+  

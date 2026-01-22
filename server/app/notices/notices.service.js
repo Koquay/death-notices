@@ -149,21 +149,59 @@ const createGroups = async (groups) => {
 
 exports.getNotices = async (req, res) => {
   console.log("Notices.service.getNotices called...");
+  console.log("req.query.year", req.query.year);
+
+  const year = parseInt(req.query.year, 10);
+
+  if (isNaN(year)) {
+    return res.status(400).json({ message: "Invalid year parameter" });
+  }
+
+  // Start and end of the year (UTC)
+  const startOfYear = new Date(Date.UTC(year, 0, 1));
+  const startOfNextYear = new Date(Date.UTC(year + 1, 0, 1));
 
   try {
-    const notices = await Notices.find()
-      .sort({ createdAt: "desc" })
-      .populate("contacts") // populate contacts
+    const notices = await Notices.find({
+      death_date: {
+        $gte: startOfYear,
+        $lt: startOfNextYear
+      }
+    })
+      .sort({ createdAt: -1 })
+      .populate("contacts")
       .populate("events")
       .exec();
 
-    console.log("notices retrieved:", notices);
+    console.log("notices retrieved:", notices.length);
     return res.status(200).json(notices);
   } catch (error) {
     console.error("Error in getNotices:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+// exports.getNotices = async (req, res) => {
+//   console.log("Notices.service.getNotices called...");
+//   console.log('req.query.year', req.query.year)
+
+//   const year = req.query.year;
+
+//   try {
+//     const notices = await Notices.find()
+//       .sort({ createdAt: "desc" })
+//       .populate("contacts") // populate contacts
+//       .populate("events")
+//       .exec();
+
+//     console.log("notices retrieved:", notices);
+//     return res.status(200).json(notices);
+//   } catch (error) {
+//     console.error("Error in getNotices:", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
 
 
 exports.getNoticeImage = (req, res) => {
