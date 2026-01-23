@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, effect, inject, } from '@angular/core';
+import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
+import { DeathNoticeGalleryOptions } from '../../../death-notice-gallery/death-notice-gallery.options';
 
 @Component({
   selector: 'app-pagination',
@@ -11,19 +13,25 @@ import { Component, effect, EventEmitter, inject, Input, Output } from '@angular
   styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent {
-  // private productGalleryService = inject(ProductGalleryService);
+  private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
+  private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
   public pages: number[] = [];
   public pageNo = 1;
   public numberOfPages = 0;
-  // public pageSize = this.productGalleryService.productOptionsSignal().pageSize;
-  public pageSize = 10;
-  @Output() pageChangeEvent = new EventEmitter<number>();
+  public pageSize = 0;
+  public totalCount = 0;
 
-  @Input() set productCount(productCount: number) {
-    console.log('this.productCount', productCount)
+  private deathNoticeOptionsEffect = effect(() => {
+    this.pageSize = this.deathNoticeGalleryService.deathNOticeGallerySignal().pageSize;
+    this.totalCount = this.deathNoticeGalleryService.deathNOticeGallerySignal().totalCount;
+    console.log('deathNoticeOptionsEffect.pageSize', this.pageSize)
+    console.log('deathNoticeOptionsEffect.totalCount', this.totalCount)
+    this.computeVariables()
+  })
 
+  private computeVariables() {
     this.numberOfPages = Math.ceil(
-      productCount / this.pageSize
+      this.totalCount / this.pageSize
     );
     console.log('this.numberOfPages', this.numberOfPages)
 
@@ -33,13 +41,12 @@ export class PaginationComponent {
     }
   }
 
-  // private productOptionsEffect = effect(() => {
-  //   this.pageSize = this.productGalleryService.productOptionsSignal().pageSize;
-  // })
-
   public getPage = (pageNo: number) => {
     this.pageNo = pageNo;
-    this.pageChangeEvent.emit(this.pageNo)
+    // this.pageChangeEvent.emit(this.pageNo)
+    console.log('getPage.pageNo', this.pageNo)
+    this.deathNoticeGalleryOptions.pageNo = pageNo;
+    this.deathNoticeGalleryService.getNotices().subscribe();
   }
 
   public getAdjacentPage(direction: string) {
@@ -47,12 +54,14 @@ export class PaginationComponent {
     if (direction === 'next') {
       if (this.pageNo < this.numberOfPages) {
         ++this.pageNo;
-        this.pageChangeEvent.emit(this.pageNo);
+        this.deathNoticeGalleryOptions.pageNo = this.pageNo;
+        this.deathNoticeGalleryService.getNotices().subscribe();
       }
     } else if (direction === 'prev') {
       if (this.pageNo > 1) {
         --this.pageNo;
-        this.pageChangeEvent.emit(this.pageNo);
+        this.deathNoticeGalleryOptions.pageNo = this.pageNo;
+        this.deathNoticeGalleryService.getNotices().subscribe();
       }
     }
   }

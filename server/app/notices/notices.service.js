@@ -149,37 +149,69 @@ const createGroups = async (groups) => {
 
 exports.getNotices = async (req, res) => {
   console.log("Notices.service.getNotices called...");
-  console.log("req.query.year", req.query.year);
+  console.log("req.query.options", req.query.options);
 
-  const year = parseInt(req.query.year, 10);
+  let options;
+
+  try {
+    options = JSON.parse(req.query.options);
+  } catch {
+    return res.status(400).json({ message: "Invalid options parameter" });
+  }
+
+  const year = parseInt(options.year, 10);
+  const pageNo = Math.max(1, parseInt(options.pageNo, 10) || 1);
+  const pageSize = Math.max(1, parseInt(options.pageSize, 10) || 10);
+
+  console.log("year", year);
 
   if (isNaN(year)) {
     return res.status(400).json({ message: "Invalid year parameter" });
   }
 
-  // Start and end of the year (UTC)
+  // UTC-safe date range
   const startOfYear = new Date(Date.UTC(year, 0, 1));
   const startOfNextYear = new Date(Date.UTC(year + 1, 0, 1));
 
+  const filter = {
+    death_date: {
+      $gte: startOfYear,
+      $lt: startOfNextYear
+    }
+  };
+
   try {
-    const notices = await Notices.find({
-      death_date: {
-        $gte: startOfYear,
-        $lt: startOfNextYear
-      }
-    })
-      .sort({ createdAt: -1 })
-      .populate("contacts")
-      .populate("events")
-      .exec();
+    const [notices, totalCount] = await Promise.all([
+      Notices.find(filter)
+        .sort({ createdAt: -1 })
+        .populate("contacts")
+        .populate("events")
+        .limit(pageSize)
+        .skip((pageNo - 1) * pageSize)
+        .exec(),
+
+      Notices.countDocuments(filter)
+    ]);
 
     console.log("notices retrieved:", notices.length);
-    return res.status(200).json(notices);
+    console.log("total notices:", totalCount);
+
+    return res.status(200).json({
+      data: notices,
+      totalCount
+      // pagination: {
+      //   total: totalCount,
+      //   pageNo,
+      //   pageSize,
+      //   totalPages: Math.ceil(totalCount / pageSize)
+      // }
+    });
   } catch (error) {
     console.error("Error in getNotices:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 
 // exports.getNotices = async (req, res) => {

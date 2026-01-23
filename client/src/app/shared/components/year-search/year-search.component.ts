@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { YearSearchService } from './year-search.service';
 import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
+import { DeathNoticeGalleryOptions } from '../../../death-notice-gallery/death-notice-gallery.options';
 
 @Component({
   selector: 'app-year-search',
@@ -16,10 +17,12 @@ import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-n
 })
 export class YearSearchComponent {
   private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
+  private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
   deathYears = ['2026', '2025', '2024', '2023', '2022', '2021', '2020'];
   public selectedYear: string = '2026';
 
   public getDeceasedByYear = () => {
-    this.deathNoticeGalleryService.getNotices(this.selectedYear).subscribe();
+    this.deathNoticeGalleryOptions.year = this.selectedYear;
+    this.deathNoticeGalleryService.getNotices().subscribe();
   }
 }

@@ -21,6 +21,7 @@ export class NoticeEntryModel {
     relationship: string = '';
     editImageMode = false;
     email: string = '';
+    public pageSize = 12;
     contacts: Contact[] = [
         {
             name: '',

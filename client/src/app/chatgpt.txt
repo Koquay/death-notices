@@ -1,30 +1,37 @@
-This is an example of the death_date field in the documents of the notices collection:
+This is the service function that calls the server function you
+refactored. 
 
-death_date
-2026-01-02T00:00:00.000+00:00
+public getNotices = () => {
+    const optionsStr = JSON.stringify(this.deathNoticeGalleryOptions)
 
-death_date is of type Date in the NoticesSchema.
+    const params = new HttpParams({
+      fromObject: { options: optionsStr },
+    });
 
-In the function below, I need to retrieve only notices where the year of the death_date in Mongodb
-equals the year parameter:
-
-exports.getNotices = async (req, res) => {
-  console.log("Notices.service.getNotices called...");
-  console.log('req.query.year', req.query.year)
-
-  const year = req.query.year;
-
-  try {
-    const notices = await Notices.find()
-      .sort({ createdAt: "desc" })
-      .populate("contacts") // populate contacts
-      .populate("events")
-      .exec();
-
-    console.log("notices retrieved:", notices);
-    return res.status(200).json(notices);
-  } catch (error) {
-    console.error("Error in getNotices:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return this.httpClient.get<{ data: NoticeEntryModel[], pagination: {} }>(this.noticesUrl, { params }).pipe(
+      tap((noticesData) => {
+        this.noticesSignal.set({ notices: noticesData.data });
+        console.log('noticesSignal:', this.noticesSignal());
+        return noticesData.data as NoticeEntryModel[];
+      }),
   }
-};
+
+  This is an excerpt from the component that calls sthe service:
+
+  public notices: NoticeEntryModel[] = []
+  
+  ngOnInit() {
+    this.deathNoticeGalleryService.getNotices().subscribe(notices => {
+      this.notices = notices;
+    })
+  }
+
+  I am getting the followin error during build:
+
+  (base) keith@keith-HP-250-G7-Notebook-PC:~/programming/angular/death_announcements/client$ ng build
+Application bundle generation failed. [6.165 seconds]
+
+✘ [ERROR] TS2740: Type '{ notices: NoticeEntryModel[]; pagination: {}; }' is missing the following properties from type 'NoticeEntryModel[]': length, pop, push, concat, and 29 more. [plugin angular-compiler]
+
+    src/app/death-notice-gallery/death-notice-gallery.component.ts:47:6:
+      47 │       this.notices = notices;
