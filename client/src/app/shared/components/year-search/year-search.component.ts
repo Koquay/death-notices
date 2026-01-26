@@ -18,11 +18,12 @@ import { DeathNoticeGalleryOptions } from '../../../death-notice-gallery/death-n
 export class YearSearchComponent {
   private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
   private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
-  deathYears = ['2026', '2025', '2024', '2023', '2022', '2021', '2020'];
+  public deathYears = ['2026', '2025', '2024', '2023', '2022', '2021', '2020'];
   public selectedYear: string = '2026';
 
   public getDeceasedByYear = () => {
     this.deathNoticeGalleryOptions.year = this.selectedYear;
+    this.deathNoticeGalleryOptions.pageNo = 1;
     this.deathNoticeGalleryService.getNotices().subscribe();
   }
 }

@@ -4,10 +4,12 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 export class DeathNoticeGalleryOptions {
-    public pageSize = 8;
+    public pageSize = 10;
     public pageNo = 1;
     public totalCount = 0;
     public year = '2026';
+    public groupId = '';
+    public searchField = '';
 
     // pagination = {
     //     totalCount: 0,

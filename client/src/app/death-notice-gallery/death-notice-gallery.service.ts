@@ -43,6 +43,7 @@ export class DeathNoticeGalleryService {
           this.deathNoticeGalleryOptions.totalCount = response.totalCount;
           this.deathNOticeGallerySignal.set({ ...this.deathNOticeGallerySignal(), totalCount: response.totalCount })
           console.log('deathNOticeGallerySignal:', this.deathNOticeGallerySignal());
+          window.scrollTo({ top: 0, behavior: 'smooth' });
 
         }),
         map((response) => response.data) // ✅ RETURN ARRAY ONLY

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { SearchService } from './search.service';
 import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
+import { DeathNoticeGalleryOptions } from '../../../death-notice-gallery/death-notice-gallery.options';
 
 @Component({
   selector: 'app-search',
@@ -18,6 +19,7 @@ export class SearchComponent {
   private searchSubject = new Subject<string>();
   private searchService = inject(SearchService);
   private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
+  private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
 
   ngOnInit() {
     this.handleSearch();
@@ -34,9 +36,12 @@ export class SearchComponent {
     ).subscribe(searchField => {
       if (searchField) {
         console.log('searchField', searchField);
-
-        this.search(searchField)
+        this.deathNoticeGalleryOptions.searchField = searchField
+        // this.search(searchField)
+        this.deathNoticeGalleryService.getNotices().subscribe();
       } else {
+        this.deathNoticeGalleryOptions.pageNo = 1;
+        this.deathNoticeGalleryOptions.searchField = '';
         this.deathNoticeGalleryService.getNotices().subscribe();
       }
 

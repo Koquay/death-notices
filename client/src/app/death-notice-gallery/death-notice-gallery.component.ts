@@ -32,6 +32,12 @@ export class DeathNoticeGalleryComponent {
   public notices: NoticeEntryModel[] = []
   public apiUrl = '/api/notices';
 
+  ngOnInit() {
+    this.deathNoticeGalleryService.getNotices().subscribe(notices => {
+      this.notices = notices;
+    })
+  }
+
   noticeEffect = effect(() => {
     this.notices = this.deathNoticeGalleryService.noticesSignal().notices;
   });
@@ -40,20 +46,9 @@ export class DeathNoticeGalleryComponent {
     this.notices = this.groupSearchService.groupSearchSignal();
   });
 
-
-
-  ngOnInit() {
-    this.deathNoticeGalleryService.getNotices().subscribe(notices => {
-      this.notices = notices;
-    })
-  }
-
-
   searchEffect = effect(() => {
     this.notices = this.searchService.searchSignal();
   })
-
-
 
 }
 

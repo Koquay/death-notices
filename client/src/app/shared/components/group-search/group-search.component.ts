@@ -4,6 +4,7 @@ import { Group } from '../../interfaces/groups.interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-notice-gallery.service';
+import { DeathNoticeGalleryOptions } from '../../../death-notice-gallery/death-notice-gallery.options';
 
 @Component({
   selector: 'app-group-search',
@@ -18,6 +19,7 @@ import { DeathNoticeGalleryService } from '../../../death-notice-gallery/death-n
 export class GroupSearchComponent {
   private groupSearchService = inject(GroupSearchService);
   private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
+  private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
   groups: Group[] = [];
   group: Group = { _id: '', name: '' };
 
@@ -36,8 +38,11 @@ export class GroupSearchComponent {
 
   public getNoticesForGroup = () => {
     if (this.group._id) {
-      this.groupSearchService.getNoticesForGroup(this.group._id).subscribe();
+      this.deathNoticeGalleryOptions.groupId = this.group._id;
+      // this.groupSearchService.getNoticesForGroup(this.group._id).subscribe();
+      this.deathNoticeGalleryService.getNotices().subscribe()
     } else {
+      this.deathNoticeGalleryOptions.groupId = '';
       this.deathNoticeGalleryService.getNotices().subscribe()
     }
   }
