@@ -5,6 +5,7 @@ import { EditNoticeModalComponent } from './edit-notice/edit-notice-modal/edit-n
 import { MemoriamEditModalComponent } from './memoriam/memoriam-edit-modal/memoriam-edit-modal.component';
 import { AppService } from './app.service';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 declare var bootstrap: any;
 
@@ -16,7 +17,8 @@ declare var bootstrap: any;
     HeaderComponent,
     EditNoticeModalComponent,
     MemoriamEditModalComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

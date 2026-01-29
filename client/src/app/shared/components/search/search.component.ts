@@ -38,12 +38,11 @@ export class SearchComponent {
         console.log('searchField', searchField);
         this.deathNoticeGalleryOptions.searchField = searchField
         // this.search(searchField)
-        this.deathNoticeGalleryService.getNotices().subscribe();
       } else {
-        this.deathNoticeGalleryOptions.pageNo = 1;
         this.deathNoticeGalleryOptions.searchField = '';
-        this.deathNoticeGalleryService.getNotices().subscribe();
       }
+      this.deathNoticeGalleryOptions.pageNo = 1;
+      this.deathNoticeGalleryService.getNotices().subscribe();
 
     });
   }

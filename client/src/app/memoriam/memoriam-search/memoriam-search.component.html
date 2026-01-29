@@ -1,20 +1,12 @@
 <section>
-  <div class="row d-flex justify-content-center">
-    <div class="col-12 col-md-8 d-flex justify-content-center">
-      <form
-        class="d-flex justify-content-center"
-        role="search"
-        style="width: 400px; max-width: 100%"
-      >
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search by name..."
-          aria-label="Search"
-          [(ngModel)]="searchField"
-          (ngModelChange)="onSearchFieldChanged($event)"
-        />
-      </form>
-    </div>
-  </div>
+  <form class="d-flex" role="search" style="width: 200px; max-width: 100%">
+    <input
+      class="form-control me-2"
+      type="search"
+      placeholder="Search by name..."
+      aria-label="Search"
+      [(ngModel)]="searchField"
+      (ngModelChange)="onSearchFieldChanged($event)"
+    />
+  </form>
 </section>

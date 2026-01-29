@@ -78,6 +78,7 @@ exports.enterNotice = async (req, res) => {
         announcement: noticeData.announcement,
         additionalInformation: noticeData.additionalInformation,
         email: noticeData.email,
+        buyer_name: noticeData.buyer_name,
         contacts: contactIds,
         events: eventIds,
         groups: groupIds,
@@ -263,18 +264,38 @@ exports.getNoticeByNo = async (req, res) => {
 
   try {
     const notice = await Notices.findOne({ notice_no: req.params.noticeNo })
-      .populate("contacts") // populate contacts
+      .populate("contacts")
       .populate("events")
       .populate("groups")
       .exec();
 
-    console.log("notice retrieved:", notice);
+    if (!notice) {
+      return res.status(404).json({ message: "Notice not found" });
+    }
+
+    const now = new Date();
+    const createdAt = new Date(notice.createdAt);
+
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    // const THIRTY_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
+    const diffMs = now - createdAt;
+
+    if (diffMs > THIRTY_DAYS_MS) {
+      return res.status(404).json({
+        message: `Notice No. ${notice.notice_no} is over 30 days old. It cannot be edited.`,
+        expired: true
+      });
+    }
+
+    // Still within 30 days → return notice
     return res.status(200).json(notice);
+
   } catch (error) {
     console.error("Error in getNoticeByNo:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 
 exports.searchForMemoriams = async (req, res) => {
@@ -336,21 +357,6 @@ exports.addGroup = async (req, res) => {
   }
 };
 
-exports.getNoticesForGroup = async (req, res) => {
-  try {
-    const groupId = new mongoose.Types.ObjectId(req.params.id);
-
-    const notices = await Notices.find({
-      groups: groupId,
-    });
-
-    console.log("notices retrieved:", notices);
-    res.status(200).json(notices);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching notices by group" });
-  }
-};
 
 const sendConfirmationEmail = (noticeData) => {
   console.log("***** sendBuyerEmail called", noticeData);
@@ -361,7 +367,7 @@ const sendConfirmationEmail = (noticeData) => {
   }
 
   const mailOptions = {
-    from: `Libeian Death Announcement <kkwilson852@gmail.com>`,
+    from: `Liberian Death Notice <kkwilson852@gmail.com>`,
     to: `${noticeData.email}`,
     subject: `Your notice No. ${noticeData.notice_no}`,
 
@@ -369,7 +375,8 @@ const sendConfirmationEmail = (noticeData) => {
       <p>Dear ${noticeData.name},<br>
       We are pleased to inform you that your death notice for ${noticeData.name} 
       was successfully placed.<br>Your notice number is ${noticeData.notice_no}. Please save this number
-      as it will be required if you wish to change details of your death notice.
+      as it will be required if you wish to change details of your death notice. Your notice can be edited
+      within 30 days of it's creation.
       <br>Kind regards,
       <br> Liberian Death Announcement</p>,
       `,

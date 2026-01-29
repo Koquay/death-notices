@@ -22,11 +22,11 @@ export class GroupSearchService {
     )
   }
 
-  public getNoticesForGroup = (groupId: string) => {
-    return this.httpClient.get<NoticeEntryModel[]>(`${this.apiUrl}/groups/${groupId}`).pipe(
-      tap(notices => {
-        this.groupSearchSignal.set([...notices]);
-      })
-    )
-  }
+  // public getNoticesForGroup = (groupId: string) => {
+  //   return this.httpClient.get<NoticeEntryModel[]>(`${this.apiUrl}/groups/${groupId}`).pipe(
+  //     tap(notices => {
+  //       this.groupSearchSignal.set([...notices]);
+  //     })
+  //   )
+  // }
 }

@@ -21,7 +21,9 @@ export class GroupSearchComponent {
   private deathNoticeGalleryService = inject(DeathNoticeGalleryService);
   private deathNoticeGalleryOptions = inject(DeathNoticeGalleryOptions);
   groups: Group[] = [];
-  group: Group = { _id: '', name: '' };
+  // group: Group = { _id: '', name: '' };
+  group: Group | null = null;
+
 
 
   ngOnInit() {
@@ -37,13 +39,12 @@ export class GroupSearchComponent {
   }
 
   public getNoticesForGroup = () => {
-    if (this.group._id) {
+    if (this.group?._id) {
       this.deathNoticeGalleryOptions.groupId = this.group._id;
-      // this.groupSearchService.getNoticesForGroup(this.group._id).subscribe();
-      this.deathNoticeGalleryService.getNotices().subscribe()
     } else {
       this.deathNoticeGalleryOptions.groupId = '';
-      this.deathNoticeGalleryService.getNotices().subscribe()
     }
+    this.deathNoticeGalleryOptions.pageNo = 1;
+    this.deathNoticeGalleryService.getNotices().subscribe()
   }
 }

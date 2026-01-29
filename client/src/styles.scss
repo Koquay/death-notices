@@ -1,7 +1,18 @@
 @import 'ngx-toastr/toastr';
 
 body {
-    font-family: 'Roboto'
+    font-family: "Libre Baskerville", Georgia, serif !important;
+    background-color: #e9e4e9 !important;
+}
+
+h1, h2, h3, h4, h5, h6, label {
+  letter-spacing: 0.02em !important;
+  font-weight: 500 !important;
+  color: #5f4b6e !important;
+}
+
+a {
+  cursor: pointer;
 }
 
 .w-md-50 {
@@ -40,40 +51,58 @@ input, select, textarea {
   }
   }
 
+  
+  // button.primary {
+  //   background-color: #6b4f7a !important;
+  //   color: #fff !important;
+  //   border: none !important;
+  // }
+  
+  // button.primary:hover {
+  //   background-color: #5a4268 !important;
+  // }
+  
+  // button.secondary {
+  //   background: transparent !important;
+  //   border: 1px solid #9a8aa6 !important;
+  //   color: #6b4f7a !important;
+  // }
+  
+
   .primary-color {
-    color: purple !important;
+    color: #6b4f7a !important;
   }
   
   .primary-bg-color {
-    background-color: purple !important;
+    background-color: #6b4f7a !important;
   }
 
   .btn-primary {
     color: white !important;
-    background-color: purple !important;
-    border-color: purple !important;
+    background-color: #6b4f7a !important;
+    border-color: #6b4f7a !important;
 
     &:hover {
-      color: purple !important;
+      color: #6b4f7a !important;
       background-color: white !important;
-      border-color: purple !important;
+      border-color: #6b4f7a !important;
     }
   }
 
   .btn-secondary {
-    color: purple !important;
+    color: #6b4f7a !important;
     background-color: white !important;
-    border-color: purple !important;
+    border-color: #6b4f7a !important;
 
     &:hover {
       color: white !important;
-      background-color: purple !important;
+      background-color: #6b4f7a !important;
     }
   }
 
   .form-check-input:checked {
-    background-color: purple !important;
-    border-color: purple !important;
+    background-color: #6b4f7a !important;
+    border-color: #6b4f7a !important;
   }
 
   .alert {

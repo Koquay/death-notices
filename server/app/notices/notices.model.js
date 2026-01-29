@@ -77,6 +77,10 @@ const NoticesSchema = new mongoose.Schema({
       type: String,
       required: false,
     },
+    buyer_name: {
+      type: String,
+      required: false,
+    },
     imageId: {
       type: String,
       required: true,

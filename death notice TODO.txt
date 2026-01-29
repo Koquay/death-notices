@@ -1,24 +1,26 @@
 4242 4242 4242 4242
 
-notices editable for 30 days.
+*** notices editable for 30 days.
 
-reset pageNo
+*** Include buyer's name in letter
+
+*** reset pageNo
 
 *** pagination
 
 *** contact us
 
-footer
+*** footer
 
 environment.pk_test -- change for production
 
-date in Enter Notice disappears after submit
+*** date in Enter Notice disappears after submit
 
 *** fields validation
 
 paypal
 
-search by group initial option not shown
+*** search by group initial option not shown
 
 reinstate stripe
 

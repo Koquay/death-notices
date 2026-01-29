@@ -1,0 +1,17 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-footer',
+  standalone: true,
+  imports: [],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss'
+})
+export class FooterComponent {
+
+  @Output() openContactUsModal = new EventEmitter<void>();
+
+  onContactUsClick() {
+    this.openContactUsModal.emit();
+  }
+}

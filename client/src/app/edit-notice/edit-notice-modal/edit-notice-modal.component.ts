@@ -28,13 +28,19 @@ export class EditNoticeModalComponent {
       next: () => {
         this.router.navigate(['/edit-notice']);
         this.closeModal('editNoticeModal');
-        // this.authService.emitSignInSuccess();
-        // this.toastr.success('Signed in successfully', 'Welcome');
       },
-      error: () => {
+      error: (error) => {
+        console.log('error', error)
+        console.log('error', error.error.message)
+        let message;
+        if (error.error.expired) {
+          message = error.error.message;
+        } else {
+          message = `Notice for ${this.noticeNumber} not found.`;
+        }
         this.toastrUtils.show(
           'error',
-          `Notice for ${this.noticeNumber} not found.`,
+          `${message}`,
           'Notice Error'
         );
       }

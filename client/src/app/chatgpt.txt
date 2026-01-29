@@ -1,37 +1,19 @@
-This is the service function that calls the server function you
-refactored. 
+Do you see why the Search by Group option is not initially selected?
 
-public getNotices = () => {
-    const optionsStr = JSON.stringify(this.deathNoticeGalleryOptions)
-
-    const params = new HttpParams({
-      fromObject: { options: optionsStr },
-    });
-
-    return this.httpClient.get<{ data: NoticeEntryModel[], pagination: {} }>(this.noticesUrl, { params }).pipe(
-      tap((noticesData) => {
-        this.noticesSignal.set({ notices: noticesData.data });
-        console.log('noticesSignal:', this.noticesSignal());
-        return noticesData.data as NoticeEntryModel[];
-      }),
-  }
-
-  This is an excerpt from the component that calls sthe service:
-
-  public notices: NoticeEntryModel[] = []
-  
-  ngOnInit() {
-    this.deathNoticeGalleryService.getNotices().subscribe(notices => {
-      this.notices = notices;
-    })
-  }
-
-  I am getting the followin error during build:
-
-  (base) keith@keith-HP-250-G7-Notebook-PC:~/programming/angular/death_announcements/client$ ng build
-Application bundle generation failed. [6.165 seconds]
-
-✘ [ERROR] TS2740: Type '{ notices: NoticeEntryModel[]; pagination: {}; }' is missing the following properties from type 'NoticeEntryModel[]': length, pop, push, concat, and 29 more. [plugin angular-compiler]
-
-    src/app/death-notice-gallery/death-notice-gallery.component.ts:47:6:
-      47 │       this.notices = notices;
+<section>
+  <form class="d-flex" role="search" style="width: 300px; max-width: 100%">
+    <select
+      class="form-select"
+      name="group"
+      [(ngModel)]="group"
+      (click)="getNoticesForGroup()"
+      aria-placeholder="Search by group"
+    >
+      <option disabled selected value="">Search by group</option>
+      <option value="">All deceased</option>
+      <option *ngFor="let group of groups" [ngValue]="group">
+        {{ group.name }}
+      </option>
+    </select>
+  </form>
+</section>

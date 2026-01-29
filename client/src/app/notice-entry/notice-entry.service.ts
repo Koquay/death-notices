@@ -31,6 +31,7 @@ export class NoticeEntryService {
         groups: noticeEntryModel.groups,
         additionalInformation: noticeEntryModel.additionalInformation,
         email: noticeEntryModel.email,
+        buyer_name: noticeEntryModel.buyer_name,
 
       })
     );

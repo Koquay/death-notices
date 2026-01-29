@@ -20,6 +20,7 @@ export class NoticeEntryModel {
     announcement: string = '';
     relationship: string = '';
     editImageMode = false;
+    buyer_name!: string;
     email: string = '';
     public pageSize = 12;
     contacts: Contact[] = [
