@@ -1,15 +1,23 @@
 <div class="container">
   <section class="">
     <div class="row d-flex justify-content-center">
-      <div class="col-12 col-md-8 text-center">
-        <h2 class="fw-bold text-muted">Death Notice</h2>
+      <div class="col-12 col-md-8 mt-4 text-center">
+        <h2 class="">Obituary</h2>
       </div>
     </div>
     <div class="row">
       <div
         class="col-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <h4>{{ notice?.name }}</h4>
+        <img
+          *ngIf="notice?.imageId"
+          class="img-fluid notice-image mt-4"
+          [src]="apiUrl + '/image/' + notice?.imageId"
+          alt="Notice image"
+          loading="lazy"
+        />
+
+        <h4 class="mt-2">{{ notice?.name }}</h4>
 
         <h6>
           <ng-container *ngIf="notice?.birth_date; else noBirthDate">
@@ -23,13 +31,6 @@
 
           {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
         </h6>
-        <img
-          *ngIf="notice?.imageId"
-          class="img-fluid notice-image"
-          [src]="apiUrl + '/image/' + notice?.imageId"
-          alt="Notice image"
-          loading="lazy"
-        />
       </div>
     </div>
   </section>

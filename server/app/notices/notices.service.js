@@ -22,7 +22,7 @@ exports.enterNotice = async (req, res) => {
       return res.status(400).json({ error: "No file received" });
     }
 
-    const notice_no = generateRandomNo();
+    // const notice_no = generateRandomNo();
 
     // Normalize text
     noticeData.announcement = (noticeData.announcement || "")
@@ -65,26 +65,8 @@ exports.enterNotice = async (req, res) => {
     uploadStream.on("finish", async () => {
       const imageId = uploadStream.id; // ✅ THIS IS THE KEY
 
-      const contactIds = await createContacts(noticeData.contacts);
-      const eventIds = await createEvents(noticeData.events);
-      // const groupIds = await createGroups(noticeData.groups);
-
-      const groupIds = noticeData.groups.map((g) => g._id);
-
-      const notice = await Notices.create({
-        name: noticeData.name,
-        birth_date: noticeData.birth_date,
-        death_date: noticeData.death_date,
-        announcement: noticeData.announcement,
-        additionalInformation: noticeData.additionalInformation,
-        email: noticeData.email,
-        buyer_name: noticeData.buyer_name,
-        contacts: contactIds,
-        events: eventIds,
-        groups: groupIds,
-        imageId: imageId, // ✅ VALID
-        notice_no,
-      });
+      const noticeCompiled = await compileNoticeData(noticeData, imageId);
+      const notice = await Notices.create(noticeCompiled);
 
       sendConfirmationEmail({
         name: notice.name,
@@ -170,7 +152,7 @@ exports.getNotices = async (req, res) => {
     return res.status(400).json({ message: "Invalid year parameter" });
   }
 
-  const filter = buildFilter(options);
+  const filter = buildOptionsFilter(options);
 
   try {
     const [notices, totalCount] = await Promise.all([
@@ -204,7 +186,7 @@ exports.getNotices = async (req, res) => {
   }
 };
 
-function buildFilter(options) {
+function buildOptionsFilter(options) {
   const year = parseInt(options.year, 10);
   const groupId = options.groupId;
   const searchField = options.searchField;
@@ -393,3 +375,37 @@ const sendConfirmationEmail = (noticeData) => {
     return res.status(500).send("Problem sending notice confirmation..");
   }
 };
+
+const compileNoticeData = async (noticeData, imageId) => {
+  const contactIds = await createContacts(noticeData.contacts);
+      const eventIds = await createEvents(noticeData.events);
+      const notice_no = generateRandomNo();
+
+      
+      const notice = {
+        name: noticeData.name,
+        birth_date: noticeData.birth_date,
+        death_date: noticeData.death_date,
+        announcement: noticeData.announcement,
+        additionalInformation: noticeData.additionalInformation,
+        email: noticeData.email,
+        buyer_name: noticeData.buyer_name,
+        contacts: contactIds,
+        events: eventIds,
+        imageId: imageId, // ✅ VALID
+        notice_no,
+      };
+
+      if (Array.isArray(noticeData.groups)) {
+        const groupIds = noticeData.groups
+          .map(g => g?._id || g)          // support {_id} or raw id
+          .filter(id => mongoose.Types.ObjectId.isValid(id));
+      
+        if (groupIds.length > 0) {
+          notice.groups = groupIds;
+        }
+      }
+      
+
+      return notice;
+}

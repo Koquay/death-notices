@@ -1,10 +1,16 @@
 4242 4242 4242 4242
 
+validate enter notice when no image
+
+fixed with textarea
+
 *** notices editable for 30 days.
 
 *** Include buyer's name in letter
 
 *** reset pageNo
+
+pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
 
 *** pagination
 

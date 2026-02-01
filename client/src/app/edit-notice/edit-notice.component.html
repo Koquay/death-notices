@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center">
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-md-8 text-center">
-        <h2 class="">Death Notice Edit Form</h2>
+        <h2 class="">Obituary Edit Form</h2>
         <small>
           Please edit the fields you wish to change. Fields marked with an
           asterisk (<span class="text-danger fw-bold">*</span>) are required.
@@ -10,9 +10,20 @@
       </div>
     </div>
     <div class="col-12 mt-4">
-      <form class="d-flex flex-column justify-content-center">
-        <section class="" *ngIf="editNoticeModel.editImageMode">
+      <form
+        #noticeForm="ngForm"
+        class="d-flex flex-column justify-content-center"
+      >
+        <!-- <section class="" *ngIf="editNoticeModel.editImageMode">
           <app-image-upload [operation]="operation" />
+        </section> -->
+
+        <section class="mt-4" *ngIf="editNoticeModel.editImageMode">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+              <app-image-upload [operation]="operation" />
+            </div>
+          </div>
         </section>
 
         <section
@@ -188,8 +199,7 @@
           <div class="d-flex justify-content-center">
             <div class="col-12 col-md-8">
               <label class="form-label fw-bold" style="font-size: 18px"
-                >Edit Death Announcement:
-                <span class="text-danger">*</span></label
+                >Edit Obituary: <span class="text-danger">*</span></label
               ><textarea
                 class="form-control"
                 style="border-width: 1.8px"
@@ -678,7 +688,10 @@
                 style="font-size: 15px"
                 >Edit Deceased's Current Group(s):</label
               >
-              <ul class="list-unstyled">
+              <ul
+                class="list-unstyled p-2"
+                style="background-color: white !important"
+              >
                 @for (group of editNoticeModel.groups; track $index) {
                 <li>
                   {{ group.name }}
@@ -759,11 +772,12 @@
         </section>
 
         <div class="row mt-5 d-flex justify-content-center">
-          <div class="col-12 col-md-4">
+          <div class="col-12 col-md-4 d-flex justify-content-center">
             <button
               class="btn btn-primary px-4 py-2"
               type="button"
               (click)="submitNoticeEdits()"
+              [disabled]="!noticeForm.valid && !editNoticeModel.imageFile"
             >
               Submit Notice Edits
             </button>
