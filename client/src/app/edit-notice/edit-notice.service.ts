@@ -80,6 +80,11 @@ export class EditNoticeService {
         console.log('Edited notice response:', editedNotice);
         Object.assign(this.editNoticeModel, editedNotice);
         this.editNoticeModel.editImageMode = false;
+        this.toastrUtils.show(
+          'success',
+          'Notice updated successfully.',
+          'Notice Update'
+        );
       }),
       catchError(error => {
         console.log('error', error)

@@ -54,12 +54,13 @@
     padding: .35rem .5rem;
   }
 
-  .responsive-stack td::before {
+  .responsive-stack td[data-label]::before {
     content: attr(data-label) ": ";
     font-weight: 600;
     display: inline-block;
-    width: 110px; /* label width inside stacked card */
+    width: 110px;
   }
+  
 }
 
 @media (min-width: 768px) {
@@ -120,19 +121,33 @@
   white-space: normal;
 }
 
-/* show the label from data-label before each cell's content */
-.always-card td::before {
+.always-card td[data-label]::before {
   content: attr(data-label) ": ";
   font-weight: 600;
   display: inline-block;
-  width: 120px;   /* label column width inside the card (adjust as needed) */
+  width: 120px;
   vertical-align: top;
 }
 
-/* optional: reduce label width on very small screens so text wraps nicely */
 @media (max-width: 360px) {
-  .always-card td::before { width: 90px; }
+  .always-card td[data-label]::before {
+    width: 90px;
+  }
 }
+
+@media (min-width: 768px) {
+  .always-card td[data-label]::before {
+    width: 80px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .always-card td[data-label]::before {
+    width: 160px;
+  }
+}
+
 
 /* ---------- Medium+ screens: two cards per row ---------- */
 @media (min-width: 768px) {
@@ -147,10 +162,6 @@
     font-size: 15px;
   }
 
-  /* optional: slightly wider label column on larger screens */
-  .always-card td::before {
-    width: 80px;
-  }
 }
 
 
@@ -159,7 +170,7 @@
   .always-card tbody {
     gap: 1.25rem;
   }
-  .always-card td::before { width: 160px; }
+  // .always-card td::before { width: 160px; }
 }
 
 

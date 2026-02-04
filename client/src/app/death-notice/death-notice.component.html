@@ -90,6 +90,11 @@
                     <tbody>
                       @for (event of notice?.events; track $index) {
                       <tr style="font-size: 16px">
+                        <td class="text-center">
+                          <span class="badge primary-bg-color">{{
+                            $index + 1
+                          }}</span>
+                        </td>
                         <td
                           data-label="Event"
                           style="text-transform: capitalize"

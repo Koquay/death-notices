@@ -39,6 +39,7 @@ export class PaginationComponent {
     for (let i = 1; i <= this.numberOfPages; i++) {
       this.pages.push(i);
     }
+
   }
 
   public getPage = (pageNo: number) => {

@@ -1,8 +1,26 @@
 4242 4242 4242 4242
 
-validate enter notice when no image
+in edit notice, event date not populate in UI
 
-fixed with textarea
+in death notice, event date not populate in UI
+
+*** edit notice -- additional contact error, not saved to db
+
+paypal
+
+reinstate stripe
+
+pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
+
+environment.pk_test -- change for production
+
+test catchError
+
+in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+*** validate enter notice when no image
+
+*** fixed width textarea
 
 *** notices editable for 30 days.
 
@@ -10,31 +28,19 @@ fixed with textarea
 
 *** reset pageNo
 
-pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
-
 *** pagination
 
 *** contact us
 
 *** footer
 
-environment.pk_test -- change for production
-
 *** date in Enter Notice disappears after submit
 
 *** fields validation
 
-paypal
-
 *** search by group initial option not shown
 
-reinstate stripe
-
 *** primary buttons
-
-test catchError
-
-in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
 
 *** implement toastr
 
