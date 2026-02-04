@@ -1,8 +1,8 @@
 4242 4242 4242 4242
 
-in edit notice, event date not populate in UI
+*** in edit notice, event date not populate in UI
 
-in death notice, event date not populate in UI
+*** in death notice, event date not populate in UI
 
 *** edit notice -- additional contact error, not saved to db
 

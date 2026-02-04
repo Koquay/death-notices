@@ -110,7 +110,7 @@ const createEvents = async (events) => {
     }))
   );
 
-  // 2️⃣ Extract contact IDs
+  // 2️⃣ Extract event IDs
   const eventIds = eventDocs.map((e) => e._id);
 
   return eventIds;

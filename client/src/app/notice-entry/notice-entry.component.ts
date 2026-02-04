@@ -199,6 +199,15 @@ export class NoticeEntryComponent {
       Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
     );
 
+    for (let event of this.noticeEntryModel.events) {
+      d = new Date(event.date as Date);
+
+      event.date = new Date(
+        Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+      );
+    }
+
+
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
