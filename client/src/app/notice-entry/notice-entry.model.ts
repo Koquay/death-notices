@@ -16,6 +16,8 @@ export class NoticeEntryModel {
     public apiUrl = '/api/notices';
     death_date!: Date;
     birth_date!: Date;
+    birth_date_str!: string;
+    death_date_str!: string;
     date_str!: string;
     announcement: string = '';
     relationship: string = '';

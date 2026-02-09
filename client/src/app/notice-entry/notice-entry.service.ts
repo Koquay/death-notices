@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { ToastUtils } from '../shared/utils/toastUtils';
 import { Group } from '../shared/interfaces/groups.interface';
+import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class NoticeEntryService {
   private apiUrl = '/api/notices';
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);;
+  private formatDateTimeUtils = inject(FormatDateTimeUtils);;
   private paymentIntentUrl = '/api/payment/payment-intent';
 
 
@@ -45,6 +47,18 @@ export class NoticeEntryService {
     this.httpClient.post(this.apiUrl, fd).subscribe({
       next: (response) => {
         console.log('Notice submitted successfully:', response);
+
+        Object.assign(noticeEntryModel, response);
+
+        noticeEntryModel.birth_date_str = this.formatDateTimeUtils.formatDateForInput(noticeEntryModel.birth_date);
+        noticeEntryModel.death_date_str = this.formatDateTimeUtils.formatDateForInput(noticeEntryModel.death_date);
+
+        for (let i = 0; i < noticeEntryModel.events.length; i++) {
+          noticeEntryModel.events[i].date_str = this.formatDateTimeUtils.formatDateForInput(noticeEntryModel.events[i].date as Date);
+
+          noticeEntryModel.events[i].time =
+            this.formatDateTimeUtils.formatTimeForInput(noticeEntryModel.events[i].time);
+        }
         this.toastrUtils.show(
           'success',
           'Notice submitted successfully.',

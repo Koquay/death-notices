@@ -185,28 +185,39 @@ export class NoticeEntryComponent {
   }
 
   public completeNoticeSubmission = () => {
-    let d = new Date(this.noticeEntryModel.death_date);
+    // let d = new Date(this.noticeEntryModel.death_date);
 
-    // Create a date-only value (no timezone shift)
-    this.noticeEntryModel.death_date = new Date(
-      Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
-    );
+    // // Create a date-only value (no timezone shift)
+    // this.noticeEntryModel.death_date = new Date(
+    //   Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+    // );
 
-    d = new Date(this.noticeEntryModel.birth_date);
+    // d = new Date(this.noticeEntryModel.birth_date);
 
-    // Create a date-only value (no timezone shift)
-    this.noticeEntryModel.birth_date = new Date(
-      Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
-    );
+    // // Create a date-only value (no timezone shift)
+    // this.noticeEntryModel.birth_date = new Date(
+    //   Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+    // );
 
-    for (let event of this.noticeEntryModel.events) {
-      d = new Date(event.date as Date);
+    // for (let event of this.noticeEntryModel.events) {
+    //   d = new Date(event.date as Date);
 
-      event.date = new Date(
-        Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
-      );
-    }
+    //   event.date = new Date(
+    //     Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+    //   );
+    // }
 
+    this.noticeEntryModel = {
+      ...this.noticeEntryModel,
+      birth_date: new Date(this.noticeEntryModel.birth_date_str),
+      death_date: new Date(this.noticeEntryModel.death_date_str),
+
+    };
+
+    this.noticeEntryModel.events = this.noticeEntryModel.events.map(event => ({
+      ...event,
+      time: event.time && event.time !== '' ? event.time : null
+    }));
 
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);

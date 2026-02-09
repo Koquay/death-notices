@@ -63,19 +63,27 @@ exports.enterNotice = async (req, res) => {
     });
 
     uploadStream.on("finish", async () => {
-      const imageId = uploadStream.id; // ✅ THIS IS THE KEY
-
-      const noticeCompiled = await compileNoticeData(noticeData, imageId);
-      const notice = await Notices.create(noticeCompiled);
-
-      sendConfirmationEmail({
-        name: notice.name,
-        email: notice.email,
-        notice_no: notice.notice_no,
-      });
-
-      return res.status(201).json(notice);
+      try {
+        const imageId = uploadStream.id;
+    
+        const noticeCompiled = await compileNoticeData(noticeData, imageId);
+    
+        const notice = await Notices.create(noticeCompiled);
+        await notice.populate(["contacts", "events"]);
+    
+        sendConfirmationEmail({
+          name: notice.name,
+          email: notice.email,
+          notice_no: notice.notice_no,
+        });
+    
+        return res.status(201).json(notice);
+      } catch (err) {
+        console.error("Error after image upload:", err);
+        return res.status(500).json({ message: "Failed to create notice" });
+      }
     });
+    
   } catch (error) {
     console.error("Error in enterNotice:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -116,18 +124,18 @@ const createEvents = async (events) => {
   return eventIds;
 };
 
-const createGroups = async (groups) => {
-  const groupDocs = await Groups.insertMany(
-    groups.map((g) => ({
-      name: g.name,
-    }))
-  );
+// const createGroups = async (groups) => {
+//   const groupDocs = await Groups.insertMany(
+//     groups.map((g) => ({
+//       name: g.name,
+//     }))
+//   );
 
-  // 2️⃣ Extract contact IDs
-  const groupIds = groupDocs.map((g) => g._id);
+//   // 2️⃣ Extract contact IDs
+//   const groupIds = groupDocs.map((g) => g._id);
 
-  return groupIds;
-};
+//   return groupIds;
+// };
 
 exports.getNotices = async (req, res) => {
   console.log("Notices.service.getNotices called...");
@@ -277,8 +285,6 @@ exports.getNoticeByNo = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
 
 exports.searchForMemoriams = async (req, res) => {
   console.log("ProductsService.searchForProducts");

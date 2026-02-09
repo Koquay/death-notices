@@ -74,7 +74,7 @@
                 class="form-control"
                 type="date"
                 name="birth_date"
-                [(ngModel)]="noticeEntryModel.birth_date"
+                [(ngModel)]="noticeEntryModel.birth_date_str"
                 (change)="saveNoticeData()"
               />
             </div>
@@ -88,7 +88,7 @@
                 type="date"
                 name="death_date"
                 required=""
-                [(ngModel)]="noticeEntryModel.death_date"
+                [(ngModel)]="noticeEntryModel.death_date_str"
                 (change)="saveNoticeData()"
                 #death_date="ngModel"
                 required

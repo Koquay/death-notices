@@ -140,20 +140,6 @@ export class EditNoticeService {
     return date_str;
   }
 
-
-  formatDateForInputXXXX(date: string | Date): string {
-    if (!date) return '';
-
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const date_str = `${year}-${month}-${day}`;
-    console.log('formatDateForInput.date', date)
-    console.log('formatDateForInput.date_str', date_str)
-    return date_str;
-  }
-
   formatTimeForInput(time: string | Date | null): string {
     if (!time) return '';
 

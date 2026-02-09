@@ -9,7 +9,7 @@ export const persistStateToLocalStorage = (state: any) => {
 
   const merged = { ...existing, ...cleanedState };
 
-  localStorage.setItem('deathNotice', JSON.stringify(merged));
+  // localStorage.setItem('deathNotice', JSON.stringify(merged));
 };
 
 
