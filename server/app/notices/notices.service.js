@@ -124,18 +124,18 @@ const createEvents = async (events) => {
   return eventIds;
 };
 
-// const createGroups = async (groups) => {
-//   const groupDocs = await Groups.insertMany(
-//     groups.map((g) => ({
-//       name: g.name,
-//     }))
-//   );
+const createGroups = async (groups) => {
+  const groupDocs = await Groups.insertMany(
+    groups.map((g) => ({
+      name: g.name,
+    }))
+  );
 
-//   // 2️⃣ Extract contact IDs
-//   const groupIds = groupDocs.map((g) => g._id);
+  // 2️⃣ Extract contact IDs
+  const groupIds = groupDocs.map((g) => g._id);
 
-//   return groupIds;
-// };
+  return groupIds;
+};
 
 exports.getNotices = async (req, res) => {
   console.log("Notices.service.getNotices called...");

@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.component';
 import { NoticeEntryModel } from './notice-entry.model';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NoticeEntryService } from './notice-entry.service';
 import { CommonModule } from '@angular/common';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
@@ -28,6 +28,7 @@ export class NoticeEntryComponent {
   public noticeEntryModel = inject(NoticeEntryModel);
   private noticeEntryService = inject(NoticeEntryService);
   private toastrUtils = inject(ToastUtils);;
+  @ViewChild('noticeForm') noticeForm!: NgForm;
 
   stripe: Stripe | null = null;
   cardElement: any;
@@ -152,6 +153,8 @@ export class NoticeEntryComponent {
   }
 
   public submitNotice = async () => {
+    if (this.noticeForm.invalid) return;
+
     // if (!this.stripe || !this.clientSecret) {
     //   this.toastrUtils.show(
     //     'error',
@@ -222,6 +225,7 @@ export class NoticeEntryComponent {
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
+    this.noticeForm.resetForm();
   }
 
   private getGroups = () => {

@@ -67,10 +67,11 @@ exports.enterMemoriam = async (req, res) => {
         name: memoriamData.name,
         announcement: memoriamData.announcement,
         email: memoriamData.email,
+        buyer_name: memoriamData.buyer_name,
         imageId: imageId, // ✅ VALID
         memoriam_no
       });
-      sendConfirmationEmail({name: memoriam.name, email: memoriam.email, memoriam_no: memoriam.memoriam_no})
+      sendConfirmationEmail({name: memoriam.name, buyer_name: memoriam.buyer_name, email: memoriam.email, memoriam_no: memoriam.memoriam_no})
     
       return res.status(201).json(memoriam);
     });
@@ -278,10 +279,11 @@ const mailOptions = {
       subject: `Your memoriam No. ${memoriamData.memoriam_no}`, 
 
       html: `
-      <p>Dear ${memoriamData.name},<br>
+      <p>Dear ${memoriamData.buyer_name},<br>
       We are pleased to inform you that your memoriam for ${memoriamData.name} 
       was successfully placed.<br>Your memoriam number is ${memoriamData.memoriam_no}. Please save this number
-      as it will be required if you wish to change details of your memoriam.
+      as it will be required if you wish to change details of your memoriam. 
+      <br>You will be able to make changes to this memoriam within 30 days of purchase.
       <br>Kind regards,
       <br> Liberian Death Announcement</p>,
       `

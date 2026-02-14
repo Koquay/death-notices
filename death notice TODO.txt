@@ -8,6 +8,8 @@
 
 After notice submitted, disable submit button.
 
+*** send email to memoriam's buyer_name
+
 uncomment persistToLocalStorage
 
 paypal
@@ -18,7 +20,7 @@ pageNo not changed when group changes (p3 -> cwa selected -> all deceased select
 
 environment.pk_test -- change for production
 
-test catchError
+*** test catchError
 
 in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
 

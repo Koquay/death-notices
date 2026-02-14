@@ -59,6 +59,7 @@ export class NoticeEntryService {
           noticeEntryModel.events[i].time =
             this.formatDateTimeUtils.formatTimeForInput(noticeEntryModel.events[i].time);
         }
+
         this.toastrUtils.show(
           'success',
           'Notice submitted successfully.',
@@ -102,6 +103,15 @@ export class NoticeEntryService {
     return this.httpClient.get<Group[]>(`${this.apiUrl}/groups`).pipe(
       tap(groups => {
 
+      }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while fetching groups.',
+          'Get Groups Error'
+        );
+        throw error;
       })
     )
   }

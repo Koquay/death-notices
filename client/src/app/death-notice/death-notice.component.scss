@@ -60,8 +60,16 @@
     display: inline-block;
     width: 110px;
   }
-  
 }
+
+.responsive-stack td::before {
+  color: #6b4f7a; /* your purple */
+}
+
+.responsive-stack thead th {
+  color: #6b4f7a;
+}
+
 
 @media (min-width: 768px) {
   .responsive-stack .col-name    { width: 35%; }

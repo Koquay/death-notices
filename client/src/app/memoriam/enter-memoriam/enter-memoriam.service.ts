@@ -25,6 +25,7 @@ export class EnterMemoriamService {
         announcement: memoriamEntryModel.announcement,
         relationship: memoriamEntryModel.relationship,
         email: memoriamEntryModel.email,
+        buyer_name: memoriamEntryModel.buyer_name,
 
       })
     );
