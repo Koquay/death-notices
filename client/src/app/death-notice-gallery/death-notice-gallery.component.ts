@@ -9,6 +9,7 @@ import { SearchComponent } from '../shared/components/search/search.component';
 import { GroupSearchComponent } from '../shared/components/group-search/group-search.component';
 import { PaginationComponent } from '../shared/components/pagination/pagination.component';
 import { YearSearchComponent } from '../shared/components/year-search/year-search.component';
+import { SkeletonCardsComponent } from '../shared/components/skeleton-cards/skeleton-cards.component';
 
 @Component({
   selector: 'app-death-notice-gallery',
@@ -20,7 +21,8 @@ import { YearSearchComponent } from '../shared/components/year-search/year-searc
     SearchComponent,
     GroupSearchComponent,
     YearSearchComponent,
-    PaginationComponent
+    PaginationComponent,
+    SkeletonCardsComponent
   ],
   templateUrl: './death-notice-gallery.component.html',
   styleUrl: './death-notice-gallery.component.scss'
@@ -31,6 +33,7 @@ export class DeathNoticeGalleryComponent {
   private groupSearchService = inject(GroupSearchService);
   public notices: NoticeEntryModel[] = []
   public apiUrl = '/api/notices';
+  public isLoading = true;
 
   ngOnInit() {
     this.deathNoticeGalleryService.getNotices().subscribe(notices => {
@@ -40,6 +43,7 @@ export class DeathNoticeGalleryComponent {
 
   noticeEffect = effect(() => {
     this.notices = this.deathNoticeGalleryService.noticesSignal().notices;
+    this.isLoading = false;
   });
 
   groupSearchEffect = effect(() => {

@@ -40,20 +40,6 @@ export class ToastUtils {
     }
 
 
-    // switch (status) {
-    //   case 'error':
-    //     toast = this.toastr.error(message, title ?? 'Error');
-    //     break;
-
-    //   case 'success':
-    //     toast = this.toastr.success(message, title ?? 'Success');
-    //     break;
-
-    //   case 'info':
-    //     toast = this.toastr.info(message, title ?? 'Info');
-    //     break;
-    // }
-
     toast?.onShown.subscribe(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
