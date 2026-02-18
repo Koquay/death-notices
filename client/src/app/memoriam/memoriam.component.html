@@ -1,39 +1,42 @@
 <section>
-  <div class="row d-flex justify-content-center">
-    <h4 class="text-center mb-3">IN MEMORIAM</h4>
+  <div class="text-center mb-4">
+    <h3 class="fw-light">In Memoriam</h3>
+    <div class="divider mx-auto"></div>
   </div>
-  <div class="row d-flex justify-content-center mb-4 x">
-    <div class="col-12 d-flex justify-content-center">
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-12">
       <app-memoriam-search></app-memoriam-search>
     </div>
   </div>
-  <div class="row">
-    @for (memoriam of memoriams; track $index) {
+
+  <div class="row g-4">
+    @if (isLoading) {
+    <app-skeleton-circles [count]="6"></app-skeleton-circles>
+    } @else { @for (memoriam of memoriams; track memoriam._id) {
     <div
-      class="col-6 col-sm-4 col-md-12 d-flex flex-column align-items-center mb-4 mem-img"
+      class="col-6 col-sm-4 col-md-12 text-center memoriam-card"
       [routerLink]="['/memoriam-view', memoriam._id]"
     >
-      <img
-        *ngIf="memoriam.imageId"
-        class="img-fluid rounded"
-        [src]="apiUrl + '/image/' + memoriam.imageId"
-        alt="memoriam image"
-        loading="lazy"
-        style="border-radius: 50% !important; width: 100px; height: 100px"
-      />
+      <div class="memoriam-image-wrapper">
+        <img
+          *ngIf="memoriam.imageId"
+          [src]="apiUrl + '/image/' + memoriam.imageId"
+          alt="Memoriam image"
+          loading="lazy"
+        />
+      </div>
 
-      <p
-        class="mt-2 mb-0 text-capitalize primary-color"
-        style="
-          font-size: 12px;
-          font-weight: bold;
-          min-height: 40px;
-          line-height: 1.2;
-        "
-      >
+      <p class="memoriam-name">
         {{ memoriam.name }}
       </p>
     </div>
-    }
+    } }
   </div>
+
+  @if (memoriams.length === 0) {
+  <div class="text-center mt-4">
+    <p class="text-muted small">No memorial tributes found.</p>
+  </div>
+  }
 </section>

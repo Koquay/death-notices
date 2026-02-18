@@ -9,8 +9,7 @@ import { SearchComponent } from '../shared/components/search/search.component';
 import { GroupSearchComponent } from '../shared/components/group-search/group-search.component';
 import { PaginationComponent } from '../shared/components/pagination/pagination.component';
 import { YearSearchComponent } from '../shared/components/year-search/year-search.component';
-import { SkeletonCardsComponent } from '../shared/components/skeleton-cards/skeleton-cards.component';
-
+import { SkeletonCardsComponent } from '../shared/components/skeletons/skeleton-cards/skeleton-cards.component';
 @Component({
   selector: 'app-death-notice-gallery',
   standalone: true,

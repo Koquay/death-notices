@@ -23,7 +23,6 @@
 </div>
 
 <div class="row d-flex justify-content-center">
-  <!-- @for (notice of notices; track $index) { -->
   @if (isLoading) {
   <app-skeleton-cards [count]="12"></app-skeleton-cards>
   } @else { @for (notice of notices; track notice._id) {

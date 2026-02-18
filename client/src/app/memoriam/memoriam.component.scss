@@ -3,3 +3,46 @@
     transform: translateY(-5px);
     transition: transform 0.3s ease;
   } 
+
+  .divider {
+    width: 50px;
+    height: 2px;
+    background-color: #b8a2c8;
+    margin-top: 8px;
+  }
+  
+
+  .memoriam-card {
+    cursor: pointer;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  
+  .memoriam-card:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+  }
+  
+  .memoriam-image-wrapper {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .memoriam-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .memoriam-name {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    min-height: 38px;
+    color: #5c4b6b; /* soft purple tone */
+  }
+  

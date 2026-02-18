@@ -1,5 +1,7 @@
 4242 4242 4242 4242
 
+order by death date, created_date
+
 *** in edit notice, event date not populate in UI
 
 *** in death notice, event date not populate in UI
