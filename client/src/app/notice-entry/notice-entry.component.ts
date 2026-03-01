@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, HostListener, ElementRef, inject, ViewChild } from '@angular/core';
 import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.component';
 import { NoticeEntryModel } from './notice-entry.model';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -10,6 +10,7 @@ import { ToastUtils } from '../shared/utils/toastUtils';
 import { Group } from '../shared/interfaces/groups.interface';
 import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
 import { PaypalButtonComponent } from '../payment paypal/paypal-button/paypal-button.component';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-notice-entry',
@@ -43,11 +44,22 @@ export class NoticeEntryComponent {
   groups: Group[] = [];
   group: Group = { _id: '', name: null };
   newGroup?: string | null;
+  @ViewChild('groupContainer') groupContainer!: ElementRef;
+
+  private persistNoticeSubject = new Subject<void>();
 
   ngOnInit() {
     // this.setUpStripe();
     console.log('noticeEntryModel on init:', this.noticeEntryModel);
     this.getGroups();
+
+    this.persistNoticeSubject
+      .pipe(debounceTime(800))
+      .subscribe(() => {
+        persistStateToLocalStorage({
+          noticeEntryModel: this.noticeEntryModel
+        });
+      });
   }
 
   public setUpStripe = async () => {
@@ -96,37 +108,109 @@ export class NoticeEntryComponent {
     this.saveNoticeData();
   }
 
-  addDeceasedGroup() {
-    this.noticeEntryModel.groups = this.selectedGroups;
+  // addDeceasedGroup() {
+  //   this.noticeEntryModel.groups = this.selectedGroups;
+  //   this.saveNoticeData();
+  // }
+
+  // addDeceasedGroup() {
+  //   this.noticeEntryModel.groups = this.selectedGroups.map(g => g._id);
+  //   this.saveNoticeData();
+  // }
+
+  // addNewGroup() {
+  //   this.newGroup = this.newGroup?.trim();
+
+  //   if (this.newGroup) {
+  //     this.group.name = this.newGroup;
+  //     this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
+  //       this.groups = groups;
+  //       this.group.name = null;
+  //       this.newGroup = null;
+  //     })
+
+
+  //     this.saveNoticeData();
+  //   }
+  // }
+
+  private syncGroupsToModel(): void {
+    this.noticeEntryModel.groups = [...this.selectedGroups];
     this.saveNoticeData();
   }
 
-  addNewGroup() {
-    this.newGroup = this.newGroup?.trim();
-
-    if (this.newGroup) {
-      this.group.name = this.newGroup;
-      this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
-        this.groups = groups;
-        this.group.name = null;
-        this.newGroup = null;
-      })
-
-
-      this.saveNoticeData();
-    }
+  onGroupSearch(event: any): void {
+    const value = event.target.value || '';
+    this.groupSearch = value;
   }
 
-  removeGroup(index: number) {
-    this.noticeEntryModel.groups.splice(index, 1);
-    this.saveNoticeData();
-  }
+  // onGroupsChange(): void {
+  //   this.addDeceasedGroup();
+  //   this.saveNoticeData();
+  // }
+
+  // ngDoCheck() {
+  //   if (typeof this.groupSearch !== 'string') {
+  //     this.groupSearch = '';
+  //   }
+  // }
+
+  // addNewGroupFromSelect(name: string): void {
+  //   const trimmedName = name?.trim();
+
+  //   if (!trimmedName) return;
+
+  //   this.group.name = trimmedName;
+
+  //   this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
+  //     // Update full groups list from backend
+  //     this.groups = groups;
+
+  //     // Find the newly created group (assuming backend returns full list)
+  //     const createdGroup = this.groups.find(g => g.name === trimmedName);
+
+  //     if (createdGroup) {
+  //       // Add to selected groups if not already there
+  //       const alreadySelected = this.selectedGroups?.some(
+  //         g => g._id === createdGroup._id
+  //       );
+
+  //       if (!alreadySelected) {
+  //         this.selectedGroups = [
+  //           ...(this.selectedGroups || []),
+  //           createdGroup
+  //         ];
+  //       }
+  //     }
+
+  //     // Reset temp fields
+  //     this.group.name = null;
+  //     this.newGroup = null;
+
+  //     this.saveNoticeData();
+  //   });
+  // }
+
+  // removeGroup(index: number) {
+  //   this.noticeEntryModel.groups.splice(index, 1);
+  //   this.saveNoticeData();
+  // }
+
+  // removeGroup2(groupId: string): void {
+  //   this.selectedGroups = this.selectedGroups.filter(
+  //     g => g._id !== groupId
+  //   );
+
+  //   this.addDeceasedGroup();
+  //   this.saveNoticeData();
+  // }
 
   public saveNoticeData = () => {
     console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
     console.log('saveNoticeData.selectedGroups:', this.selectedGroups);
-    persistStateToLocalStorage({ noticeEntryModel: this.noticeEntryModel });
+    this.persistNoticeSubject.next();
   }
+
 
   removeEvent(index: number) {
     this.noticeEntryModel.events.splice(index, 1);
@@ -148,9 +232,9 @@ export class NoticeEntryComponent {
 
 
 
-  public saveEventData = () => {
-    console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
-  }
+  // public saveEventData = () => {
+  //   console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
+  // }
 
   public submitNotice = async () => {
     if (this.noticeForm.invalid) return;
@@ -228,11 +312,25 @@ export class NoticeEntryComponent {
     this.noticeForm.resetForm();
   }
 
+  // private getGroups = () => {
+  //   this.noticeEntryService.getGroups().subscribe(groups => {
+  //     console.log('groups', groups)
+  //     this.groups = groups;
+  //   })
+  // }
+
   private getGroups = () => {
     this.noticeEntryService.getGroups().subscribe(groups => {
-      console.log('groups', groups)
       this.groups = groups;
-    })
+
+      if (this.noticeEntryModel.groups?.length) {
+        this.selectedGroups = this.groups.filter(g =>
+          this.noticeEntryModel.groups.some(
+            saved => saved._id === g._id
+          )
+        );
+      }
+    });
   }
 
   onPaymentTypeChange(): void {
@@ -249,4 +347,129 @@ export class NoticeEntryComponent {
     }
   }
 
+  get formCompletionPercent(): number {
+    let total = 0;
+    let completed = 0;
+
+    // Required simple fields
+    const requiredFields = [
+      this.noticeEntryModel.name,
+      this.noticeEntryModel.death_date_str,
+      this.noticeEntryModel.announcement,
+      this.noticeEntryModel.buyer_name,
+      this.noticeEntryModel.email
+    ];
+
+    total += requiredFields.length;
+    completed += requiredFields.filter(f => !!f).length;
+
+    // Events (all required fields per event)
+    this.noticeEntryModel.events.forEach(event => {
+      const eventFields = [
+        event.type,
+        event.date_str,
+        event.time,
+        event.location,
+        event.address,
+        event.city,
+        event.state
+      ];
+
+      total += eventFields.length;
+      completed += eventFields.filter(f => !!f).length;
+    });
+
+    // Contacts
+    this.noticeEntryModel.contacts.forEach(contact => {
+      const contactFields = [
+        contact.name,
+        contact.phone
+      ];
+
+      total += contactFields.length;
+      completed += contactFields.filter(f => !!f).length;
+    });
+
+    return total === 0 ? 0 : Math.round((completed / total) * 100);
+  }
+
+  /* ================================
+     GROUPS SECTION (CLEAN VERSION)
+  ================================ */
+
+  groupSearch: string = '';
+  showGroupDropdown = false;
+
+  filteredGroups(): Group[] {
+    if (!this.groupSearch.trim()) return this.groups;
+
+    return this.groups.filter(g =>
+      g.name?.toLowerCase().includes(this.groupSearch.toLowerCase())
+    );
+  }
+
+  isGroupSelected(group: Group): boolean {
+    return this.selectedGroups.some(g => g._id === group._id);
+  }
+
+  toggleGroup(group: Group): void {
+    if (this.isGroupSelected(group)) {
+      this.selectedGroups = this.selectedGroups.filter(
+        g => g._id !== group._id
+      );
+    } else {
+      this.selectedGroups = [...this.selectedGroups, group];
+    }
+
+    this.groupSearch = '';
+    this.syncGroupsToModel();
+  }
+
+  removeGroup2(groupId: string): void {
+    this.selectedGroups = this.selectedGroups.filter(
+      g => g._id !== groupId
+    );
+
+    this.syncGroupsToModel();
+  }
+
+  groupExists(name: string): boolean {
+    return this.groups.some(
+      g => g.name?.toLowerCase() === name.trim().toLowerCase()
+    );
+  }
+
+  createGroupFromSearch(): void {
+    const name = this.groupSearch.trim();
+    if (!name) return;
+
+    this.noticeEntryService.addNewGroup({ _id: '', name })
+      .subscribe(groups => {
+        this.groups = groups;
+
+        const created = this.groups.find(
+          g => g.name?.toLowerCase() === name.toLowerCase()
+        );
+
+        if (created && !this.isGroupSelected(created)) {
+          this.selectedGroups = [...this.selectedGroups, created];
+        }
+
+        this.groupSearch = '';
+        this.showGroupDropdown = false;
+
+        this.syncGroupsToModel();
+      });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.groupContainer) return;
+
+    const clickedInside = this.groupContainer.nativeElement.contains(event.target);
+
+    if (!clickedInside) {
+      this.showGroupDropdown = false;
+    }
+  }
 }

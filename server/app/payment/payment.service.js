@@ -37,6 +37,8 @@ const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // or live
 
+// const PAYPAL_API = "https://api.sandbox.paypal.com"
+
 // Generate access token
 async function generateAccessToken() {
   const response = await axios.post(
@@ -47,6 +49,8 @@ async function generateAccessToken() {
       auth: { username: PAYPAL_CLIENT_ID, password: PAYPAL_SECRET },
     }
   );
+  
+  console.log("\n\nToken scope:", response.data.scope);
   return response.data.access_token;
 }
 
@@ -82,6 +86,7 @@ exports.createPaypalOrder = async (req, res) => {
   exports.capturePaypalOrder = async (req, res) => {
     console.log('payment.capturePaypalOrder called...');
     const { orderID } = req.params;
+    console.log("CLIENT ID USED:", PAYPAL_CLIENT_ID);
     const accessToken = await generateAccessToken();   
 
     try {
@@ -92,8 +97,13 @@ exports.createPaypalOrder = async (req, res) => {
           Authorization: `Bearer ${accessToken}`,
         } }
       )
+
+      res.json(response.data);
     } catch(error) {
-      console.error(error);
+      console.error(error.response?.data || error.message);
+      return res.status(500).json({
+        error: error.response?.data || error.message
+      });
     }
 
     
@@ -103,6 +113,6 @@ exports.createPaypalOrder = async (req, res) => {
     console.log("API endpoint:", PAYPAL_API);
     console.log("OrderID being captured:", orderID);
 
-    res.json(response.data);
+    // res.json(response.data);
 };
 

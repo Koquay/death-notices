@@ -1,7 +1,8 @@
 <div class="container my-2">
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-md-8 text-center my-3">
-      <h2 class="fw-bold text-muted">Memoriam Entry Form</h2>
+      <h3 class="text-muted">Memoriam Entry Form</h3>
+      <div class="divider mx-auto mb-2"></div>
       <small>
         Please fill out the form below to submit a memoriam. Fields marked with
         an asterisk (<span class="text-danger fw-bold">*</span>) are required.
@@ -13,7 +14,13 @@
         class="d-flex flex-column justify-content-center"
       >
         <section class="">
-          <app-image-upload />
+          <!-- <app-image-upload /> -->
+
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-8">
+              <app-image-upload />
+            </div>
+          </div>
         </section>
 
         <section class="mt-5">

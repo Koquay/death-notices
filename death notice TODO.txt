@@ -1,6 +1,18 @@
 4242 4242 4242 4242
 
-order by death date, created_date
+
+
+modify for mobile phones
+
+toast when group added
+
+*** add divider to headers
+
+*** uniform enter image width
+
+enter memoriam -- submit button not centered
+
+*** order by death date, created_date
 
 *** in edit notice, event date not populate in UI
 
@@ -8,7 +20,7 @@ order by death date, created_date
 
 *** edit notice -- additional contact error, not saved to db
 
-After notice submitted, disable submit button.
+*** After notice submitted, disable submit button.
 
 *** send email to memoriam's buyer_name
 
@@ -25,6 +37,13 @@ environment.pk_test -- change for production
 *** test catchError
 
 in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+change hardcoded buyer's email from my personal email
+
+for production change client-id in index.html:
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
+    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
+ 
 
 *** validate enter notice when no image
 

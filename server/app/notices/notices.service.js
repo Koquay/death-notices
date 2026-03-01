@@ -22,8 +22,6 @@ exports.enterNotice = async (req, res) => {
       return res.status(400).json({ error: "No file received" });
     }
 
-    // const notice_no = generateRandomNo();
-
     // Normalize text
     noticeData.announcement = (noticeData.announcement || "")
       .replace(/\r\n/g, "\n")
@@ -65,25 +63,24 @@ exports.enterNotice = async (req, res) => {
     uploadStream.on("finish", async () => {
       try {
         const imageId = uploadStream.id;
-    
+
         const noticeCompiled = await compileNoticeData(noticeData, imageId);
-    
+
         const notice = await Notices.create(noticeCompiled);
         await notice.populate(["contacts", "events"]);
-    
+
         sendConfirmationEmail({
           name: notice.name,
           email: notice.email,
           notice_no: notice.notice_no,
         });
-    
+
         return res.status(201).json(notice);
       } catch (err) {
         console.error("Error after image upload:", err);
         return res.status(500).json({ message: "Failed to create notice" });
       }
     });
-    
   } catch (error) {
     console.error("Error in enterNotice:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -165,6 +162,7 @@ exports.getNotices = async (req, res) => {
   try {
     const [notices, totalCount] = await Promise.all([
       Notices.find(filter)
+        .sort({ death_date: -1 })
         .sort({ createdAt: -1 })
         .populate("contacts")
         .populate("events")
@@ -216,8 +214,9 @@ function buildOptionsFilter(options) {
     },
   };
 
-  if(searchField) {
-    const escapeRegex = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (searchField) {
+    const escapeRegex = (string) =>
+      string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(escapeRegex(searchField), "i");
     filter.name = regex;
   }
@@ -273,13 +272,12 @@ exports.getNoticeByNo = async (req, res) => {
     if (diffMs > THIRTY_DAYS_MS) {
       return res.status(404).json({
         message: `Notice No. ${notice.notice_no} is over 30 days old. It cannot be edited.`,
-        expired: true
+        expired: true,
       });
     }
 
     // Still within 30 days → return notice
     return res.status(200).json(notice);
-
   } catch (error) {
     console.error("Error in getNoticeByNo:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -315,7 +313,7 @@ exports.searchForMemoriams = async (req, res) => {
 exports.getGroups = async (req, res) => {
   console.log("service.getGroups called...");
   try {
-    const groups = await Groups.find().sort({ createdAt: "asc" }).exec();
+    const groups = await Groups.find().sort({ name: "asc" }).exec();
 
     console.log("Groups retrieved:", Groups);
     return res.status(200).json(groups);
@@ -344,7 +342,6 @@ exports.addGroup = async (req, res) => {
     return res.status(500).json({ message: "addGroup Internal server error" });
   }
 };
-
 
 const sendConfirmationEmail = (noticeData) => {
   console.log("***** sendBuyerEmail called", noticeData);
@@ -384,34 +381,32 @@ const sendConfirmationEmail = (noticeData) => {
 
 const compileNoticeData = async (noticeData, imageId) => {
   const contactIds = await createContacts(noticeData.contacts);
-      const eventIds = await createEvents(noticeData.events);
-      const notice_no = generateRandomNo();
+  const eventIds = await createEvents(noticeData.events);
+  const notice_no = generateRandomNo();
 
-      
-      const notice = {
-        name: noticeData.name,
-        birth_date: noticeData.birth_date,
-        death_date: noticeData.death_date,
-        announcement: noticeData.announcement,
-        additionalInformation: noticeData.additionalInformation,
-        email: noticeData.email,
-        buyer_name: noticeData.buyer_name,
-        contacts: contactIds,
-        events: eventIds,
-        imageId: imageId, // ✅ VALID
-        notice_no,
-      };
+  const notice = {
+    name: noticeData.name,
+    birth_date: noticeData.birth_date,
+    death_date: noticeData.death_date,
+    announcement: noticeData.announcement,
+    additionalInformation: noticeData.additionalInformation,
+    email: noticeData.email,
+    buyer_name: noticeData.buyer_name,
+    contacts: contactIds,
+    events: eventIds,
+    imageId: imageId, // ✅ VALID
+    notice_no,
+  };
 
-      if (Array.isArray(noticeData.groups)) {
-        const groupIds = noticeData.groups
-          .map(g => g?._id || g)          // support {_id} or raw id
-          .filter(id => mongoose.Types.ObjectId.isValid(id));
-      
-        if (groupIds.length > 0) {
-          notice.groups = groupIds;
-        }
-      }
-      
+  if (Array.isArray(noticeData.groups)) {
+    const groupIds = noticeData.groups
+      .map((g) => g?._id || g) // support {_id} or raw id
+      .filter((id) => mongoose.Types.ObjectId.isValid(id));
 
-      return notice;
-}
+    if (groupIds.length > 0) {
+      notice.groups = groupIds;
+    }
+  }
+
+  return notice;
+};

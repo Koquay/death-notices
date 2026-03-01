@@ -1,0 +1,51 @@
+.card {
+    border-radius: 12px;
+  }
+  
+  .card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .sticky-submit {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #eee;
+  }
+
+//   .ng-select .ng-select-container {
+//     border-radius: 8px;
+//     min-height: 44px;
+//   }
+  
+//   .ng-select.ng-select-multiple .ng-select-container .ng-value {
+//     background-color: #e9f2ff;
+//     border-radius: 6px;
+//     padding: 2px 8px;
+//     font-size: 0.85rem;
+//   }
+
+
+.group-dropdown {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
