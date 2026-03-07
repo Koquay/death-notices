@@ -21,30 +21,33 @@ export class EditNoticeModalComponent {
   private router = inject(Router);
   public editNoticeService = inject(EditNoticeService);
   private toastrUtils = inject(ToastUtils);
-  public noticeNumber: string = '1646-6706-9291';
+  public noticeNumber: string = '7563-2475-1530';
 
   public getNotice() {
-    this.editNoticeService.getNotice(this.noticeNumber).subscribe({
-      next: () => {
-        this.router.navigate(['/edit-notice']);
-        this.closeModal('editNoticeModal');
-      },
-      error: (error) => {
-        console.log('error', error)
-        console.log('error', error.error.message)
-        let message;
-        if (error.error.expired) {
-          message = error.error.message;
-        } else {
-          message = `Notice for ${this.noticeNumber} not found.`;
-        }
-        this.toastrUtils.show(
-          'error',
-          `${message}`,
-          'Notice Error'
-        );
-      }
-    });
+    this.router.navigate(['/edit-notice', this.noticeNumber]);
+    this.closeModal('editNoticeModal');
+
+    // this.editNoticeService.getNotice(this.noticeNumber).subscribe({
+    //   next: () => {
+    //     this.router.navigate(['/edit-notice', this.noticeNumber]);
+    //     this.closeModal('editNoticeModal');
+    //   },
+    //   error: (error) => {
+    //     console.log('error', error)
+    //     console.log('error', error.error.message)
+    //     let message;
+    //     if (error.error.expired) {
+    //       message = error.error.message;
+    //     } else {
+    //       message = `Notice for ${this.noticeNumber} not found.`;
+    //     }
+    //     this.toastrUtils.show(
+    //       'error',
+    //       `${message}`,
+    //       'Notice Error'
+    //     );
+    //   }
+    // });
   }
 
   private closeModal = (modalId: string) => {

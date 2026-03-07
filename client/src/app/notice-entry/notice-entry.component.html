@@ -615,6 +615,86 @@
       </div>
     </div>
 
+    <!-- GROUPS -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6" #groupContainer>
+            <!-- <div class="col-12 col-md-6"> -->
+            <label class="fw-bold fs-5">Groups</label>
+            <small class="text-muted ms-2">(optional)</small>
+
+            <p class="small text-muted mt-1">
+              If the deceased was part of a group (school, work, family, etc.),
+              you may select or create a group to enable group-based searches.
+            </p>
+
+            <!-- SEARCH INPUT -->
+            <div class="mt-3 position-relative">
+              <input
+                type="text"
+                class="form-control"
+                name="groupSearch"
+                placeholder="Select or create groups..."
+                [value]="groupSearch"
+                (input)="onGroupSearch($event)"
+                (focus)="showGroupDropdown = true"
+                autocomplete="off"
+              />
+
+              <!-- DROPDOWN -->
+              <div
+                *ngIf="showGroupDropdown"
+                class="group-dropdown shadow-sm border rounded bg-white mt-1"
+              >
+                <!-- Existing Groups -->
+                <div
+                  *ngFor="let group of filteredGroups()"
+                  class="dropdown-item d-flex align-items-center"
+                >
+                  <input
+                    type="checkbox"
+                    class="form-check-input me-2"
+                    [checked]="isGroupSelected(group)"
+                    (change)="toggleGroup(group)"
+                  />
+
+                  {{ group.name }}
+                </div>
+
+                <!-- Create New Option -->
+                <div
+                  *ngIf="groupSearch?.trim() && !groupExists(groupSearch)"
+                  class="dropdown-item text-primary"
+                  (click)="createGroupFromSearch()"
+                  style="cursor: pointer"
+                >
+                  + Create "{{ groupSearch }}"
+                </div>
+              </div>
+            </div>
+
+            <!-- SELECTED BADGES -->
+            <div class="mt-3">
+              <span
+                *ngFor="let group of selectedGroups"
+                class="badge bg-primary me-2 mb-2"
+              >
+                {{ group.name }}
+                <span
+                  class="ms-2"
+                  style="cursor: pointer"
+                  (click)="removeGroup2(group._id)"
+                >
+                  ✕
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- PERSONAL INFORMATION -->
     <div class="card shadow-sm border-0 mb-5">
       <div class="card-body p-4">
@@ -712,86 +792,6 @@
                   <small>Email is required.</small>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GROUPS -->
-    <div class="card shadow-sm border-0 mb-5">
-      <div class="card-body p-4">
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-6" #groupContainer>
-            <!-- <div class="col-12 col-md-6"> -->
-            <label class="fw-bold fs-5">Groups</label>
-            <small class="text-muted ms-2">(optional)</small>
-
-            <p class="small text-muted mt-1">
-              If the deceased was part of a group (school, work, family, etc.),
-              you may select or create a group to enable group-based searches.
-            </p>
-
-            <!-- SEARCH INPUT -->
-            <div class="mt-3 position-relative">
-              <input
-                type="text"
-                class="form-control"
-                name="groupSearch"
-                placeholder="Search and select groups..."
-                [value]="groupSearch"
-                (input)="onGroupSearch($event)"
-                (focus)="showGroupDropdown = true"
-                autocomplete="off"
-              />
-
-              <!-- DROPDOWN -->
-              <div
-                *ngIf="showGroupDropdown"
-                class="group-dropdown shadow-sm border rounded bg-white mt-1"
-              >
-                <!-- Existing Groups -->
-                <div
-                  *ngFor="let group of filteredGroups()"
-                  class="dropdown-item d-flex align-items-center"
-                >
-                  <input
-                    type="checkbox"
-                    class="form-check-input me-2"
-                    [checked]="isGroupSelected(group)"
-                    (change)="toggleGroup(group)"
-                  />
-
-                  {{ group.name }}
-                </div>
-
-                <!-- Create New Option -->
-                <div
-                  *ngIf="groupSearch?.trim() && !groupExists(groupSearch)"
-                  class="dropdown-item text-primary"
-                  (click)="createGroupFromSearch()"
-                  style="cursor: pointer"
-                >
-                  + Create "{{ groupSearch }}"
-                </div>
-              </div>
-            </div>
-
-            <!-- SELECTED BADGES -->
-            <div class="mt-3">
-              <span
-                *ngFor="let group of selectedGroups"
-                class="badge bg-primary me-2 mb-2"
-              >
-                {{ group.name }}
-                <span
-                  class="ms-2"
-                  style="cursor: pointer"
-                  (click)="removeGroup2(group._id)"
-                >
-                  ✕
-                </span>
-              </span>
             </div>
           </div>
         </div>

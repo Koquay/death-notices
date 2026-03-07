@@ -1,6 +1,8 @@
 4242 4242 4242 4242
 
+use collapsible fo events and contacts
 
+make edit notice acid
 
 modify for mobile phones
 

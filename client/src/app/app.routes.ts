@@ -16,7 +16,7 @@ export const routes: Routes = [
     },
     { path: 'death-notice/:noticeId', component: DeathNoticeComponent },
     { path: 'notice-entry', component: NoticeEntryComponent },
-    { path: 'edit-notice', component: EditNoticeComponent },
+    { path: 'edit-notice/:noticeNo', component: EditNoticeComponent },
     { path: 'enter-memoriam', component: EnterMemoriamComponent },
     { path: 'edit-memoriam', component: MemoriamEditComponent },
     { path: 'memoriam-view/:memoriamId', component: MemoriamViewComponent },

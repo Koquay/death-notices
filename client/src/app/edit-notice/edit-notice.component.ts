@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppImageUploadComponent } from '../app-image-upload/app-image-upload.component';
@@ -6,6 +6,7 @@ import { EditNoticeService } from './edit-notice.service';
 import { EditNoticeModel } from './edit-notice.model';
 import { Group } from '../shared/interfaces/groups.interface';
 import { persistStateToLocalStorage } from '../shared/utils/localStorageUtils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-notice',
@@ -22,6 +23,7 @@ export class EditNoticeComponent {
 
   public editNoticeModel = inject(EditNoticeModel);
   private editNoticeService = inject(EditNoticeService);
+  private activatedRoute = inject(ActivatedRoute);
   public apiUrl = '/api/notices';
   public operation = 'edit-notice'
   public birth_date?: string;
@@ -30,11 +32,29 @@ export class EditNoticeComponent {
   groups: Group[] = [];
   group: Group = { _id: '', name: null };
   newGroup?: string | null;
+  @ViewChild('groupContainer') groupContainer!: ElementRef;
 
   ngOnInit() {
-    console.log('noticeEntryModel on init:', this.editNoticeModel);
+    this.getNotice();
+  }
 
-    this.getGroups();
+  private getNotice = () => {
+    this.activatedRoute.params.subscribe((params) => {
+      const noticeNo = params['noticeNo'];
+      console.log('ActivatedRoute params:', noticeNo);
+
+      this.editNoticeService.getNotice(noticeNo).subscribe({
+        next: () => {
+          console.log('EditNoticeComponent Notice fetched successfully:', this.editNoticeModel);
+          this.getGroups();
+        },
+        error: (error) => {
+          console.log('error', error)
+        }
+      });
+    });
+
+
   }
 
   addContact() {
@@ -100,37 +120,110 @@ export class EditNoticeComponent {
     this.editNoticeModel.editImageMode = true;
   }
 
-  private getGroups = () => {
-    this.editNoticeService.getGroups().subscribe(groups => {
-      console.log('groups', groups)
-      this.groups = groups;
-    })
+
+  /* ================================
+     GROUPS SECTION (CLEAN VERSION)
+  ================================ */
+
+  groupSearch: string = '';
+  showGroupDropdown = false;
+
+  filteredGroups(): Group[] {
+    if (!this.groupSearch.trim()) return this.groups;
+
+    return this.groups.filter(g =>
+      g.name?.toLowerCase().includes(this.groupSearch.toLowerCase())
+    );
   }
 
-  addDeceasedGroup() {
-    this.editNoticeModel.groups = this.selectedGroups;
-    this.saveNoticeData();
+  isGroupSelected(group: Group): boolean {
+    return this.selectedGroups.some(g => String(g._id) === String(group._id));
   }
 
-  addNewGroup() {
-    this.newGroup = this.newGroup?.trim();
+  toggleGroup(group: Group): void {
+    if (this.isGroupSelected(group)) {
+      this.selectedGroups = this.selectedGroups.filter(
+        g => g._id !== group._id
+      );
+    } else {
+      this.selectedGroups = [...this.selectedGroups, group];
+    }
 
-    if (this.newGroup) {
-      this.group.name = this.newGroup;
-      this.editNoticeService.addNewGroup(this.group).subscribe(groups => {
+    this.groupSearch = '';
+    this.syncGroupsToModel();
+  }
+
+  removeGroup2(groupId: string): void {
+    this.selectedGroups = this.selectedGroups.filter(
+      g => String(g._id) !== String(groupId)
+    );
+
+    this.syncGroupsToModel();
+  }
+
+  groupExists(name: string): boolean {
+    return this.groups.some(
+      g => g.name?.toLowerCase() === name.trim().toLowerCase()
+    );
+  }
+
+  createGroupFromSearch(): void {
+    const name = this.groupSearch.trim();
+    if (!name) return;
+
+    this.editNoticeService.addNewGroup({ _id: '', name })
+      .subscribe(groups => {
         this.groups = groups;
-        this.group.name = null;
-        this.newGroup = null;
-      })
 
+        const created = this.groups.find(
+          g => g.name?.toLowerCase() === name.toLowerCase()
+        );
 
-      this.saveNoticeData();
+        if (created && !this.isGroupSelected(created)) {
+          this.selectedGroups = [...this.selectedGroups, created];
+        }
+
+        this.groupSearch = '';
+        this.showGroupDropdown = false;
+
+        this.syncGroupsToModel();
+      });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.groupContainer) return;
+
+    const clickedInside = this.groupContainer.nativeElement.contains(event.target);
+
+    if (!clickedInside) {
+      this.showGroupDropdown = false;
     }
   }
 
-  removeDeceasedGroup(group: Group) {
-    this.selectedGroups = this.selectedGroups.filter(g => g._id !== group._id);
-    this.editNoticeModel.groups = this.selectedGroups;
+  private syncGroupsToModel(): void {
+    this.editNoticeModel.groups = [...this.selectedGroups];
     this.saveNoticeData();
   }
+
+  onGroupSearch(event: any): void {
+    const value = event.target.value || '';
+    this.groupSearch = value;
+  }
+
+  private getGroups = () => {
+    this.editNoticeService.getGroups().subscribe(groups => {
+      this.groups = groups;
+
+      if (this.editNoticeModel.groups?.length) {
+        this.selectedGroups = [...this.editNoticeModel.groups];
+      }
+
+      console.log('EditNoticeComponent:editNoticeModel.groups fetched:', this.editNoticeModel.groups);
+      console.log('EditNoticeComponent:selectedGoups fetched:', this.selectedGroups);
+    });
+  }
+
+
+
 }

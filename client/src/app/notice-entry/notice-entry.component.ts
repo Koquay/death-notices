@@ -28,7 +28,6 @@ export class NoticeEntryComponent {
 
   public noticeEntryModel = inject(NoticeEntryModel);
   private noticeEntryService = inject(NoticeEntryService);
-  private toastrUtils = inject(ToastUtils);;
   @ViewChild('noticeForm') noticeForm!: NgForm;
 
   stripe: Stripe | null = null;
@@ -108,102 +107,6 @@ export class NoticeEntryComponent {
     this.saveNoticeData();
   }
 
-  // addDeceasedGroup() {
-  //   this.noticeEntryModel.groups = this.selectedGroups;
-  //   this.saveNoticeData();
-  // }
-
-  // addDeceasedGroup() {
-  //   this.noticeEntryModel.groups = this.selectedGroups.map(g => g._id);
-  //   this.saveNoticeData();
-  // }
-
-  // addNewGroup() {
-  //   this.newGroup = this.newGroup?.trim();
-
-  //   if (this.newGroup) {
-  //     this.group.name = this.newGroup;
-  //     this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
-  //       this.groups = groups;
-  //       this.group.name = null;
-  //       this.newGroup = null;
-  //     })
-
-
-  //     this.saveNoticeData();
-  //   }
-  // }
-
-  private syncGroupsToModel(): void {
-    this.noticeEntryModel.groups = [...this.selectedGroups];
-    this.saveNoticeData();
-  }
-
-  onGroupSearch(event: any): void {
-    const value = event.target.value || '';
-    this.groupSearch = value;
-  }
-
-  // onGroupsChange(): void {
-  //   this.addDeceasedGroup();
-  //   this.saveNoticeData();
-  // }
-
-  // ngDoCheck() {
-  //   if (typeof this.groupSearch !== 'string') {
-  //     this.groupSearch = '';
-  //   }
-  // }
-
-  // addNewGroupFromSelect(name: string): void {
-  //   const trimmedName = name?.trim();
-
-  //   if (!trimmedName) return;
-
-  //   this.group.name = trimmedName;
-
-  //   this.noticeEntryService.addNewGroup(this.group).subscribe(groups => {
-  //     // Update full groups list from backend
-  //     this.groups = groups;
-
-  //     // Find the newly created group (assuming backend returns full list)
-  //     const createdGroup = this.groups.find(g => g.name === trimmedName);
-
-  //     if (createdGroup) {
-  //       // Add to selected groups if not already there
-  //       const alreadySelected = this.selectedGroups?.some(
-  //         g => g._id === createdGroup._id
-  //       );
-
-  //       if (!alreadySelected) {
-  //         this.selectedGroups = [
-  //           ...(this.selectedGroups || []),
-  //           createdGroup
-  //         ];
-  //       }
-  //     }
-
-  //     // Reset temp fields
-  //     this.group.name = null;
-  //     this.newGroup = null;
-
-  //     this.saveNoticeData();
-  //   });
-  // }
-
-  // removeGroup(index: number) {
-  //   this.noticeEntryModel.groups.splice(index, 1);
-  //   this.saveNoticeData();
-  // }
-
-  // removeGroup2(groupId: string): void {
-  //   this.selectedGroups = this.selectedGroups.filter(
-  //     g => g._id !== groupId
-  //   );
-
-  //   this.addDeceasedGroup();
-  //   this.saveNoticeData();
-  // }
 
   public saveNoticeData = () => {
     console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
@@ -230,11 +133,6 @@ export class NoticeEntryComponent {
     });
   }
 
-
-
-  // public saveEventData = () => {
-  //   console.log('saveNoticeData.noticeEntryModel:', this.noticeEntryModel);
-  // }
 
   public submitNotice = async () => {
     if (this.noticeForm.invalid) return;
@@ -310,27 +208,6 @@ export class NoticeEntryComponent {
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
     this.noticeForm.resetForm();
-  }
-
-  // private getGroups = () => {
-  //   this.noticeEntryService.getGroups().subscribe(groups => {
-  //     console.log('groups', groups)
-  //     this.groups = groups;
-  //   })
-  // }
-
-  private getGroups = () => {
-    this.noticeEntryService.getGroups().subscribe(groups => {
-      this.groups = groups;
-
-      if (this.noticeEntryModel.groups?.length) {
-        this.selectedGroups = this.groups.filter(g =>
-          this.noticeEntryModel.groups.some(
-            saved => saved._id === g._id
-          )
-        );
-      }
-    });
   }
 
   onPaymentTypeChange(): void {
@@ -471,5 +348,29 @@ export class NoticeEntryComponent {
     if (!clickedInside) {
       this.showGroupDropdown = false;
     }
+  }
+
+  private getGroups = () => {
+    this.noticeEntryService.getGroups().subscribe(groups => {
+      this.groups = groups;
+
+      if (this.noticeEntryModel.groups?.length) {
+        this.selectedGroups = this.groups.filter(g =>
+          this.noticeEntryModel.groups.some(
+            saved => saved._id === g._id
+          )
+        );
+      }
+    });
+  }
+
+  private syncGroupsToModel(): void {
+    this.noticeEntryModel.groups = [...this.selectedGroups];
+    this.saveNoticeData();
+  }
+
+  onGroupSearch(event: any): void {
+    const value = event.target.value || '';
+    this.groupSearch = value;
   }
 }

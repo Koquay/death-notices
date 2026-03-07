@@ -15,26 +15,33 @@
     border-top: 1px solid #eee;
   }
 
-//   .ng-select .ng-select-container {
-//     border-radius: 8px;
-//     min-height: 44px;
-//   }
-  
-//   .ng-select.ng-select-multiple .ng-select-container .ng-value {
-//     background-color: #e9f2ff;
-//     border-radius: 6px;
-//     padding: 2px 8px;
-//     font-size: 0.85rem;
-//   }
 
 
-.group-dropdown {
+// .group-dropdown {
+//     position: absolute;
+//     width: 100%;
+//     max-height: 300px;
+//     overflow-y: auto;
+//     z-index: 1000;
+//     background-color: #ffffff;
+//     border: 1px solid #dee2e6;
+//     border-radius: 0.5rem;
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+//   }
+
+  .group-dropdown {
     position: absolute;
     width: 100%;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
     z-index: 1000;
+  
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   }
+
   
   .dropdown-item {
     padding: 8px 12px;
