@@ -94,11 +94,6 @@ export class EditNoticeComponent {
   }
 
 
-
-  public saveEventData = () => {
-    console.log('saveNoticeData.editNoticeModel:', this.editNoticeModel);
-  }
-
   public submitNoticeEdits = () => {
     this.editNoticeModel = {
       ...this.editNoticeModel,
@@ -109,8 +104,17 @@ export class EditNoticeComponent {
 
     this.editNoticeModel.events = this.editNoticeModel.events.map(event => ({
       ...event,
-      time: event.time && event.time !== '' ? event.time : null
+      time: event.time && event.time !== '' ? event.time : null,
+
+      // date: new Date(event.date_str),
+
+      date: event.date_str ? new Date(event.date_str) : null
     }));
+
+    for (let event of this.editNoticeModel.events) {
+      console.log('event.date_str:', event.date_str);
+      console.log('parsed:', new Date(event.date_str));
+    }
 
     console.log('submitNoticeEdits.editNoticeModel:', this.editNoticeModel);
     this.editNoticeService.submitNoticeEdits(this.editNoticeModel as EditNoticeModel);

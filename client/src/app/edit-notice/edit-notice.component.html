@@ -34,6 +34,12 @@
               <div
                 class="col-12 d-flex flex-column justify-content-center align-items-center"
               >
+                <img
+                  class="img-fluid notice-image rounded shadow-sm mb-3"
+                  [src]="apiUrl + '/image/' + editNoticeModel.imageId"
+                  alt="Notice image"
+                  loading="lazy"
+                />
                 <h4>{{ editNoticeModel.name }}</h4>
                 <h6>
                   <ng-container
@@ -55,22 +61,15 @@
                       | date : "MMMM d, yyyy" : "UTC"
                   }}
                 </h6>
-
-                <img
-                  class="img-fluid notice-image"
-                  [src]="apiUrl + '/image/' + editNoticeModel.imageId"
-                  alt="Notice image"
-                  loading="lazy"
-                />
               </div>
             </div>
           </div>
         </section>
 
         <section class="">
-          <div class="card shadow-sm border-0 rounded-3 p-4">
+          <div class="card shadow-sm border-0 rounded-3 pb-4">
             <div class="row">
-              <div class="row mt-3 d-flex justify-content-center">
+              <div class="row d-flex justify-content-center">
                 <div class="col-12 col-md-4 d-flex justify-content-center">
                   <button
                     class="btn btn-primary btn-secondary px-4 py-2"
@@ -134,7 +133,7 @@
                           nameCtrl.invalid &&
                           (nameCtrl.dirty || nameCtrl.touched)
                         "
-                        class="text-danger mt-1"
+                        class="invalid-feedback d-block"
                       >
                         <small>Name is required.</small>
                       </div>
@@ -187,7 +186,7 @@
                           death_date.invalid &&
                           (death_date.dirty || death_date.touched)
                         "
-                        class="text-danger mt-1"
+                        class="invalid-feedback d-block"
                       >
                         <small>Death date is required.</small>
                       </div>
@@ -243,317 +242,207 @@
         <section class="mt-5">
           <div class="card shadow-sm border-0 rounded-3 p-4">
             <div class="row d-flex justify-content-center">
-              <div class="col-6 col-md-8 col-lg-6">
-                <div class="col-12 mb-2">
-                  <h5 class="section-title">
+              <!-- <div class="col-6 col-md-8 col-lg-6"> -->
+              <div class="col-12 col-lg-8 mx-auto">
+                <div class="col-12 mb-1">
+                  <h5 class="section-title mb-0">
                     Edit Events
                     <small class="text-muted ms-2"
                       >(Wake, burial, repast, etc.)</small
                     >
                   </h5>
+                  <div>
+                    <small class="text-muted mb-1"
+                      >Click on Event number to enter event information.</small
+                    >
+                  </div>
                 </div>
 
-                <div
-                  class="row mb-3 p-1"
-                  style="border: 2px solid #ddd"
-                  *ngFor="let event of editNoticeModel.events; let i = index"
-                >
+                <div class="accordion" id="eventsAccordion">
                   <div
-                    class="d-flex justify-content-between align-items-center mb-3"
+                    class="accordion-item mb-2"
+                    *ngFor="let event of editNoticeModel.events; let i = index"
                   >
-                    <h6 class="mb-0">Event {{ i + 1 }}</h6>
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      (click)="removeEvent(i)"
-                      *ngIf="editNoticeModel.events.length > 1"
+                    <!-- Accordion Header -->
+                    <h2 class="accordion-header" id="heading{{ i }}">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse' + i"
+                      >
+                        <div
+                          class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                        >
+                          <div>
+                            <strong>Event {{ i + 1 }}</strong>
+                          </div>
+
+                          <!-- Event Summary -->
+                          <div class="text-muted small me-2">
+                            {{ event.type || "Type?" }}
+
+                            • {{ event.date_str || "Date?" }}
+
+                            • {{ event.location || "Location?" }}
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+
+                    <!-- Accordion Body -->
+
+                    <div
+                      [id]="'collapse' + i"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#eventsAccordion"
                     >
-                      Remove
-                    </button>
-                  </div>
-
-                  <div class="card mb-3 shadow-sm border-0">
-                    <div class="card-body">
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2">
-                          <strong
-                            >Type: <span class="text-danger">*</span></strong
+                      <div class="accordion-body">
+                        <div class="d-flex justify-content-end mb-3">
+                          <button
+                            class="btn btn-sm btn-outline-danger"
+                            (click)="removeEvent(i)"
+                            *ngIf="editNoticeModel.events.length > 1"
                           >
-                        </label>
+                            Remove Event
+                          </button>
+                        </div>
+                        <div class="row g-3">
+                          <!-- TYPE -->
+                          <div class="col-12 col-md-6">
+                            <label class="form-label">
+                              <strong
+                                >Type <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="event.type"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventType{{ i }}"
+                            />
+                          </div>
 
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="text"
-                            [(ngModel)]="event.type"
-                            (change)="saveNoticeData()"
-                            name="eventType{{ i }}"
-                            #eventType="ngModel"
-                            required
-                            [ngClass]="{
-                              'is-valid':
-                                eventType.valid &&
-                                (eventType.dirty || eventType.touched),
-                              'is-invalid':
-                                eventType.invalid &&
-                                (eventType.dirty || eventType.touched)
-                            }"
-                          />
+                          <!-- DATE -->
+                          <div class="col-12 col-md-3">
+                            <label class="form-label">
+                              <strong
+                                >Date <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              [(ngModel)]="event.date_str"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventDate{{ i }}"
+                            />
+                            <div>
+                              date_str:
+                              {{ event.date_str | date }}
+                            </div>
+                            <div>
+                              date:
+                              {{ event.date | date }}
+                            </div>
+                          </div>
 
-                          <div
-                            *ngIf="
-                              eventType.invalid &&
-                              (eventType.dirty || eventType.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Event type is required.</small>
+                          <!-- TIME -->
+                          <div class="col-12 col-md-3">
+                            <label class="form-label">
+                              <strong
+                                >Time <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              type="time"
+                              class="form-control"
+                              [(ngModel)]="event.time"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventTime{{ i }}"
+                            />
+                          </div>
+
+                          <!-- LOCATION -->
+                          <div class="col-12">
+                            <label class="form-label">
+                              <strong
+                                >Location
+                                <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="event.location"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventLocation{{ i }}"
+                            />
+                          </div>
+
+                          <!-- ADDRESS -->
+                          <div class="col-12">
+                            <label class="form-label">
+                              <strong
+                                >Address
+                                <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="event.address"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventAddress{{ i }}"
+                            />
+                          </div>
+
+                          <!-- CITY -->
+                          <div class="col-12 col-md-6">
+                            <label class="form-label">
+                              <strong
+                                >City <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="event.city"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventCity{{ i }}"
+                            />
+                          </div>
+
+                          <!-- STATE -->
+                          <div class="col-12 col-md-6">
+                            <label class="form-label">
+                              <strong
+                                >State
+                                <span class="text-danger">*</span></strong
+                              >
+                            </label>
+                            <input
+                              class="form-control"
+                              [(ngModel)]="event.state"
+                              (change)="saveNoticeData()"
+                              required
+                              name="eventState{{ i }}"
+                            />
                           </div>
                         </div>
                       </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >Date: <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="date"
-                            [(ngModel)]="event.date_str"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventDate{{ i }}"
-                            #eventDate="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                eventDate.valid &&
-                                (eventDate.dirty || eventDate.touched),
-                              'is-invalid':
-                                eventDate.invalid &&
-                                (eventDate.dirty || eventDate.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              eventDate.invalid &&
-                              (eventDate.dirty || eventDate.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Event date is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >Time: <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="time"
-                            [(ngModel)]="event.time"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventTime{{ i }}"
-                            #eventTime="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                eventTime.valid &&
-                                (eventTime.dirty || eventTime.touched),
-                              'is-invalid':
-                                eventTime.invalid &&
-                                (eventTime.dirty || eventTime.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              eventTime.invalid &&
-                              (eventTime.dirty || eventTime.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Event time is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >Location:
-                            <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="text"
-                            [(ngModel)]="event.location"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventLocation{{ i }}"
-                            #location="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                location.valid &&
-                                (location.dirty || location.touched),
-                              'is-invalid':
-                                location.invalid &&
-                                (location.dirty || location.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              location.invalid &&
-                              (location.dirty || location.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Location is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >Address: <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="text"
-                            [(ngModel)]="event.address"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventAddress{{ i }}"
-                            #address="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                address.valid &&
-                                (address.dirty || address.touched),
-                              'is-invalid':
-                                address.invalid &&
-                                (address.dirty || address.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              address.invalid &&
-                              (address.dirty || address.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Address is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >City: <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="text"
-                            [(ngModel)]="event.city"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventCity{{ i }}"
-                            #eventCity="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                eventCity.valid &&
-                                (eventCity.dirty || eventCity.touched),
-                              'is-invalid':
-                                eventCity.invalid &&
-                                (eventCity.dirty || eventCity.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              eventCity.invalid &&
-                              (eventCity.dirty || eventCity.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>Event city is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 mb-3 d-md-flex align-items-start">
-                        <label class="form-label me-2 mt-2"
-                          ><strong
-                            >State: <span class="text-danger">*</span></strong
-                          ></label
-                        >
-
-                        <div class="flex-grow-1">
-                          <input
-                            class="form-control"
-                            type="text"
-                            [(ngModel)]="event.state"
-                            (change)="saveNoticeData()"
-                            required
-                            name="eventState{{ i }}"
-                            #state="ngModel"
-                            [ngClass]="{
-                              'is-valid':
-                                state.valid && (state.dirty || state.touched),
-                              'is-invalid':
-                                state.invalid && (state.dirty || state.touched)
-                            }"
-                          />
-
-                          <div
-                            *ngIf="
-                              state.invalid && (state.dirty || state.touched)
-                            "
-                            class="text-danger mt-1"
-                          >
-                            <small>State is required.</small>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- <div class="col-12 col-lg-1 d-flex align-items-end">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="removeEvent(i)"
-                          *ngIf="editNoticeModel.events.length > 1"
-                        >
-                          ✕
-                        </button>
-                      </div> -->
                     </div>
                   </div>
                 </div>
 
+                <!-- ADD EVENT BUTTON -->
+
                 <button
                   type="button"
-                  class="btn btn-outline-primary btn-secondary mt-2"
+                  class="btn btn-outline-primary mt-3"
                   (click)="addEvent()"
                 >
                   + Add Another Event
@@ -624,7 +513,7 @@
                           contactNameCtrl.invalid &&
                           (contactNameCtrl.dirty || contactNameCtrl.touched)
                         "
-                        class="text-danger mt-1"
+                        class="invalid-feedback d-block"
                       >
                         <small>Name is required.</small>
                       </div>
@@ -677,7 +566,7 @@
                           phoneCtrl.invalid &&
                           (phoneCtrl.dirty || phoneCtrl.touched)
                         "
-                        class="text-danger mt-1"
+                        class="invalid-feedback d-block"
                       >
                         <small>Phone is required.</small>
                       </div>

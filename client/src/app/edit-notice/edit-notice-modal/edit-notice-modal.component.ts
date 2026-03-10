@@ -26,28 +26,6 @@ export class EditNoticeModalComponent {
   public getNotice() {
     this.router.navigate(['/edit-notice', this.noticeNumber]);
     this.closeModal('editNoticeModal');
-
-    // this.editNoticeService.getNotice(this.noticeNumber).subscribe({
-    //   next: () => {
-    //     this.router.navigate(['/edit-notice', this.noticeNumber]);
-    //     this.closeModal('editNoticeModal');
-    //   },
-    //   error: (error) => {
-    //     console.log('error', error)
-    //     console.log('error', error.error.message)
-    //     let message;
-    //     if (error.error.expired) {
-    //       message = error.error.message;
-    //     } else {
-    //       message = `Notice for ${this.noticeNumber} not found.`;
-    //     }
-    //     this.toastrUtils.show(
-    //       'error',
-    //       `${message}`,
-    //       'Notice Error'
-    //     );
-    //   }
-    // });
   }
 
   private closeModal = (modalId: string) => {

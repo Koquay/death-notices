@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs';
 import { EditNoticeModel } from './edit-notice.model';
 import { Group } from '../shared/interfaces/groups.interface';
 import { ToastUtils } from '../shared/utils/toastUtils';
+import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class EditNoticeService {
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);
   public editNoticeModel = inject(EditNoticeModel);
+  private formatDateTimeUtils = inject(FormatDateTimeUtils);;
 
   private noticesUrl = '/api/notices';
 
@@ -22,14 +24,14 @@ export class EditNoticeService {
 
     return this.httpClient.get<EditNoticeModel>(`${this.noticesUrl}/notice/no/${noticeNo}`).pipe(
       tap((editNoticeModel) => {
-        editNoticeModel.birth_date_str = this.formatDateForInput(editNoticeModel.birth_date);
-        editNoticeModel.death_date_str = this.formatDateForInput(editNoticeModel.death_date);
+        editNoticeModel.birth_date_str = this.formatDateTimeUtils.formatDateForInput(editNoticeModel.birth_date);
+        editNoticeModel.death_date_str = this.formatDateTimeUtils.formatDateForInput(editNoticeModel.death_date);
 
         for (let i = 0; i < editNoticeModel.events.length; i++) {
-          editNoticeModel.events[i].date_str = this.formatDateForInput(editNoticeModel.events[i].date as Date);
+          editNoticeModel.events[i].date_str = this.formatDateTimeUtils.formatDateForInput(editNoticeModel.events[i].date as Date);
 
           editNoticeModel.events[i].time =
-            this.formatTimeForInput(editNoticeModel.events[i].time);
+            this.formatDateTimeUtils.formatTimeForInput(editNoticeModel.events[i].time);
         }
 
 
@@ -132,26 +134,6 @@ export class EditNoticeService {
     )
   }
 
-  formatDateForInput(date: string | Date): string {
-    if (!date) return '';
-    const date_str = new Date(date).toISOString().split('T')[0];
-    console.log('formatDateForInput.date', date)
-    console.log('formatDateForInput.date_str', date_str)
-    return date_str;
-  }
 
-  formatTimeForInput(time: string | Date | null): string {
-    if (!time) return '';
-
-    // If already HH:mm, return as-is
-    if (typeof time === 'string' && /^\d{2}:\d{2}$/.test(time)) {
-      return time;
-    }
-
-    const d = new Date(time);
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
 
 }

@@ -1,12 +1,22 @@
 4242 4242 4242 4242
 
-use collapsible fo events and contacts
+event.date_str not copying to event.date;
+
+event.date not updating in database
+
+change notice events to accodian
+
+&& use collapsible for events and contacts
 
 make edit notice acid
 
 modify for mobile phones
 
+Add contact numbers
+
 toast when group added
+
+remove hardcoded notice number from enter-notice-modal
 
 *** add divider to headers
 

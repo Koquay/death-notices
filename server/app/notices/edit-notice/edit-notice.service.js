@@ -11,8 +11,7 @@ const { uploadNoticeImage } = require("../../util/imageUpload.service");
 const { deleteImageIfExists } = require("../../util/imageCleanup.service");
 
 exports.editNoticeService = async ({ noticeData, file }) => {
-  // console.log('noticeData edit', noticeData);
-  // createContacts(noticeData.contacts)
+  console.log("noticeData edit", noticeData);
 
   const useTransactions = process.env.MONGO_TRANSACTIONS === "true";
 
@@ -59,7 +58,6 @@ exports.editNoticeService = async ({ noticeData, file }) => {
       additionalInformation: noticeData.additionalInformation,
       contacts: contacts,
       events: events,
-      // groups: noticeData.groups,
     };
 
     if (newImageId) {
@@ -68,14 +66,13 @@ exports.editNoticeService = async ({ noticeData, file }) => {
 
     if (Array.isArray(noticeData.groups)) {
       const groupIds = noticeData.groups
-        .map(g => g?._id || g)          // support {_id} or raw id
-        .filter(id => mongoose.Types.ObjectId.isValid(id));
-    
+        .map((g) => g?._id || g) // support {_id} or raw id
+        .filter((id) => mongoose.Types.ObjectId.isValid(id));
+
       if (groupIds.length > 0) {
         update.groups = groupIds;
       }
     }
-
 
     const updateQuery = await Notices.findByIdAndUpdate(
       noticeData.noticeId,
@@ -113,13 +110,11 @@ exports.editNoticeService = async ({ noticeData, file }) => {
 
 const createContacts = async (contacts) => {
   // 1️⃣ Separate existing vs new contacts
-  const existingContactIds = contacts
-    .filter(c => c._id)
-    .map(c => c._id);
+  const existingContactIds = contacts.filter((c) => c._id).map((c) => c._id);
 
   const newContacts = contacts
-    .filter(c => !c._id)
-    .map(c => ({
+    .filter((c) => !c._id)
+    .map((c) => ({
       name: c.name,
       relationship: c.relationship,
       phone: c.phone,
@@ -132,37 +127,53 @@ const createContacts = async (contacts) => {
   }
 
   // 3️⃣ Collect newly created IDs
-  const newContactIds = newContactDocs.map(c => c._id);
+  const newContactIds = newContactDocs.map((c) => c._id);
 
   // 4️⃣ Return all contact IDs
   return [...existingContactIds, ...newContactIds];
 };
 
-
 const createEvents = async (events) => {
-  const existingEventIds = events
-    .filter(e => e._id)
-    .map(e => e._id);
 
-    const newEvents = events
-    .filter(e => !e._id)
-    .map(e => ({
-      type: e.type,
-      date: e.date,
-      time: e.time,
-      location: e.location,
-      address: e.address,
-      city: e.city,
-      state: e.state,
-    }));
+  const operations = events.map(e => {
+    if (e._id) {
+      return {
+        updateOne: {
+          filter: { _id: e._id },
+          update: {
+            $set: {
+              type: e.type,
+              date: e.date,
+              time: e.time,
+              location: e.location,
+              address: e.address,
+              city: e.city,
+              state: e.state
+            }
+          }
+        }
+      };
+    } else {
+      return {
+        insertOne: {
+          document: {
+            type: e.type,
+            date: e.date,
+            time: e.time,
+            location: e.location,
+            address: e.address,
+            city: e.city,
+            state: e.state
+          }
+        }
+      };
+    }
+  });
 
-    let newEventDocs = [];
-  if (newEvents.length > 0) {
-    newEventDocs = await Events.insertMany(newEvents);
-  }
+  const result = await Events.bulkWrite(operations);
 
-  const newEventIds = newEventDocs.map(c => c._id);
+  const insertedIds = Object.values(result.insertedIds || {});
+  const updatedIds = events.filter(e => e._id).map(e => e._id);
 
-  return [...existingEventIds, ...newEventIds];
-
+  return [...updatedIds, ...insertedIds];
 };
