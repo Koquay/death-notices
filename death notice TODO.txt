@@ -1,18 +1,28 @@
 4242 4242 4242 4242
 
-event.date_str not copying to event.date;
+*** event.date_str not copying to event.date;
 
-event.date not updating in database
+edit image slow to display files
 
-change notice events to accodian
+reduce image height to stop truncation
 
-&& use collapsible for events and contacts
+progress bar edit notice
+
+progress bar label
+
+*** event.date not updating in database
+
+make sure contact is updating in database.
+
+*** change notice events to accodian
+
+change notice contacts to accodian
 
 make edit notice acid
 
 modify for mobile phones
 
-Add contact numbers
+Add contact heading numbers
 
 toast when group added
 
