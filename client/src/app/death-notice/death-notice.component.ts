@@ -5,6 +5,8 @@ import { AutoResizeTextareaDirective } from '../shared/directives/auto-resize-te
 import { ToAmPmPipe } from '../shared/pipes/to-am-pm.pipe ';
 import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-gallery.service';
+import { FormsModule } from '@angular/forms';
+import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
 
 @Component({
   selector: 'app-death-notice',
@@ -12,6 +14,7 @@ import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-
   imports: [
     DatePipe,
     CommonModule,
+    FormsModule,
     AutoResizeTextareaDirective,
     ToAmPmPipe
   ],
@@ -21,6 +24,7 @@ import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-
 export class DeathNoticeComponent {
   private activatedRoute = inject(ActivatedRoute);
   private noticesService = inject(DeathNoticeGalleryService);
+  private formatDateTimeUtils = inject(FormatDateTimeUtils);
   public notice: NoticeEntryModel | undefined;
   public apiUrl = '/api/notices';
 
@@ -34,24 +38,26 @@ export class DeathNoticeComponent {
     this.notice = this.noticesService.getSelectedNotice(noticeId);
     console.log("DeathNoticeComponent.notice", this.notice);
 
-    if (!this.notice) {
-      const storedData = localStorage.getItem('deathNotice');
-      if (storedData) {
-        const deathNotice = JSON.parse(storedData);
-        this.notice = deathNotice?.selectedNotice;
+    if (this.notice) {
+      for (let i = 0; i < this.notice.events.length; i++) {
+        this.notice.events[i].date_str = this.formatDateTimeUtils.formatDateForDisplay(this.notice.events[i].date as Date);
+
+        // editNoticeModel.events[i].time =
+        //   this.formatDateTimeUtils.formatTimeForInput(editNoticeModel.events[i].time);
+      }
+
+      if (!this.notice) {
+        const storedData = localStorage.getItem('deathNotice');
+        if (storedData) {
+          const deathNotice = JSON.parse(storedData);
+          this.notice = deathNotice?.selectedNotice;
+        }
         console.log("DeathNoticeComponent.notice from localStorage", this.notice);
       }
 
     }
   }
 
-  formatDateForInput(date: string | Date | null): string {
-    if (!date) return '';
-    const date_str = new Date(date).toISOString().split('T')[0];
-    console.log('formatDateForInput.date', date)
-    console.log('formatDateForInput.date_str', date_str)
-    return date_str;
-  }
 }
 
 

@@ -1,134 +1,39 @@
 <div class="container">
-  <section class="">
-    <div class="row d-flex justify-content-center">
-      <div class="text-center mt-4">
-        <h3 class="fw-light">Obituary</h3>
-        <div class="divider mx-auto"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div
-        class="col-12 d-flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          *ngIf="notice?.imageId"
-          class="img-fluid notice-image mt-4"
-          [src]="apiUrl + '/image/' + notice?.imageId"
-          alt="Notice image"
-          loading="lazy"
-        />
-
-        <h4 class="mt-2">{{ notice?.name }}</h4>
-
-        <h6>
-          <ng-container *ngIf="notice?.birth_date; else noBirthDate">
-            {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }}
-            -
-          </ng-container>
-
-          <ng-template #noBirthDate>
-            <span class="fw-bold">Died: </span>
-          </ng-template>
-
-          {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
-        </h6>
-      </div>
-    </div>
-  </section>
-
   <section class="mt-5">
-    <div class="row d-flex">
-      <div
-        class="col-12 d-flex flex-column justify-content-center align-items-center"
-      >
-        <h5 class="">Announcement</h5>
-        <textarea
-          class="form-control-lg w-100 text-muted"
-          id="announcement"
-          readonly
-          appAutoResizeTextarea
-          name="announcement"
-          [value]="notice?.announcement"
-          style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
-        ></textarea>
-      </div>
-    </div>
-  </section>
-
-  <section class="mt-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-12 col-md-12 d-flex flex-column align-items-center">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
         <div class="row d-flex justify-content-center">
-          <div class="col">
-            <div class="table-responsive">
-              <div class="table-section">
-                <div class="table-section">
-                  <h5 class="section-title">Events</h5>
+          <div class="text-center mt-4">
+            <h3 class="fw-light">Obituary</h3>
+            <div class="divider mx-auto"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-12 d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              *ngIf="notice?.imageId"
+              class="img-fluid notice-image mt-4"
+              [src]="apiUrl + '/image/' + notice?.imageId"
+              alt="Notice image"
+              loading="lazy"
+            />
 
-                  <table class="table table-sm responsive-stack always-card">
-                    <colgroup>
-                      <col class="col-event" />
-                      <col class="col-date" />
-                      <col class="col-time" />
-                      <col class="col-location" />
-                      <col class="col-address" />
-                      <col class="col-city" />
-                      <col class="col-state" />
-                    </colgroup>
+            <h4 class="mt-2">{{ notice?.name }}</h4>
 
-                    <thead>
-                      <tr style="font-size: 16px">
-                        <th>Event</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                      </tr>
-                    </thead>
+            <h6>
+              <ng-container *ngIf="notice?.birth_date; else noBirthDate">
+                {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }}
+                -
+              </ng-container>
 
-                    <tbody>
-                      @for (event of notice?.events; track $index) {
-                      <tr style="font-size: 16px">
-                        <td class="text-center">
-                          <span class="badge primary-bg-color">{{
-                            $index + 1
-                          }}</span>
-                        </td>
-                        <td
-                          data-label="Event"
-                          style="text-transform: capitalize"
-                        >
-                          {{ event.type }}
-                        </td>
-                        <td data-label="Date">
-                          {{
-                            formatDateForInput(event.date) | date : "MM/dd/yyyy"
-                          }}
-                        </td>
-                        <td data-label="Time">
-                          {{ event.time ? (event.time | toAmPmPipe) : "" }}
-                        </td>
-                        <td data-label="Location">
-                          {{ event.location }}
-                        </td>
-                        <td data-label="Address">
-                          {{ event.address }}
-                        </td>
-                        <td data-label="City">
-                          {{ event.city }}
-                        </td>
-                        <td data-label="State">
-                          {{ event.state }}
-                        </td>
-                      </tr>
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+              <ng-template #noBirthDate>
+                <span class="fw-bold">Died: </span>
+              </ng-template>
+
+              {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
+            </h6>
           </div>
         </div>
       </div>
@@ -136,45 +41,175 @@
   </section>
 
   <section class="mt-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-12 col-md-8 d-flex flex-column align-items-center">
-        <div class="row">
-          <div class="col">
-            <div class="table-responsive">
-              <div class="table-section">
-                <div class="table-section">
-                  <h5 class="section-title">Contacts</h5>
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="row d-flex">
+          <div
+            class="col-12 d-flex flex-column justify-content-center align-items-center"
+          >
+            <h5 class="">Announcement</h5>
+            <textarea
+              class="form-control-lg w-100 text-muted"
+              id="announcement"
+              readonly
+              appAutoResizeTextarea
+              name="announcement"
+              [value]="notice?.announcement"
+              style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                  <div class="table-responsive">
-                    <table class="table table-sm responsive-stack">
-                      <colgroup>
-                        <col class="col-name" />
-                        <col class="col-rel" />
-                        <col class="col-phones" />
-                      </colgroup>
+  <!-- EVENTS -->
+  <section class="mt-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-lg-8 mx-auto">
+            <div class="col-12 mb-1">
+              <h5 class="section-title mb-0">Events</h5>
+              <div></div>
+            </div>
 
-                      <thead>
-                        <tr style="font-size: 16px">
-                          <th>Name</th>
-                          <th>Relationship</th>
-                          <th>Phone</th>
-                        </tr>
-                      </thead>
+            <div class="accordion" id="eventsAccordion">
+              <div
+                class="accordion-item mb-2"
+                *ngFor="let event of notice?.events; let i = index"
+              >
+                <!-- Accordion Header -->
+                <h2 class="accordion-header" id="heading{{ i }}">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapse' + i"
+                  >
+                    <div
+                      class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                    >
+                      <div>
+                        <strong>Event {{ i + 1 }}</strong>
+                        <small class="ms-2 blue">(more)</small>
+                      </div>
 
-                      <tbody>
-                        @for (contact of notice?.contacts; track $index) {
-                        <tr style="font-size: 16px">
-                          <td data-label="Name">{{ contact.name }}</td>
-                          <td data-label="Relationship">
-                            {{ contact.relationship }}
-                          </td>
-                          <td data-label="Phone">
-                            {{ contact.phone }}
-                          </td>
-                        </tr>
-                        }
-                      </tbody>
-                    </table>
+                      <!-- Event Summary -->
+                      <div class="text-muted small me-2">
+                        {{ event.type || "Type?" }}
+
+                        • {{ event.date_str || "Date?" }}
+
+                        • {{ event.location || "Location?" }}
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+
+                <!-- Accordion Body -->
+
+                <div
+                  [id]="'collapse' + i"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#eventsAccordion"
+                >
+                  <div class="accordion-body">
+                    <div class="row g-3">
+                      <!-- TYPE -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong>Type </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.type"
+                          name="eventType{{ i }}"
+                          disabled
+                          disabled
+                        />
+                      </div>
+
+                      <!-- DATE -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong>Date </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          disabled
+                          [(ngModel)]="event.date_str"
+                          name="eventDate{{ i }}"
+                          disabled
+                        />
+                      </div>
+
+                      <!-- TIME -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong>Time </strong>
+                        </label>
+                        <input
+                          type="time"
+                          class="form-control"
+                          [(ngModel)]="event.time"
+                          name="eventTime{{ i }}"
+                          disabled
+                        />
+                      </div>
+
+                      <!-- LOCATION -->
+                      <div class="col-12">
+                        <label class="form-label">
+                          <strong>Location </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.location"
+                          name="eventLocation{{ i }}"
+                          disabled
+                        />
+                      </div>
+
+                      <!-- ADDRESS -->
+                      <div class="col-12">
+                        <label class="form-label">
+                          <strong>Address </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.address"
+                          name="eventAddress{{ i }}"
+                          disabled
+                        />
+                      </div>
+
+                      <!-- CITY -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong>City </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.city"
+                          name="eventCity{{ i }}"
+                          disabled
+                        />
+                      </div>
+
+                      <!-- STATE -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong>State </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.state"
+                          name="eventState{{ i }}"
+                          disabled
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -185,19 +220,184 @@
     </div>
   </section>
 
+  <!-- CONTACTS -->
   <section class="mt-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-12 col-md-8 d-flex flex-column justify-content-center">
-        <h5 class="d-flex justify-content-center">Additional Information</h5>
-        <textarea
-          class="form-control-lg w-100 text-muted"
-          id="additionalInformation"
-          readonly
-          appAutoResizeTextarea
-          name="additionalInformation"
-          [value]="notice?.additionalInformation"
-          style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
-        ></textarea>
+    <div class="card shadow-sm border-05">
+      <div class="card-body p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-lg-8 mx-auto">
+            <div class="col-12 mb-1">
+              <h5 class="section-title mb-0">Edit Contacts</h5>
+              <div></div>
+            </div>
+
+            <div class="accordion" id="contactsAccordion">
+              <div
+                class="accordion-item mb-2"
+                *ngFor="let contact of notice?.contacts; let i = index"
+              >
+                <!-- Accordion Header -->
+                <h2 class="accordion-header" id="contactheading{{ i }}">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#headingcollapse' + i"
+                  >
+                    <div
+                      class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                    >
+                      <div>
+                        <strong>Contact {{ i + 1 }} </strong>
+                        <small class="ms-2 blue">(more)</small>
+                      </div>
+
+                      <!-- Event Summary -->
+                      <div class="text-muted small me-2">
+                        {{ contact.name || "Name?" }}
+
+                        • {{ contact.relationship || "Relationship?" }}
+
+                        • {{ contact.phone || "Phone?" }}
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+
+                <!-- Accordion Body -->
+
+                <div
+                  [id]="'headingcollapse' + i"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#contactsAccordion"
+                >
+                  <div class="accordion-body">
+                    <div class="row g-3">
+                      <!-- Name -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong>Name </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="contact.name"
+                          disabled="true"
+                          name="contactName{{ i }}"
+                        />
+                      </div>
+
+                      <!-- Relationship -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong>Relationship</strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="contact.relationship"
+                          disabled="true"
+                          name="contactRelationship{{ i }}"
+                        />
+                      </div>
+
+                      <!-- Phone -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong>Phone </strong>
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="contact.phone"
+                          disabled="true"
+                          name="contactPhone{{ i }}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacts old-->
+  <!-- <section class="mt-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-8 d-flex flex-column align-items-center">
+            <div class="row">
+              <div class="col">
+                <div class="table-responsive">
+                  <div class="table-section">
+                    <div class="table-section">
+                      <h5 class="section-title">Contacts</h5>
+
+                      <div class="table-responsive">
+                        <table class="table table-sm responsive-stack">
+                          <colgroup>
+                            <col class="col-name" />
+                            <col class="col-rel" />
+                            <col class="col-phones" />
+                          </colgroup>
+
+                          <thead>
+                            <tr style="font-size: 16px">
+                              <th>Name</th>
+                              <th>Relationship</th>
+                              <th>Phone</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            @for (contact of notice?.contacts; track $index) {
+                            <tr style="font-size: 16px">
+                              <td data-label="Name">{{ contact.name }}</td>
+                              <td data-label="Relationship">
+                                {{ contact.relationship }}
+                              </td>
+                              <td data-label="Phone">
+                                {{ contact.phone }}
+                              </td>
+                            </tr>
+                            }
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="mt-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="row d-flex justify-content-center">
+          <div
+            class="col-12 col-md-8 d-flex flex-column justify-content-center"
+          >
+            <h5 class="d-flex justify-content-center">
+              Additional Information
+            </h5>
+            <textarea
+              class="form-control-lg w-100 text-muted"
+              id="additionalInformation"
+              readonly
+              appAutoResizeTextarea
+              name="additionalInformation"
+              [value]="notice?.additionalInformation"
+              style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
+            ></textarea>
+          </div>
+        </div>
       </div>
     </div>
   </section>

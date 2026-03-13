@@ -12,6 +12,13 @@ export class FormatDateTimeUtils {
         return date_str;
     }
 
+    formatDateForDisplay(date: string | Date): string {
+        if (!date) return '';
+
+        const d = new Date(date);
+        return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    }
+
     formatTimeForInput(time: string | Date | null): string {
         if (!time) return '';
 

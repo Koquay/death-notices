@@ -37,11 +37,13 @@ export class DeathNoticeGalleryService {
       )
       .pipe(
         tap((response) => {
+
           this.noticesSignal.set({ notices: response.data });
           console.log('noticesSignal:', this.noticesSignal());
           console.log('totalCount', response.totalCount)
           this.deathNoticeGalleryOptions.totalCount = response.totalCount;
           this.deathNOticeGallerySignal.set({ ...this.deathNOticeGallerySignal(), totalCount: response.totalCount })
+
           console.log('deathNOticeGallerySignal:', this.deathNOticeGallerySignal());
           window.scrollTo({ top: 0, behavior: 'smooth' });
 

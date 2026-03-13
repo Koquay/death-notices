@@ -1,8 +1,18 @@
 4242 4242 4242 4242
 
+Implement accordions in Death Notice for Events and Contacts
+
+Add groups to Death Notice?
+
 *** event.date_str not copying to event.date;
 
 edit image slow to display files
+
+persist all pages to localstorage
+
+add (more) to contacts and events accordion headers in all pages
+
+for contacts only display relationship in accordion header if it exists
 
 reduce image height to stop truncation
 
@@ -16,13 +26,13 @@ make sure contact is updating in database.
 
 *** change notice events to accodian
 
-change notice contacts to accodian
+*** change notice contacts to accodian
 
 make edit notice acid
 
 modify for mobile phones
 
-Add contact heading numbers
+*** Add contact heading numbers
 
 toast when group added
 
