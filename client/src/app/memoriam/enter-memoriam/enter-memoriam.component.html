@@ -14,49 +14,57 @@
         class="d-flex flex-column justify-content-center"
       >
         <section class="">
-          <!-- <app-image-upload /> -->
-
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <app-image-upload />
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <app-image-upload />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <div class="row d-none d-lg-flex">
-                <div class="col-6 col-lg-4">
-                  <label class="col-form-label"
-                    >Name <span class="text-danger">*</span></label
-                  >
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    >Name: <span class="text-danger">*</span></label
-                  ><input
-                    class="form-control"
-                    type="text"
-                    name="name"
-                    [(ngModel)]="memoriamEntryModel.name"
-                    required
-                    #name="ngModel"
-                    (change)="saveMemoriamData()"
-                    style="border-width: 1.8px; width: 100%"
-                    [ngClass]="{
-                      'is-valid': name.valid && (name.dirty || name.touched),
-                      'is-invalid': name.invalid && (name.dirty || name.touched)
-                    }"
-                  />
-                  <div
-                    *ngIf="name.invalid && (name.dirty || name.touched)"
-                    class="alert"
-                  >
-                    <div *ngIf="name.hasError('required')" class="alert">
-                      <small>Name is required.</small>
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <div class="row d-none d-lg-flex">
+                    <div class="col-6 col-lg-4">
+                      <label class="col-form-label fw-bold"
+                        >Enter Name <span class="text-danger">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                      <label class="form-label fw-bold d-lg-none me-2"
+                        >Enter Name: <span class="text-danger">*</span></label
+                      ><input
+                        class="form-control"
+                        type="text"
+                        name="name"
+                        [(ngModel)]="memoriamEntryModel.name"
+                        required
+                        #name="ngModel"
+                        (change)="saveMemoriamData()"
+                        style="border-width: 1.8px; width: 100%"
+                        [ngClass]="{
+                          'is-valid':
+                            name.valid && (name.dirty || name.touched),
+                          'is-invalid':
+                            name.invalid && (name.dirty || name.touched)
+                        }"
+                      />
+                      <div
+                        *ngIf="name.invalid && (name.dirty || name.touched)"
+                        class="alert"
+                      >
+                        <div *ngIf="name.hasError('required')" class="alert">
+                          <small>Name is required.</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -66,38 +74,49 @@
         </section>
 
         <section class="mt-5">
-          <div class="d-flex justify-content-center">
-            <div class="col-12 col-md-8">
-              <label class="form-label fw-bold" style="font-size: 18px"
-                >Enter Memoriam: <span class="text-danger">*</span></label
-              ><textarea
-                class="form-control"
-                style="border-width: 1.8px"
-                rows="15"
-                required
-                name="announcement"
-                [(ngModel)]="memoriamEntryModel.announcement"
-                #announcement="ngModel"
-                (selectionchange)="saveMemoriamData()"
-                [ngClass]="{
-                  'is-valid':
-                    announcement.valid &&
-                    (announcement.dirty || announcement.touched),
-                  'is-invalid':
-                    announcement.invalid &&
-                    (announcement.dirty || announcement.touched)
-                }"
-              ></textarea>
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-center">
+                <div class="col-12 col-md-8">
+                  <!-- <h5 class="section-title mb-0 d-inline-block">
+                    Enter Memoriam
+                  </h5>
+                  <span class="text-danger d-inline-block">*</span> -->
+                  <label class="form-label fw-bold" style="font-size: 18px"
+                    >Enter Memoriam: <span class="text-danger">*</span></label
+                  ><textarea
+                    class="form-control"
+                    style="border-width: 1.8px"
+                    rows="15"
+                    required
+                    name="announcement"
+                    [(ngModel)]="memoriamEntryModel.announcement"
+                    #announcement="ngModel"
+                    (selectionchange)="saveMemoriamData()"
+                    [ngClass]="{
+                      'is-valid':
+                        announcement.valid &&
+                        (announcement.dirty || announcement.touched),
+                      'is-invalid':
+                        announcement.invalid &&
+                        (announcement.dirty || announcement.touched)
+                    }"
+                  ></textarea>
 
-              <div
-                *ngIf="
-                  announcement.invalid &&
-                  (announcement.dirty || announcement.touched)
-                "
-                class="alert"
-              >
-                <div *ngIf="announcement.hasError('required')" class="alert">
-                  <small>announcement is required.</small>
+                  <div
+                    *ngIf="
+                      announcement.invalid &&
+                      (announcement.dirty || announcement.touched)
+                    "
+                    class="alert"
+                  >
+                    <div
+                      *ngIf="announcement.hasError('required')"
+                      class="alert"
+                    >
+                      <small>announcement is required.</small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,105 +126,116 @@
         <!-- EMAIL -->
 
         <section class="mt-5">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-3">
-              <label class="fw-bold">
-                Your Name: <span class="text-danger">*</span>
-              </label>
-              <input
-                class="form-control"
-                [(ngModel)]="memoriamEntryModel.buyer_name"
-                name="buyer_name"
-                type="text"
-                required
-                (change)="saveMemoriamData()"
-                #buyer_name="ngModel"
-                (change)="saveMemoriamData()"
-                style="border-width: 1.8px"
-                [ngClass]="{
-                  'is-valid':
-                    buyer_name.valid &&
-                    (buyer_name.dirty || buyer_name.touched),
-                  'is-invalid':
-                    buyer_name.invalid &&
-                    (buyer_name.dirty || buyer_name.touched)
-                }"
-              />
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-3">
+                  <label class="fw-bold">
+                    Your Name: <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    [(ngModel)]="memoriamEntryModel.buyer_name"
+                    name="buyer_name"
+                    type="text"
+                    required
+                    (change)="saveMemoriamData()"
+                    #buyer_name="ngModel"
+                    (change)="saveMemoriamData()"
+                    style="border-width: 1.8px"
+                    [ngClass]="{
+                      'is-valid':
+                        buyer_name.valid &&
+                        (buyer_name.dirty || buyer_name.touched),
+                      'is-invalid':
+                        buyer_name.invalid &&
+                        (buyer_name.dirty || buyer_name.touched)
+                    }"
+                  />
 
-              <div
-                *ngIf="
-                  buyer_name.invalid && (buyer_name.dirty || buyer_name.touched)
-                "
-                class="text-danger mt-1"
-              >
-                <small>Name is required.</small>
-              </div>
-            </div>
+                  <div
+                    *ngIf="
+                      buyer_name.invalid &&
+                      (buyer_name.dirty || buyer_name.touched)
+                    "
+                    class="text-danger mt-1"
+                  >
+                    <small>Name is required.</small>
+                  </div>
+                </div>
 
-            <div class="col-12 col-md-3">
-              <label class="fw-bold"
-                >Your Email: <span class="text-danger">*</span></label
-              >
-              <input
-                class="form-control"
-                [(ngModel)]="memoriamEntryModel.email"
-                name="buyer_email"
-                type="email"
-                required
-                (change)="saveMemoriamData()"
-                #buyer_email="ngModel"
-                (change)="saveMemoriamData()"
-                style="border-width: 1.8px"
-                [ngClass]="{
-                  'is-valid':
-                    buyer_email.valid &&
-                    (buyer_email.dirty || buyer_email.touched),
-                  'is-invalid':
-                    buyer_email.invalid &&
-                    (buyer_email.dirty || buyer_email.touched)
-                }"
-              />
+                <div class="col-12 col-md-3">
+                  <label class="fw-bold"
+                    >Your Email: <span class="text-danger">*</span></label
+                  >
+                  <input
+                    class="form-control"
+                    [(ngModel)]="memoriamEntryModel.email"
+                    name="buyer_email"
+                    type="email"
+                    required
+                    (change)="saveMemoriamData()"
+                    #buyer_email="ngModel"
+                    (change)="saveMemoriamData()"
+                    style="border-width: 1.8px"
+                    [ngClass]="{
+                      'is-valid':
+                        buyer_email.valid &&
+                        (buyer_email.dirty || buyer_email.touched),
+                      'is-invalid':
+                        buyer_email.invalid &&
+                        (buyer_email.dirty || buyer_email.touched)
+                    }"
+                  />
 
-              <div
-                *ngIf="
-                  buyer_email.invalid &&
-                  (buyer_email.dirty || buyer_email.touched)
-                "
-                class="text-danger mt-1"
-              >
-                <small>Email is required.</small>
+                  <div
+                    *ngIf="
+                      buyer_email.invalid &&
+                      (buyer_email.dirty || buyer_email.touched)
+                    "
+                    class="text-danger mt-1"
+                  >
+                    <small>Email is required.</small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-md-6">
-              <div class="col-12 col-md-4">
-                <label class="form-label fw-bold">Amount:</label>
-                <span class="fs-5 ms-2">{{ memoriamPrice | currency }}</span>
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-md-6">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold">Amount:</label>
+                    <span class="fs-5 ms-2">{{
+                      memoriamPrice | currency
+                    }}</span>
+                  </div>
+                  <h6 class="fw-bold mt-2">
+                    Enter Credit Card Info <span class="text-danger">*</span>
+                  </h6>
+                  <div
+                    id="card-element"
+                    class="p-3 border rounded"
+                    style="border: 1px solid gray !important"
+                  ></div>
+                </div>
               </div>
-              <h6 class="fw-bold mt-2">
-                Enter Credit Card Info <span class="text-danger">*</span>
-              </h6>
-              <div
-                id="card-element"
-                class="p-3 border rounded"
-                style="border: 1px solid gray !important"
-              ></div>
-            </div>
-          </div>
-          <div class="row mt-2 d-flex justify-content-center">
-            <div class="col-12 col-md-4">
-              <button
-                class="btn btn-primary px-4 py-2"
-                type="button"
-                (click)="submitMemoriam()"
-                [disabled]="!memoriamForm.valid"
-              >
-                Submit Memoriam
-              </button>
+              <div class="row mt-2 d-flex justify-content-center">
+                <div class="col-12 col-md-4 mt-2 justify-content-center">
+                  <button
+                    class="btn btn-primary px-4 py-2"
+                    type="button"
+                    (click)="submitMemoriam()"
+                    [disabled]="!memoriamForm.valid"
+                  >
+                    Submit Memoriam
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>

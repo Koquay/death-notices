@@ -16,85 +16,111 @@
         class="d-flex flex-column justify-content-center"
       >
         <section class="" *ngIf="memoriamEntryModel.editImageMode">
-          <app-image-upload [operation]="operation" />
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <app-image-upload [operation]="operation" />
+            </div>
+          </div>
         </section>
 
+        <!-- Deceased Image + Name -->
         <section
           class=""
           *ngIf="
             !memoriamEntryModel.editImageMode && memoriamEntryModel.imageId
           "
         >
-          <div class="row">
-            <div
-              class="col-12 d-flex flex-column justify-content-center align-items-center"
-            >
-              <h4>{{ memoriamEntryModel.name }}</h4>
-
-              <img
-                class="img-fluid memoriam-image"
-                [src]="apiUrl + '/image/' + memoriamEntryModel.imageId"
-                alt="Notice image"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section class="">
-          <div class="row">
-            <div class="row mt-3 d-flex justify-content-center">
-              <div class="col-12 col-md-4 d-flex justify-content-center">
-                <button
-                  class="btn btn-primary btn-secondary px-4 py-2"
-                  type="button"
-                  (click)="toggleEditImageMode()"
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row">
+                <div
+                  class="col-12 d-flex flex-column justify-content-center align-items-center"
                 >
-                  <span>Edit Image</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+                  <img
+                    class="img-fluid memoriam-image"
+                    [src]="apiUrl + '/image/' + memoriamEntryModel.imageId"
+                    alt="Notice image"
+                    loading="lazy"
+                  />
 
-        <section class="mt-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-8">
-              <div class="row d-none d-lg-flex">
-                <div class="col-6 col-lg-4">
-                  <label class="col-form-label"
-                    >Name: <span class="text-danger">*</span></label
+                  <h4 class="mt-2">{{ memoriamEntryModel.name }}</h4>
+
+                  <button
+                    class="btn btn-primary btn-secondary px-4 py-2"
+                    type="button"
+                    (click)="toggleEditImageMode()"
                   >
+                    <span>Edit Image</span>
+                  </button>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-12 col-lg-4 mb-3 mb-lg-0">
-                  <label class="form-label d-lg-none me-2"
-                    ><strong
-                      ><span class="w-100" style="color: rgb(0, 0, 0)"
-                        >Name: <span class="text-danger">*</span></span
-                      ></strong
-                    ></label
-                  ><input
-                    class="form-control"
-                    type="text"
-                    name="name"
-                    [(ngModel)]="memoriamEntryModel.name"
-                    required
-                    #name="ngModel"
-                    (change)="saveMemoriamData()"
-                    style="border-width: 1.8px; width: 100%"
-                    [ngClass]="{
-                      'is-valid': name.valid && (name.dirty || name.touched),
-                      'is-invalid': name.invalid && (name.dirty || name.touched)
-                    }"
-                  />
-                  <div
-                    *ngIf="name.invalid && (name.dirty || name.touched)"
-                    class="alert"
-                  >
-                    <div *ngIf="name.hasError('required')" class="alert">
-                      <small>Name is required.</small>
+            </div>
+          </div>
+        </section>
+
+        <!-- Edit Image Button -->
+        <!-- <section class="">
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row">
+                <div class="row mt-3 d-flex justify-content-center">
+                  <div class="col-12 col-md-4 d-flex justify-content-center">
+                    <button
+                      class="btn btn-primary btn-secondary px-4 py-2"
+                      type="button"
+                      (click)="toggleEditImageMode()"
+                    >
+                      <span>Edit Image</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section> -->
+
+        <section class="mt-5">
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <div class="row d-none d-lg-flex">
+                    <div class="col-6 col-lg-4">
+                      <label class="col-form-label fw-bold"
+                        >Edit Name: <span class="text-danger">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+                      <label class="form-label d-lg-none me-2"
+                        ><span class="w-100 col-form-label"
+                          >Edit Name: <span class="text-danger">*</span></span
+                        ></label
+                      ><input
+                        class="form-control"
+                        type="text"
+                        name="name"
+                        [(ngModel)]="memoriamEntryModel.name"
+                        required
+                        #name="ngModel"
+                        (change)="saveMemoriamData()"
+                        style="border-width: 1.8px; width: 100%"
+                        [ngClass]="{
+                          'is-valid':
+                            name.valid && (name.dirty || name.touched),
+                          'is-invalid':
+                            name.invalid && (name.dirty || name.touched)
+                        }"
+                      />
+                      <div
+                        *ngIf="name.invalid && (name.dirty || name.touched)"
+                        class="alert"
+                      >
+                        <div *ngIf="name.hasError('required')" class="alert">
+                          <small>Name is required.</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -104,38 +130,45 @@
         </section>
 
         <section class="mt-5">
-          <div class="d-flex justify-content-center">
-            <div class="col-12 col-md-8">
-              <label class="form-label fw-bold" style="font-size: 18px"
-                >Edit Memoriam: <span class="text-danger">*</span></label
-              ><textarea
-                class="form-control"
-                style="border-width: 1.8px"
-                rows="15"
-                name="announcement"
-                required
-                [(ngModel)]="memoriamEntryModel.announcement"
-                #announcement="ngModel"
-                (selectionchange)="saveMemoriamData()"
-                [ngClass]="{
-                  'is-valid':
-                    announcement.valid &&
-                    (announcement.dirty || announcement.touched),
-                  'is-invalid':
-                    announcement.invalid &&
-                    (announcement.dirty || announcement.touched)
-                }"
-              ></textarea>
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-center">
+                <div class="col-12 col-md-8">
+                  <label class="form-label fw-bold" style="font-size: 18px"
+                    >Edit Memoriam: <span class="text-danger">*</span></label
+                  ><textarea
+                    class="form-control"
+                    style="border-width: 1.8px"
+                    rows="15"
+                    name="announcement"
+                    required
+                    [(ngModel)]="memoriamEntryModel.announcement"
+                    #announcement="ngModel"
+                    (selectionchange)="saveMemoriamData()"
+                    [ngClass]="{
+                      'is-valid':
+                        announcement.valid &&
+                        (announcement.dirty || announcement.touched),
+                      'is-invalid':
+                        announcement.invalid &&
+                        (announcement.dirty || announcement.touched)
+                    }"
+                  ></textarea>
 
-              <div
-                *ngIf="
-                  announcement.invalid &&
-                  (announcement.dirty || announcement.touched)
-                "
-                class="alert"
-              >
-                <div *ngIf="announcement.hasError('required')" class="alert">
-                  <small>announcement is required.</small>
+                  <div
+                    *ngIf="
+                      announcement.invalid &&
+                      (announcement.dirty || announcement.touched)
+                    "
+                    class="alert"
+                  >
+                    <div
+                      *ngIf="announcement.hasError('required')"
+                      class="alert"
+                    >
+                      <small>announcement is required.</small>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
