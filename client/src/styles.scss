@@ -35,19 +35,31 @@ input, select, textarea {
     border: 1px solid rgb(198, 130, 198) !important;
 }
 
-.notice-image {
-    width: 600px !important;
-    height: 600px !important;
-    object-fit: cover;
-    border-radius: 6px;
-  }
+// .notice-image {
+//     width: 600px !important;
+//     height: 600px !important;
+//     object-fit: contain;
+//     border-radius: 6px;
+//   }
 
-  .memoriam-image {
-    width: 600px !important;
-    height: 600px !important;
-    object-fit: cover;
-    border-radius: 6px;
+.notice-image, .memoriam-image {
+  width: 75%;
+  max-width: 500px;
+  height: 600px !important;
+  object-fit: contain;
+  border-radius: 6px;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
   }
+}
+
+  // .memoriam-image {
+  //   width: 600px !important;
+  //   height: 600px !important;
+  //   object-fit: cover;
+  //   border-radius: 6px;
+  // }
 
   .announcement-width {
     width: 100% !important;

@@ -228,23 +228,34 @@ function buildOptionsFilter(options) {
   return filter;
 }
 
-exports.getNoticeImage = (req, res) => {
+exports.getNoticeImage = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).send("Invalid image id");
+    }
+
     const gfsBucket = getGridFSBucket();
     const imageId = new mongoose.Types.ObjectId(req.params.id);
+
+    const files = await gfsBucket.find({ _id: imageId }).toArray();
+
+    if (!files.length) {
+      return res.status(404).send("Image not found");
+    }
+
+    res.set("Content-Type", files[0].contentType || "image/jpeg");
+    res.set("Cache-Control", "public, max-age=86400");
 
     const stream = gfsBucket.openDownloadStream(imageId);
 
     stream.on("error", () => {
-      return res.status(404).send("Image not found");
+      res.status(404).send("Image not found");
     });
 
-    res.set("Content-Type", "image/jpeg");
-    res.set("Cache-Control", "public, max-age=86400");
-
     stream.pipe(res);
+
   } catch (err) {
-    return res.status(400).send("Invalid image id");
+    return res.status(500).send("Server error");
   }
 };
 
@@ -277,6 +288,27 @@ exports.getNoticeByNo = async (req, res) => {
     }
 
     // Still within 30 days → return notice
+    return res.status(200).json(notice);
+  } catch (error) {
+    console.error("Error in getNoticeByNo:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.getNoticeById = async (req, res) => {
+  console.log("notices.controller.getNoticeById called...");
+
+  try {
+    const notice = await Notices.findOne({ _id: req.params.noticeId })
+      .populate("contacts")
+      .populate("events")
+      .populate("groups")
+      .exec();
+
+    if (!notice) {
+      return res.status(404).json({ message: "Notice not found" });
+    }
+
     return res.status(200).json(notice);
   } catch (error) {
     console.error("Error in getNoticeByNo:", error);

@@ -1,21 +1,24 @@
 <div class="container">
-  <section class="mt-5">
+  <section class="my-3">
+    <div class="row d-flex justify-content-center">
+      <div class="text-center">
+        <h3 class="fw-light">Obituary</h3>
+        <div class="divider mx-auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="">
     <div class="card shadow-sm border-0">
       <div class="card-body p-4">
-        <div class="row d-flex justify-content-center">
-          <div class="text-center mt-4">
-            <h3 class="fw-light">Obituary</h3>
-            <div class="divider mx-auto"></div>
-          </div>
-        </div>
         <div class="row">
           <div
             class="col-12 d-flex flex-column justify-content-center align-items-center"
           >
             <img
-              *ngIf="notice?.imageId"
+              *ngIf="imageUrl"
               class="img-fluid notice-image mt-4"
-              [src]="apiUrl + '/image/' + notice?.imageId"
+              [src]="imageUrl"
               alt="Notice image"
               loading="lazy"
             />
@@ -91,7 +94,7 @@
                       class="w-100 d-flex flex-column flex-md-row justify-content-between"
                     >
                       <div>
-                        <strong>Event {{ i + 1 }}</strong>
+                        <strong class="primary-color">Event {{ i + 1 }}</strong>
                         <small class="ms-2 blue">(more)</small>
                       </div>
 
@@ -248,7 +251,9 @@
                       class="w-100 d-flex flex-column flex-md-row justify-content-between"
                     >
                       <div>
-                        <strong>Contact {{ i + 1 }} </strong>
+                        <strong class="primary-color"
+                          >Contact {{ i + 1 }}
+                        </strong>
                         <small class="ms-2 blue">(more)</small>
                       </div>
 

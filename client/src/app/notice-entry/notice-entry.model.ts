@@ -9,10 +9,10 @@ import { Group } from '../shared/interfaces/groups.interface';
     providedIn: 'root'
 })
 export class NoticeEntryModel {
-    _id!: string;
-    name!: string;
-    imageFile!: File;
-    imageId!: string;
+    _id: string = '';
+    name: string = '';
+    imageFile: File = new File([], '');
+    imageId: string = '';
     public apiUrl = '/api/notices';
     death_date!: Date;
     birth_date!: Date;
@@ -25,6 +25,7 @@ export class NoticeEntryModel {
     buyer_name!: string;
     email: string = '';
     public pageSize = 12;
+    notice_no = '';
     contacts: Contact[] = [
         {
             name: '',

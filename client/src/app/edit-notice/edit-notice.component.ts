@@ -124,6 +124,50 @@ export class EditNoticeComponent {
     this.editNoticeModel.editImageMode = true;
   }
 
+  get formCompletionPercent(): number {
+    let total = 0;
+    let completed = 0;
+
+    // Required simple fields
+    const requiredFields = [
+      this.editNoticeModel.name,
+      this.editNoticeModel.death_date_str,
+      this.editNoticeModel.announcement,
+    ];
+
+    total += requiredFields.length;
+    completed += requiredFields.filter(f => !!f).length;
+
+    // Events (all required fields per event)
+    this.editNoticeModel.events.forEach(event => {
+      const eventFields = [
+        event.type,
+        event.date_str,
+        event.time,
+        event.location,
+        event.address,
+        event.city,
+        event.state
+      ];
+
+      total += eventFields.length;
+      completed += eventFields.filter(f => !!f).length;
+    });
+
+    // Contacts
+    this.editNoticeModel.contacts.forEach(contact => {
+      const contactFields = [
+        contact.name,
+        contact.phone
+      ];
+
+      total += contactFields.length;
+      completed += contactFields.filter(f => !!f).length;
+    });
+
+    return total === 0 ? 0 : Math.round((completed / total) * 100);
+  }
+
 
   /* ================================
      GROUPS SECTION (CLEAN VERSION)

@@ -1,48 +1,22 @@
 4242 4242 4242 4242
 
-Implement accordions in Death Notice for Events and Contacts
+add death and birth to memoriam?
 
-Add groups to Death Notice?
+remove logic to calculate if notice is 30 days old from getNoticeByNo on server and put elsewhere
 
-*** event.date_str not copying to event.date;
+??? for contacts only display relationship in accordion header if it exists
 
-edit image slow to display files
+??? reduce image height to stop truncation
 
-persist all pages to localstorage
-
-add (more) to contacts and events accordion headers in all pages
-
-for contacts only display relationship in accordion header if it exists
-
-reduce image height to stop truncation
-
-progress bar edit notice
-
-progress bar label
-
-*** event.date not updating in database
-
-make sure contact is updating in database.
-
-*** change notice events to accodian
-
-*** change notice contacts to accodian
-
-make edit notice acid
+xxx make edit notice acid
 
 modify for mobile phones
 
-*** Add contact heading numbers
+xxx toast when group added
 
-toast when group added
+remove hardcoded test notice number from enter-notice-modal
 
-remove hardcoded notice number from enter-notice-modal
-
-*** add divider to headers
-
-*** uniform enter image width
-
-enter memoriam -- submit button not centered
+??? enter memoriam -- submit button not centered
 
 *** order by death date, created_date
 
@@ -70,7 +44,7 @@ environment.pk_test -- change for production
 
 in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
 
-change hardcoded buyer's email from my personal email
+change hardcoded test buyer's email from my personal email
 
 for production change client-id in index.html:
   <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
@@ -135,5 +109,33 @@ for production change client-id in index.html:
 
 *** sort available groups
 
+*** Implement accordions in Death Notice for Events and Contacts
 
+*** Add groups to Death Notice?
+
+*** event.date_str not copying to event.date;
+
+*** edit image slow to display files
+
+*** persist all pages to localstorage
+
+*** add (more) to contacts and events accordion headers in all pages
+
+*** progress bar edit notice
+
+*** progress bar label
+
+*** event.date not updating in database
+
+*** make sure contact is updating in database.
+
+*** change notice events to accodian
+
+*** change notice contacts to accodian
+
+*** add divider to headers
+
+*** uniform enter image width
+
+*** Add contact heading numbers
 

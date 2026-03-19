@@ -7,6 +7,7 @@ import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-gallery.service';
 import { FormsModule } from '@angular/forms';
 import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
+import { DeathNoticeService } from './death-notice.service';
 
 @Component({
   selector: 'app-death-notice',
@@ -23,28 +24,29 @@ import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
 })
 export class DeathNoticeComponent {
   private activatedRoute = inject(ActivatedRoute);
-  private noticesService = inject(DeathNoticeGalleryService);
+  private noticesService = inject(DeathNoticeService);
   private formatDateTimeUtils = inject(FormatDateTimeUtils);
   public notice: NoticeEntryModel | undefined;
   public apiUrl = '/api/notices';
 
   ngOnInit() {
-    this.getDeathNotice();
+    this.getNoticeById();
   }
 
-  private getDeathNotice = () => {
+  private getNoticeById = () => {
     const noticeId = this.activatedRoute.snapshot.paramMap.get('noticeId') as string || "";
     console.log("DeathNoticeComponent.noticeId", noticeId);
-    this.notice = this.noticesService.getSelectedNotice(noticeId);
-    console.log("DeathNoticeComponent.notice", this.notice);
+    this.noticesService.getNoticeById(noticeId).subscribe((notice) => {
+      this.notice = notice;
 
-    if (this.notice) {
-      for (let i = 0; i < this.notice.events.length; i++) {
-        this.notice.events[i].date_str = this.formatDateTimeUtils.formatDateForDisplay(this.notice.events[i].date as Date);
-
-        // editNoticeModel.events[i].time =
-        //   this.formatDateTimeUtils.formatTimeForInput(editNoticeModel.events[i].time);
+      if (this.notice) {
+        for (let i = 0; i < this.notice.events.length; i++) {
+          this.notice.events[i].date_str =
+            this.formatDateTimeUtils.formatDateForDisplay(this.notice.events[i].date as Date);
+        }
       }
+
+      console.log("DeathNoticeComponent.notice", this.notice);
 
       if (!this.notice) {
         const storedData = localStorage.getItem('deathNotice');
@@ -55,7 +57,14 @@ export class DeathNoticeComponent {
         console.log("DeathNoticeComponent.notice from localStorage", this.notice);
       }
 
-    }
+    })
+
+  }
+
+
+  get imageUrl(): string | null {
+    if (!this.notice?.imageId) return null;
+    return `${this.apiUrl}/image/${this.notice.imageId}`;
   }
 
 }

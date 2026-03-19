@@ -1,19 +1,23 @@
 <div class="container my-4">
   <form #noticeForm="ngForm">
     <!-- HEADER -->
-    <section class="mb-4">
+    <section class="mb-2">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-8 text-center">
           <h2 class="fw-bold text-center mb-2">Submit a Death Notice</h2>
           <div class="divider mx-auto mb-2"></div>
-          <p class="text-muted text-center mb-4">
+          <p class="text-muted text-center mb-2">
             Please complete the information below.
           </p>
         </div>
       </div>
     </section>
-    <div class="progress mb-4">
-      <div class="progress-bar" [style.width.%]="formCompletionPercent"></div>
+
+    <div class="mb-2">
+      <small class="primary-color">Progress bar</small>
+      <div class="progress">
+        <div class="progress-bar" [style.width.%]="formCompletionPercent"></div>
+      </div>
     </div>
 
     <div class="card shadow-sm border-0 mb-5">
@@ -175,11 +179,6 @@
                   >(Wake, burial, repast, etc.)</small
                 >
               </h5>
-              <div>
-                <small class="text-muted mb-1"
-                  >Click on Event number to enter event information.</small
-                >
-              </div>
             </div>
 
             <div class="accordion" id="eventsAccordion">
@@ -199,7 +198,8 @@
                       class="w-100 d-flex flex-column flex-md-row justify-content-between"
                     >
                       <div>
-                        <strong>Event {{ i + 1 }}</strong>
+                        <strong class="primary-color">Event {{ i + 1 }}</strong>
+                        <small class="ms-2 blue">(more)</small>
                       </div>
 
                       <!-- Event Summary -->
@@ -373,12 +373,6 @@
             <div class="col-12 col-lg-8 mx-auto">
               <div class="col-12 mb-1">
                 <h5 class="section-title mb-0">Enter Contacts</h5>
-                <div>
-                  <small class="text-muted mb-1"
-                    >Click on Contact number to enter contact
-                    information.</small
-                  >
-                </div>
               </div>
 
               <div class="accordion" id="contactsAccordion">
@@ -401,7 +395,10 @@
                         class="w-100 d-flex flex-column flex-md-row justify-content-between"
                       >
                         <div>
-                          <strong>Contact {{ i + 1 }}</strong>
+                          <strong class="primary-color"
+                            >Contact {{ i + 1 }}</strong
+                          >
+                          <small class="ms-2 blue">(more)</small>
                         </div>
 
                         <!-- Event Summary -->
